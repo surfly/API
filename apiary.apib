@@ -1,0 +1,570 @@
+FORMAT: 1A
+HOST: http://www.surfly.com
+
+
+
+
+# Surfly
+The Surfly API allows you to integrate the functionality of our dashboard in a programatical manner. With our API you can do the following things: 
+
+ * Clients - Create new clients *(reseller only)*
+ * Agents - Manage your agents
+ * Sessions - Get an overview of all your session
+ * Usage - Retrieve Usage information
+ * Queue - Manipulate the incoming Queue for your agents
+ 
+To access our API you will need to authenticate by using basic HTTP authentication.  In addition, some API calls require extra information such as:
+
+ * RESELLER_KEY  *(reseller only)*
+ * CLIENT_KEY
+
+Both keys can be found on your API page in your dashboard. We recommend that you keep your CLIENT_KEY and RESELLER_KEY secret at all times.
+
+
+
+########################################
+# Group Clients
+Clients related resources of the **Surfly API**
+
+
+# Clients Collection [/clients/{RESELLER_KEY}]
+Reseller functionality
+
+### Lists all your clients [GET]
+
+Return all your clients by `RESELLER_KEY`
+
+**Repsonse Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| client_name | Name of Client | Peter Pan |
+| client_key | Client Key | AOEUaoeuntsPDe |
+| agent_count | Number of agents | 15 |
+
++ Response 200 (application/json)
+
+
+    + Body
+
+            {
+                client_name: 'Peter pan',
+                client_key: 'AOEUaoeuntsPDe',
+                agent_count: 15
+            }
+
+### Create a new client [POST]
+
+Add a new client as `RESELLER_KEY`
+
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| company_name | Name of new company | 'Neverland' |
+
+**Repsonse Body:**
+
+A list of objects containing the following parameter:
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| company_name | Name of company | Peter Pan |
+| client_key | Client Key | AOEUaoeuntsPDe |
+
++ Request (application/json)
+
+    + Body
+
+            {
+                company_name: 'Neverland'
+            }
+        
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                company_name: 'Neverland',
+                client_key: 'fOBg4dXAPTHSoil6LywgfYA'
+            }
+    
+
+# Client Information [/client/{RESELLER_KEY}/{client_id}]
+
+### Get Client Information [GET]
+
+Get information about a specific `client_id`
+
+**Repsonse Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| company_name | Name of company | Peter Pan |
+| client_key | Client Key | AOEUaoeuntsPDe |
+| agent_count | Number of agents | 15 |
+
+
++ Response 201 (application/json)
+
+    + Body
+    
+            {
+                company_name: 'Neverland',
+                client_key: 'AOEUaoeuntsPDe`,
+                agent_count: 15
+            }
+
+
+
+### Remove a client [DELETE]
+
+Remove client with specific `client_id`
+
++ Response 204 (application/json)
+
+
+### Update a client [PUT]
+
+Update a client as `RESELLER_KEY`
+
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| company_name | New Name of company | 'Neverland' |
+
+**Repsonse Body:**
+
+A list of objects containing the following parameter:
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| company_name | Name of company | Peter Pan |
+| client_key | Client Key | AOEUaoeuntsPDe |
+
++ Request (application/json)
+
+    + Body
+
+            {
+                company_name: 'Neverland'
+            }
+        
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                company_name: 'Neverland',
+                client_key: 'fOBg4dXAPTHSoil6LywgfYA'
+            }
+    
+
+########################################
+# Group Agents
+
+Agents related resources of the **Surfly API**
+
+
+# Agents Collection [/agents/{CLIENT_KEY}]
+
+### List all agents [GET]
+
+List all agents for a certain `CLIENT_KEY`.
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| agent_id | Agent ID  | fOBg4dXAPTHSoil6LywgfYA |
+| agent_name | Name of the agent | Peter Pan |
+| agent_email | email address of the agent | peter@neverland.net |
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            [{
+                agent_id: 1,
+                agent_name: 'Peter Pan',
+                agent_email: 'peter@neverland.net'
+            },...]
+
+### Create a new agent [POST]
+
+Create a new AGENT
+            
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| agent_name | Name of the agent | Peter Pan |
+| agent_email | Email address | peter@neverland.net |
+
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| agent_id | agent id | 1 |
+
+
+
++ Request (application/json)
+
+    + Body
+
+            {
+                agent_name: 'Peter Pan',
+                agent_email: 'peter@neverland.net'
+            }
+        
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "agent_id": 1 
+            }
+
+
+
+# Agent information [/agent/{CLIENT_KEY}/{agent_id}]
+
+### Get Agent Information [GET]
+
+Get information about a certain agent by `agent_id`
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| agent_name | Name of the agent | Peter Pan |
+| agent_email | Email address | peter@neverland.net |
+| id | Agent Id | 1
+
+
++ Response 200 (application/json)
+
+
+### Remove an agent [DELETE]
+
+Remove agent by `agent_id`
+
++ Response 204 (application/json)
+
+### Update an agent [PUT]
+
+Update a AGENT
+            
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| agent_name (optional) | Name of the agent | Peter Pan |
+| agent_email (optional) | Email address | peter@neverland.net |
+
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| agent_id | agent id | 1 |
+
+
+
++ Request (application/json)
+
+    + Body
+
+            {
+                agent_name: 'Peter Pan',
+                agent_email: 'peter@neverland.net'
+            }
+        
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                agent_name: 'Peter Pan',
+                agent_email: 'peter@neverland.net'
+                "agent_id": 1 
+            }
+
+
+
+########################################
+# Group Sessions
+Sessions related resources of the **Surfly API**
+
+
+
+
+# Sessions Collection [/sessions/{CLIENT_KEY}]
+
+Session acctions for a specific `CLIENT_KEY`
+
+ 
+
+### List all Sessions [GET]
+
+List all ACTIVE session for a certain `CLIENT_KEY`
+
+
+**Response Body:**
+
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
+| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
+| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+| start_time | time the session started | Fri, 10 okt 10:20 AM |
+| duration | Length of the session | 123 |
+
+
++ Response 200 (application/json)
+
+   + Body
+
+            {
+                "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
+                "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+                "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+                "start_time": "Fri, 10 okt 10:20 AM",
+                "duration": 123
+            }
+
+
+### Create a session [POST]
+
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| url | Url to co-browse | http://www.google.com |
+| agent_id | ID of the agent | fOBg4dXAPTHSoil6LywgfYA |
+
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| id | session id, which can be used to end the session | fOBg4dXAPTHSoil6LywgfYA |
+| leader_link |  the link that must be opened in a ***leader*** (controlling) browser. It has a 2 minute time out attached to it, if not used within that time, the session will be closed. | https://session.surfly.com/mWdJBh0xZQMmSlx0dhbUNSg |
+| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+
+
++ Request (application/json)
+
+    + Body
+
+            {
+                url: 'http://www.google.com',
+                agent_id: 'fOBg4dXAPTHSoil6LywgfYA'
+            }
+        
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id": "fwqcOuuMwTty7ii3kcA8Q", 
+                "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+                "leader_link": "https://session.surfly.com/mEa9Ur24CToiwTaMLJ4wkww"
+            }
+
+
+# Session Information [/session/{CLIENT_KEY}/{session_id}]
+
+Session actions regarding a specific `CLIENT_KEY` and `session_id`
+
+
+
+
+### Get session information [GET]
+
+Get information about a certain session or end a certain session.
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| id | session id, which can be used to end the session | fOBg4dXAPTHSoil6LywgfYA |
+| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
+| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+| start_time | time the session started | Fri, 10 okt 2014 10:20:24 |
+| end_time | time the session ended | Fri, 10 okt 2014 10:51:46 |
+| duration | Length of the session (in seconds) |  1882 |
+| ip_leader | IP address of leader | 192.168.1.1 |
+| ip_followers | comma seperated list of IP's of followers | 10.0.0.1, 10.0.0.2 |
+| emails_send | list of email invatiations send | agent@company.com, client@company2.com |
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id": "fwqcOuuMwTty7ii3kcA8Q",
+                "agent_id": "AEOUoeauAOEUpaoeu",
+                "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+                "start_time": "Fri, 10 okt 2014 10:20:24",
+                "end_time": "Fri, 10 okt 2014 10:51:46",
+                "duration": 1882,
+                "ip_leader": "192.168.1.1",
+                "ip_followers": [ "10.0.0.1", "10.0.0.2"],
+                "emails_send": [ { from: "agent@company.com", to: "client@company2.com"} ]
+            }
+
+
+### End a session [DELETE]
+
+Simply ends a session.
+
++ Response 204 (application/json)
+
+
+
+
+#########
+# Group Usage
+
+# Usage [/usage/{client_id}]
+
+### Get Usage Statistics [GET]
+
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| year | year of usage | 2014 |
+| month | month of usage | 10 |
+| agent_id | agent id to filter by (optional) | 123 |
+
+**Repsonse Body:**
+
+A list of objects containing the following parameter:
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| id | session id, which can be used to end the session | fOBg4dXAPTHSoil6LywgfYA |
+| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
+| start_time | time the session started | Fri, 10 okt 2014 10:20:24 |
+| end_time | time the session ended | Fri, 10 okt 2014 10:51:46 |
+| duration | Length of the session (in seconds) |  1882 |
+| ip_leader | IP address of leader | 192.168.1.1 |
+| ip_followers | comma seperated list of IP's of followers | 10.0.0.1, 10.0.0.2 |
+| emails_send | email address of person who did an invitation | agent@company.com, client@company2.com |
+
++ Request (application/json)
+
+    + Body
+
+            {
+                year: 2014,
+                month: 10
+            }
+        
++ Response 200 (application/json)
+
+    + Body
+
+            [{
+                id: 'fOBg4dXAPTHSoil6LywgfYA',
+                agent_id: 'AEOUoeauAOEUpaoeu',
+                start_time: 'Fri, 10 okt 2014 10:20:24',
+                end_time: 'Fri, 10 okt 2014 10:51:46',
+                duration: 1882,
+                ip_leader: '192.168.1.1',
+                ip_followers: ['10.0.0.1', '10.0.0.2'],
+                emails_send: [ { from: 'agent@company.com', to: 'client@company2.com'}]
+            }, {}]
+
+
+
+
+
+
+
+########################################
+# Group Queue
+
+Manage and maintain the QUEUE for a certain client.
+
+# Queue [/queue/{CLIENT_KEY}]
+
+### List all Active Sessions in the Queue [GET]
+
+List all items in the support Queue for a certain `CLIENT_KEY`.
+
+
++ Response 200 (application/json)
+
+### Add an item to the Queue [POST]
+
+A new item can be put in the Queue, this item will auto expire after 30 seconds. In order to make sure that your item stays alive you will need to repeat the request with the same ID.
+
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| url | Url to co-browse | http://www.google.com |
+| id | ID of item in the Queue (optional) | fOBg4dXAPTHSoil6LywgfYA |
+
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| id | Queue id, which can be used to identify the item in the queue  | fOBg4dXAPTHSoil6LywgfYA |
+
+
++ Request (application/json)
+
+    + Body
+
+            {
+                url: 'http://www.mywebsite.com',
+                id: 'fOBg4dXAPTHSoil6LywgfYA'
+            }
+        
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                url: 'http://www.mywebsite.com',
+                uid: 'fOBg4dXAPTHSoil6LywgfYA'
+            }
+
+
+### Remove item from the Queue [DELETE]
+
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| id | ID of item in the Queue (optional) | fOBg4dXAPTHSoil6LywgfYA |
+
+
++ Request (application/json)
+
+    + Body
+
+            {
+                id: 'http://www.mywebsite.com'
+            }
+        
++ Response 201 (application/json)
+
+
+
+
+
+
+
+
