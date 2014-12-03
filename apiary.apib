@@ -38,7 +38,7 @@ Return all your clients by `RESELLER_KEY`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| client_name | Name of Client | Peter Pan |
+| company_name | Name of Company | Neverland |
 | client_key | Client Key | AOEUaoeuntsPDe |
 | agent_count | Number of agents | 15 |
 
@@ -48,7 +48,7 @@ Return all your clients by `RESELLER_KEY`
     + Body
 
             [{
-                "client_name": 'Peter pan',
+                "company_name": 'Neverland',
                 "client_key": 'AOEUaoeuntsPDe',
                 "agent_count": 15
             }]
@@ -61,7 +61,7 @@ Add a new client as `RESELLER_KEY`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | Name of new company | 'Neverland' |
+| company_name | Name of new company | Neverland |
 
 **Repsonse Body:**
 
@@ -69,7 +69,7 @@ A list of objects containing the following parameter:
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | Name of company | Peter Pan |
+| company_name | Name of company | Neverland |
 | client_key | Client Key | AOEUaoeuntsPDe |
 
 + Request (application/json)
@@ -100,7 +100,7 @@ Get information about a specific `client_id`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | Name of company | Peter Pan |
+| company_name | Name of company | Neverland |
 | client_key | Client Key | AOEUaoeuntsPDe |
 | agent_count | Number of agents | 15 |
 
@@ -132,7 +132,7 @@ Update a client as `RESELLER_KEY`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | New Name of company | 'Neverland' |
+| company_name | New Name of company | Peter Pan |
 
 **Repsonse Body:**
 
@@ -148,7 +148,7 @@ A list of objects containing the following parameter:
     + Body
 
             {
-                "company_name": 'Neverland'
+                "company_name": 'Peter Pan'
             }
         
 + Response 201 (application/json)
@@ -156,7 +156,7 @@ A list of objects containing the following parameter:
     + Body
 
             {
-                "company_name": 'Neverland',
+                "company_name": 'Peter Pan',
                 "client_key": 'fOBg4dXAPTHSoil6LywgfYA'
             }
     
