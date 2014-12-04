@@ -495,7 +495,7 @@ A list of objects containing the following parameter:
 
 Manage and maintain the QUEUE for a certain client.
 
-# Queue [/queue/{CLIENT_KEY}]
+# Queue Collection [/queue/{CLIENT_KEY}]
 
 ### List all Active Sessions in the Queue [GET]
 
@@ -538,8 +538,8 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
     + Body
 
             {
-                url: 'http://www.mywebsite.com',
-                id: 'fOBg4dXAPTHSoil6LywgfYA'
+                "url": 'http://www.mywebsite.com',
+                "id": 'fOBg4dXAPTHSoil6LywgfYA'
             }
         
 + Response 201 (application/json)
@@ -547,10 +547,84 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
     + Body
 
             {
-                url: 'http://www.mywebsite.com',
-                uid: 'fOBg4dXAPTHSoil6LywgfYA'
+                "url": 'http://www.mywebsite.com',
+                "id": 'fOBg4dXAPTHSoil6LywgfYA'
             }
 
+
+# Queue information [/queue/{CLIENT_KEY}/{queue_id}]
+
+### Get Queue Information [GET]
+
+Get information about a certain queue by `queue_id`
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| company | Name of the company |  |
+| session_id | Session ID| 31 |
+| queue_start_time | Queue Start Time | 2014-11-03T08:22:41.075Z |
+| ip_address | IP Address | 192.168.1.130|
+| join_link | Queue Join Link | http://surfly.com/ |
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "company": "Company name = sai ku",
+                "session_id": 3,
+                "queue_start_time": "2014-11-03T08:22:41.075Z",
+                "ip_address": "192.168.1.130",
+                "join_link": "http://surfly.com/"
+            }
+
+### Update an queue [PUT]
+
+Update a Queue
+            
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| session_id | Session ID | 526 |
+| join_link | Join Link | http://www.python.org |
+
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| company | Name of the company |  |
+| session_id | Session ID| 526 |
+| queue_start_time | Queue Start Time | 2014-11-03T08:22:41.075Z |
+| ip_address | IP Address | 192.168.1.130|
+| join_link | Queue Join Link | http://www.python.org |
+
+
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "session_id":526,
+                "join_link":"http://www.python.org"
+            }
+        
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "company": "Company name = jasya",
+                "session_id": 526,
+                "queue_start_time": "2014-11-03T08:31:01.277Z",
+                "ip_address": "192.168.1.130",
+                "join_link": "http://www.python.org"
+            }
 
 ### Remove item from the Queue [DELETE]
 
@@ -566,7 +640,7 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
     + Body
 
             {
-                id: 'http://www.mywebsite.com'
+                "id": 'http://www.mywebsite.com'
             }
         
 + Response 201 (application/json)
