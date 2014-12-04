@@ -504,6 +504,16 @@ List all items in the support Queue for a certain `CLIENT_KEY`.
 
 + Response 200 (application/json)
 
+    + Body
+
+            [{
+                "company": 99, 
+                "session_id": 7, 
+                "queue_start_time": "2014-11-03T11:52:29.486Z", 
+                "ip_address": "132.138.1.134", 
+                "join_link": "http://www.facebook.com"
+            }, {}]
+            
 ### Add an item to the Queue [POST]
 
 A new item can be put in the Queue, this item will auto expire after 30 seconds. In order to make sure that your item stays alive you will need to repeat the request with the same ID.
