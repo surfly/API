@@ -330,13 +330,13 @@ List all ACTIVE session for a certain `CLIENT_KEY`
 
    + Body
 
-            {
+            [{
                 "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
                 "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
                 "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
                 "start_time": "Fri, 10 okt 10:20 AM",
                 "duration": 123
-            }
+            }]
 
 
 ### Create a session [POST]
@@ -363,8 +363,8 @@ List all ACTIVE session for a certain `CLIENT_KEY`
     + Body
 
             {
-                url: 'http://www.google.com',
-                agent_id: 'fOBg4dXAPTHSoil6LywgfYA'
+                "url": 'http://www.google.com',
+                "agent_id": 'fOBg4dXAPTHSoil6LywgfYA'
             }
         
 + Response 200 (application/json)
@@ -373,8 +373,18 @@ List all ACTIVE session for a certain `CLIENT_KEY`
 
             {
                 "id": "fwqcOuuMwTty7ii3kcA8Q", 
-                "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
-                "leader_link": "https://session.surfly.com/mEa9Ur24CToiwTaMLJ4wkww"
+                "agent_id": 170,
+                "viewer_link": "https://session.sitesup.nl/fplhxhicQuayTJ4HNPS5g",
+                "start_time": "2014-11-07T07:22:56.133Z",
+                "end_time": null,
+                "duration": null, 
+                "ip_leader": "192.168.1.129", 
+                "leader_link": "https://session.sitesup.nl/mqBGFTzDVTIeW3iKgjEfbaA",
+                "ip_follower": ["192.168.1.129"],
+                "emails_send": [{
+                                    "to": [],
+                                    "from": null
+                                }]
             }
 
 
