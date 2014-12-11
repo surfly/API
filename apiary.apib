@@ -445,6 +445,8 @@ Simply ends a session.
 
 # Usage [/usage/{CLIENT_KEY}/?api_key={API_KEY}]
 
+### Usage History [POST]
+
 **Request Body:**
 
 |  Name | Description | Example |
@@ -472,7 +474,6 @@ A list of objects containing the following parameter:
     + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
 
-### Usage History [POST]
 + Request (application/json)
     
     + Body
@@ -539,7 +540,11 @@ A list of objects containing the following parameter:
 
 Manage and maintain the QUEUE for a certain client.
 
-# Queue Collection [/queue/{CLIENT_KEY}]
+# Queue Collection [/queue/{CLIENT_KEY}/?api_key={API_KEY}]
+
++ Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
 
 ### List all Active Sessions in the Queue [GET]
 
@@ -550,13 +555,15 @@ List all items in the support Queue for a certain `CLIENT_KEY`.
 
     + Body
 
-            [{
-                "company": 99, 
-                "session_id": 7, 
-                "queue_start_time": "2014-11-03T11:52:29.486Z", 
-                "ip_address": "132.138.1.134", 
-                "join_link": "http://www.facebook.com"
-            }, {}]
+            [
+                {
+                    "company": 1,
+                    "session_id": 1,
+                    "queue_start_time": "",
+                    "ip_address": "",
+                    "join_link": ""
+                }
+            ]
             
 ### Add an item to the Queue [POST]
 
@@ -583,7 +590,7 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
 
             {
                 "url": 'http://www.mywebsite.com',
-                "id": 'fOBg4dXAPTHSoil6LywgfYA'
+                "id": 25
             }
         
 + Response 201 (application/json)
@@ -591,12 +598,20 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
     + Body
 
             {
-                "url": 'http://www.mywebsite.com',
-                "id": 'fOBg4dXAPTHSoil6LywgfYA'
+                "company": "",
+                "session_id": 1,
+                "queue_start_time": "",
+                "ip_address": "",
+                "join_link": ""
             }
 
 
-# Queue information [/queue/{CLIENT_KEY}/{queue_id}]
+# Queue information [/queue/{CLIENT_KEY}/{QUEUE_ID}/?api_key={API_KEY}]
+
++ Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+    + QUEUE_ID (string, `1`)
 
 ### Get Queue Information [GET]
 
