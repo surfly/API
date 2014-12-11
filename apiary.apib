@@ -303,10 +303,11 @@ Sessions related resources of the **Surfly API**
 
 
 
-# Sessions Collection [/sessions/{CLIENT_KEY}]
+# Sessions Collection [/sessions/{CLIENT_KEY}/?api_key={API_KEY}]
 
-Session acctions for a specific `CLIENT_KEY`
-
++ Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
  
 
 ### List all Sessions [GET]
@@ -364,7 +365,7 @@ List all ACTIVE session for a certain `CLIENT_KEY`
 
             {
                 "url": 'http://www.google.com',
-                "agent_id": 'fOBg4dXAPTHSoil6LywgfYA'
+                "agent_id": 1
             }
         
 + Response 200 (application/json)
@@ -388,11 +389,12 @@ List all ACTIVE session for a certain `CLIENT_KEY`
             }
 
 
-# Session Information [/session/{CLIENT_KEY}/{session_id}]
+# Session Information [/sessions/{CLIENT_KEY}/{SESSION_ID}/?api_key={API_KEY}]
 
-Session actions regarding a specific `CLIENT_KEY` and `session_id`
-
-
++ Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+    + SESSION_ID (string, `fuSHr0sRQ1usugvheahwQ`)
 
 
 ### Get session information [GET]
@@ -420,14 +422,20 @@ Get information about a certain session or end a certain session.
 
             {
                 "id": "fwqcOuuMwTty7ii3kcA8Q",
-                "agent_id": "AEOUoeauAOEUpaoeu",
+                "agent_id": 1,
                 "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
                 "start_time": "Fri, 10 okt 2014 10:20:24",
                 "end_time": "Fri, 10 okt 2014 10:51:46",
                 "duration": 1882,
                 "ip_leader": "192.168.1.1",
-                "ip_followers": [ "10.0.0.1", "10.0.0.2"],
-                "emails_send": [ { from: "agent@company.com", to: "client@company2.com"} ]
+                "leader_link": "",
+                "ip_follower": "",
+                "emails_send": [
+                                    {
+                                        "to": [],
+                                        "from": null
+                                    }
+                                ]
             }
 
 
@@ -435,7 +443,13 @@ Get information about a certain session or end a certain session.
 
 Simply ends a session.
 
-+ Response 204 (application/json)
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "response":""
+            }
 
 
 
