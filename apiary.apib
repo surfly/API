@@ -168,7 +168,11 @@ A list of objects containing the following parameter:
 Agents related resources of the **Surfly API**
 
 
-# Agents Collection [/agents/{CLIENT_KEY}]
+# Agents Collection [/agents/{CLIENT_KEY}/?api_key={API_KEY}]
+
++ Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
 
 ### List all agents [GET]
 
@@ -187,11 +191,13 @@ List all agents for a certain `CLIENT_KEY`.
 
     + Body
 
-            [{
-                "agent_id": 1,
-                "agent_name": 'Peter Pan',
-                "agent_email": 'peter@neverland.net'
-            },...]
+            [
+                {
+                    "agent_id": 1,
+                    "agent_name": "Peter Pan",
+                    "agent_email": "peter@neverland.net"
+                }
+            ]
 
 ### Create a new agent [POST]
 
@@ -218,8 +224,9 @@ Create a new AGENT
     + Body
 
             {
-                "agent_name": 'Peter Pan',
-                "agent_email": 'peter@neverland.net'
+                "username": "Peter Pan",
+                "agent_email": "peter@neverland.net",
+                "password":"Pass@123"
             }
         
 + Response 200 (application/json)
@@ -227,12 +234,17 @@ Create a new AGENT
     + Body
 
             {
-                "agent_id": 1 
+                "agent_id": "1" 
             }
 
 
 
-# Agent information [/agent/{CLIENT_KEY}/{agent_id}]
+# Agent information [/agents/{CLIENT_KEY}/{AGENT_ID}/?api_key={API_KEY}]
+
++ Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+    + AGENT_ID (string, `1`)
 
 ### Get Agent Information [GET]
 
@@ -249,12 +261,14 @@ Get information about a certain agent by `agent_id`
 
 + Response 200 (application/json)
 
+    + Body
+    
+            {
+                "agent_id": 6,
+                "agent_name": "Peter Pan",
+                "agent_email": "peter@neverland.net"
+            }
 
-### Remove an agent [DELETE]
-
-Remove agent by `agent_id`
-
-+ Response 204 (application/json)
 
 ### Update an agent [PUT]
 
@@ -274,15 +288,13 @@ Update a AGENT
 | ---------------| ------------| --------|
 | agent_id | agent id | 1 |
 
-
-
 + Request (application/json)
 
     + Body
 
             {
-                "agent_name": 'Peter Pan',
-                "agent_email": 'peter@neverland.net'
+                "username": "Peter Pan",
+                "agent_email": "peter@neverland.net"
             }
         
 + Response 200 (application/json)
@@ -290,9 +302,9 @@ Update a AGENT
     + Body
 
             {
-                "agent_name": 'Peter Pan',
-                "agent_email": 'peter@neverland.net'
-                "agent_id": 1 
+                "agent_name": "Peter Pan",
+                "agent_id": 1,
+                "agent_email": "peter@neverland.net"
             }
 
 
