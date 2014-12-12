@@ -27,8 +27,12 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 Clients related resources of the **Surfly API**
 
 
-# Clients Collection [/clients/{RESELLER_KEY}]
+# Clients Collection [/clients/{RESELLER_KEY}/?api_key={API_KEY}]
 Reseller functionality
+
++ Parameters
+    + RESELLER_KEY (string, `02fbfd63b54341c1828e6a2426311788`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
 
 ### Lists all your clients [GET]
 
@@ -48,8 +52,8 @@ Return all your clients by `RESELLER_KEY`
     + Body
 
             [{
-                "company_name": 'Neverland',
-                "client_key": 'AOEUaoeuntsPDe',
+                "company_name": "Neverland",
+                "client_key": "AOEUaoeuntsPDe",
                 "agent_count": 15
             }]
 
@@ -77,20 +81,27 @@ A list of objects containing the following parameter:
     + Body
 
             {
-                "company_name": 'Neverland'
+                "client_key": "316ceb029b01483e928b443ef45d03c5",
+                "agent_count": 15,
+                "company_name": "Test User"
             }
         
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
     + Body
 
             {
-                "company_name": 'Neverland',
-                "client_key": 'fOBg4dXAPTHSoil6LywgfYA'
+                "company_name": "Neverland",
+                "client_key": "fOBg4dXAPTHSoil6LywgfYA"
             }
     
 
-# Client Information [/client/{RESELLER_KEY}/{client_id}]
+# Client Information [/clients/{RESELLER_KEY}/{CLIENT_ID}/?api_key={API_KEY}]
+
++ Parameters
+    + RESELLER_KEY (string, `02fbfd63b54341c1828e6a2426311788`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+    + CLIENT_ID (string, `00063668234b4aa19dd436e6a76ab8ae`)
 
 ### Get Client Information [GET]
 
@@ -105,24 +116,15 @@ Get information about a specific `client_id`
 | agent_count | Number of agents | 15 |
 
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
     + Body
     
             {
-                "company_name": 'Neverland',
-                "client_key": 'AOEUaoeuntsPDe`,
+                "company_name": "Neverland",
+                "client_key": "AOEUaoeuntsPDe",
                 "agent_count": 15
             }
-
-
-
-### Remove a client [DELETE]
-
-Remove client with specific `client_id`
-
-+ Response 204 (application/json)
-
 
 ### Update a client [PUT]
 
@@ -148,18 +150,30 @@ A list of objects containing the following parameter:
     + Body
 
             {
-                "company_name": 'Peter Pan'
+                "company_name": "Peter Pan"
             }
         
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
     + Body
 
             {
-                "company_name": 'Peter Pan',
-                "client_key": 'fOBg4dXAPTHSoil6LywgfYA'
+                "company_name": "Peter Pan"
             }
-    
+
+### Remove a client [DELETE]
+
+Remove client with specific `client_id`
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "response": "Client has been removed Successfully"
+            }
+
+
 
 ########################################
 # Group Agents
