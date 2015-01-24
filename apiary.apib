@@ -322,7 +322,7 @@ Sessions related resources of the **Surfly API**
 
 ### List all Sessions [GET]
 
-List all ACTIVE session for a certain `CLIENT_KEY`
+List all session for a certain `CLIENT_KEY`
 
 
 **Response Body:**
@@ -348,6 +348,77 @@ List all ACTIVE session for a certain `CLIENT_KEY`
                 "start_time": "Fri, 10 okt 10:20 AM",
                 "duration": 123
             }]
+
+# Sessions Collection [/sessions/{CLIENT_KEY}/?api_key={API_KEY}&active_session=true]
+
++ Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+ 
+
+### List all Active Sessions [GET]
+
+List all ACTIVE session for a certain `CLIENT_KEY`
+
+
+**Response Body:**
+
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
+| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
+| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+| start_time | time the session started | Fri, 10 okt 10:20 AM |
+| duration | Length of the session | 123 |
+
++ Response 200 (application/json)
+
+   + Body
+
+            [{
+                "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
+                "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+                "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+                "start_time": "Fri, 10 okt 10:20 AM",
+                "duration": 123
+            }]
+
+# Sessions Collection [/sessions/{CLIENT_KEY}/?api_key={API_KEY}&active_session=true&agent_id=1&year=2015&month=01]
+
++ Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+ 
+
+### List Active Sessions for Agent [GET]
+
+List all ACTIVE session for a Agent, Year, Month
+active_session, agent_id, year, month are optional
+
+**Response Body:**
+
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
+| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
+| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+| start_time | time the session started | Fri, 10 okt 10:20 AM |
+| duration | Length of the session | 123 |
+
++ Response 200 (application/json)
+
+   + Body
+
+            [{
+                "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
+                "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+                "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+                "start_time": "Fri, 10 okt 10:20 AM",
+                "duration": 123
+            }]
+
 
 
 ### Create a session [POST]
