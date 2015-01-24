@@ -10,7 +10,6 @@ The Surfly API allows you to integrate the functionality of our dashboard in a p
  * Clients - Create new clients *(reseller only)*
  * Agents - Manage your agents
  * Sessions - Get an overview of all your session
- * Usage - Retrieve Usage information
  * Queue - Manipulate the incoming Queue for your agents
  
 To access our API you will need to authenticate by using basic HTTP authentication.  In addition, some API calls require extra information such as:
@@ -464,97 +463,6 @@ Simply ends a session.
                 "response":""
             }
 
-
-
-
-#########
-# Group Usage
-
-# Usage [/usage/{CLIENT_KEY}/?api_key={API_KEY}]
-
-### Usage History [POST]
-
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| year | year of usage | 2014 |
-| month | month of usage | 10 |
-| agent_id | agent id to filter by (optional) | 123 |
-
-**Repsonse Body:**
-
-A list of objects containing the following parameter:
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| id | session id, which can be used to end the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
-| start_time | time the session started | Fri, 10 okt 2014 10:20:24 |
-| end_time | time the session ended | Fri, 10 okt 2014 10:51:46 |
-| duration | Length of the session (in seconds) |  1882 |
-| ip_leader | IP address of leader | 192.168.1.1 |
-| ip_followers | comma seperated list of IP's of followers | 10.0.0.1, 10.0.0.2 |
-| emails_send | email address of person who did an invitation | agent@company.com, client@company2.com |
-
-+ Parameters
-    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
-    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-
-+ Request (application/json)
-    
-    + Body
-    
-            {
-                "year":"2014",
-                "month":"12"
-            }
-
-+ Response 200 (application/json)
-
-    + Body
-
-            [
-                {
-                    "company": 42,
-                    "agent": 1,
-                    "session_id": "",
-                    "start_time": "",
-                    "ip_leader": "",
-                    "ip_follower": "",
-                    "viewer_link": "",
-                    "duration": 0,
-                    "emails_send": []
-                }
-            ]
-
-+ Request (application/json)
-
-    + Body
-
-            {
-                "year":"2014",
-                "month":"12",
-                "agent_id": 1
-            }
-
-+ Response 200 (application/json)
-
-    + Body
-
-            [
-                {
-                    "company": 42,
-                    "agent": 1,
-                    "session_id": "",
-                    "start_time": "",
-                    "ip_leader": "",
-                    "ip_follower": "",
-                    "viewer_link": "",
-                    "duration": 0,
-                    "emails_send": []
-                }
-            ]
 
 
 
