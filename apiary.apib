@@ -165,9 +165,10 @@ A list of objects containing the following parameter:
 Agents related resources of the **Surfly API**
 
 
-# Agents Collection [/agents/?api_key={API_KEY}]
+# Agents Collection [/agents/{CLIENT_KEY}/?api_key={API_KEY}]
 
 + Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
 
 ### List all agents [GET]
@@ -235,9 +236,10 @@ Create a new AGENT
 
 
 
-# Agent information [/agents/{AGENT_ID}/?api_key={API_KEY}]
+# Agent information [/agents/{CLIENT_KEY}/{AGENT_ID}/?api_key={API_KEY}]
 
 + Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
     + AGENT_ID (string, `1`)
 
@@ -311,9 +313,10 @@ Sessions related resources of the **Surfly API**
 
 
 
-# Sessions Collection [/sessions/?api_key={API_KEY}]
+# Sessions Collection [/sessions/{CLIENT_KEY}/?api_key={API_KEY}]
 
 + Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
  
 
@@ -346,9 +349,10 @@ List all session for a certain `CLIENT_KEY`
                 "duration": 123
             }]
 
-# Active Sessions Collection [/sessions/?api_key={API_KEY}&active_session=true]
+# Active Sessions Collection [/sessions/{CLIENT_KEY}/?api_key={API_KEY}&active_session=true]
 
 + Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
  
 
@@ -380,9 +384,10 @@ List all ACTIVE session for a certain `CLIENT_KEY`
                 "duration": 123
             }]
 
-# Agent Sessions Collection [/sessions/?api_key={API_KEY}&active_session=true&agent_id=1&year=2015&month=01]
+# Agent Sessions Collection [/sessions/{CLIENT_KEY}/?api_key={API_KEY}&active_session=true&agent_id=1&year=2015&month=01]
 
 + Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
  
 
@@ -468,9 +473,10 @@ active_session, agent_id, year, month are optional
             }
 
 
-# Session Information [/sessions/{SESSION_ID}/?api_key={API_KEY}]
+# Session Information [/sessions/{CLIENT_KEY}/{SESSION_ID}/?api_key={API_KEY}]
 
 + Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
     + SESSION_ID (string, `fuSHr0sRQ1usugvheahwQ`)
 
@@ -541,9 +547,10 @@ Simply ends a session.
 
 Manage and maintain the QUEUE for a certain client.
 
-# Queue Collection [/queue/?api_key={API_KEY}]
+# Queue Collection [/queue/{CLIENT_KEY}/?api_key={API_KEY}]
 
 + Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
 
 ### List all Active Sessions in the Queue [GET]
@@ -606,9 +613,10 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
             }
 
 
-# Queue information [/queue/{QUEUE_ID}/?api_key={API_KEY}]
+# Queue information [/queue/{CLIENT_KEY}/{QUEUE_ID}/?api_key={API_KEY}]
 
 + Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
     + QUEUE_ID (string, `1`)
 
