@@ -596,8 +596,7 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
     + Body
 
             {
-                "url": "http://www.surfly.com/",
-                "id": 25
+                "url": "http://www.surfly.com/"
             }
         
 + Response 200 (application/json)
@@ -606,7 +605,7 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
 
             {
                 "company": "",
-                "session_id": 1,
+                "queue_id": 1,
                 "queue_start_time": "",
                 "ip_address": "",
                 "join_link": ""
@@ -641,56 +640,12 @@ Get information about a certain queue by `queue_id`
 
             {
                 "company": "Company name = ABC",
-                "session_id": 3,
+                "queue_id": 3,
                 "queue_start_time": "2014-11-03T08:22:41.075Z",
                 "ip_address": "192.168.1.130",
                 "join_link": "http://surfly.com/"
             }
 
-### Update an queue [PUT]
-
-Update a Queue
-            
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| session_id | Session ID | 526 |
-| join_link | Join Link | http://www.python.org |
-
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company | Name of the company | Company name = ABC |
-| session_id | Session ID| 526 |
-| queue_start_time | Queue Start Time | 2014-11-03T08:22:41.075Z |
-| ip_address | IP Address | 192.168.1.130|
-| join_link | Queue Join Link | http://www.python.org |
-
-
-
-+ Request (application/json)
-
-    + Body
-
-            {
-                "session_id":526,
-                "join_link":"http://www.python.org"
-            }
-        
-+ Response 200 (application/json)
-
-    + Body
-    
-            {
-                "company": "Company name = ABC",
-                "session_id": 526,
-                "queue_start_time": "2014-11-03T08:31:01.277Z",
-                "ip_address": "192.168.1.130",
-                "join_link": "http://www.python.org"
-            }
 
 ### Remove item from the Queue [DELETE]
 
