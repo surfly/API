@@ -545,10 +545,9 @@ Simply ends a session.
 
 Manage and maintain the QUEUE for a certain client.
 
-# Queue Collection [/queue/{CLIENT_KEY}/?api_key={API_KEY}]
+# Queue Collection [/queue/?api_key={API_KEY}]
 
 + Parameters
-    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
 
 ### List all Active Sessions in the Queue [GET]
@@ -611,10 +610,9 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
             }
 
 
-# Queue information [/queue/{CLIENT_KEY}/{QUEUE_ID}/?api_key={API_KEY}]
+# Queue information [/queue/{QUEUE_ID}/?api_key={API_KEY}]
 
 + Parameters
-    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
     + QUEUE_ID (string, `1`)
 
