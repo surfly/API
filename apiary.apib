@@ -665,6 +665,106 @@ Get information about a certain queue by `queue_id`
             }
 
 
+########################################
+# Group Reseller
+
+Reseller related resources of the **Surfly API**
+
+# Reseller Sessions Collection [/sessions/?api_key={API_KEY}&clientkey={CLIENT_KEY}&active_session=true&year=2015&month=01]
+
++ Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+ 
+
+### List Active Sessions for Reseller's Client [GET]
+
+List all ACTIVE sessions for a certain `Client`, `Year`, `Month`
+
+active_session, agent_id, year, month are optional
+
+**Response Body:**
+
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
+| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
+| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+| start_time | time the session started | Fri, 10 okt 10:20 AM |
+| duration | Length of the session | 123 |
+
++ Response 200 (application/json)
+
+   + Body
+
+            [{
+                "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
+                "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+                "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+                "start_time": "Fri, 10 okt 10:20 AM",
+                "duration": 123
+            }]
+
+
+
+# Reseller Sessions Creation [/sessions/?api_key={API_KEY}&clientkey={CLIENT_KEY}]
+
++ Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+
+### Create a session [POST]
+
+Reseller create the session using `CLIENT_KEY`
+
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| url | Url to co-browse | http://www.google.com |
+| agent_id | ID of the agent | fOBg4dXAPTHSoil6LywgfYA |
+
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| id | session id, which can be used to end the session | fOBg4dXAPTHSoil6LywgfYA |
+| leader_link |  the link that must be opened in a ***leader*** (controlling) browser. It has a 2 minute time out attached to it, if not used within that time, the session will be closed. | https://session.surfly.com/mWdJBh0xZQMmSlx0dhbUNSg |
+| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "url": "http://www.surfly.com/",
+                "agent_id": 1
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id": "fm6pApJ18SvqlVEpnCx8Qmg",
+                "agent_id": "jGBAOLFaRv6NG57AZubK8A",
+                "viewer_link": "https://session.surfly.com/fm6pApJ18SvqlVEpnCx8Qmg",
+                "start_time": "2014-12-11T15:12:22.447Z",
+                "end_time": null,
+                "duration": null,
+                "ip_leader": "127.0.0.1",
+                "leader_link": "https://session.surfly.com/mUBRJyslQStVXPEwUwFyQ",
+                "ip_follower": "127.0.0.1",
+                "emails_send": [
+                {
+                  "to": [],
+                  "from": null
+                }
+                ]
+            }
 
 
 
