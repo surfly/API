@@ -831,3 +831,72 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
                 "join_link": ""
             }
 
+
+# Reseller Agents Collection [/agents/?api_key={API_KEY}&clientkey={CLIENT_KEY}]
+
++ Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+
+### List all agents [GET]
+
+List all agents for a certain `CLIENT_KEY`.
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| agent_id | Agent ID  | fOBg4dXAPTHSoil6LywgfYA |
+| agent_name | Name of the agent | Peter Pan |
+| agent_email | email address of the agent | peter@neverland.net |
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "agent_id": 1,
+                    "agent_name": "Peter Pan",
+                    "agent_email": "peter@neverland.net"
+                }
+            ]
+
+### Create a new agent [POST]
+
+Create a new AGENT
+            
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| agent_name | Name of the agent | Peter Pan |
+| agent_email | Email address | peter@neverland.net |
+
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| agent_id | agent id | 1 |
+
+
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "username": "hello_world",
+                "agent_email": "hello@world.net",
+                "password":"Pass@123"
+            }
+        
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "agent_id": "1" 
+            }
