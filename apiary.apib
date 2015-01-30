@@ -767,7 +767,67 @@ Reseller create the session using `CLIENT_KEY`
             }
 
 
+# Reseller Queue Collection [/queue/?api_key={API_KEY}&clientkey={CLIENT_KEY}]
+
++ Parameters
+    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+
+### List all Active Sessions in the Queue [GET]
+
+List all items in the support Queue for a certain `CLIENT_KEY`.
 
 
++ Response 200 (application/json)
 
+    + Body
+
+            [
+                {
+                    "company": 1,
+                    "queue_id": 1,
+                    "queue_start_time": "",
+                    "ip_address": "",
+                    "join_link": ""
+                }
+            ]
+            
+### Reseller Add an item to the Queue [POST]
+
+A new item can be put in the Queue, this item will auto expire after 30 seconds. In order to make sure that your item stays alive you will need to repeat the request with the same ID.
+
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| url | Url to co-browse | http://www.google.com |
+| id | ID of item in the Queue (optional) | fOBg4dXAPTHSoil6LywgfYA |
+
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| id | Queue id, which can be used to identify the item in the queue  | fOBg4dXAPTHSoil6LywgfYA |
+
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "url": "http://www.surfly.com/"
+            }
+        
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "company": "",
+                "queue_id": 1,
+                "queue_start_time": "",
+                "ip_address": "",
+                "join_link": ""
+            }
 
