@@ -21,143 +21,6 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 
 
 
-########################################
-# Group Clients
-Clients related resources of the **Surfly API**
-
-
-# Clients Collection [/clients/{RESELLER_KEY}/?api_key={API_KEY}]
-Reseller functionality
-
-+ Parameters
-    + RESELLER_KEY (string, `02fbfd63b54341c1828e6a2426311788`)
-    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-
-### Lists all your clients [GET]
-
-Return all your clients by `RESELLER_KEY`
-
-**Repsonse Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company_name | Name of Company | Neverland |
-| client_key | Client Key | AOEUaoeuntsPDe |
-| agent_count | Number of agents | 15 |
-
-+ Response 200 (application/json)
-
-
-    + Body
-
-            [{
-                "company_name": "Neverland",
-                "client_key": "AOEUaoeuntsPDe",
-                "agent_count": 15
-            }]
-
-### Create a new client [POST]
-
-Add a new client as `RESELLER_KEY`
-
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company_name | Name of new company | Neverland |
-
-**Repsonse Body:**
-
-A list of objects containing the following parameter:
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company_name | Name of company | Neverland |
-| client_key | Client Key | AOEUaoeuntsPDe |
-
-+ Request (application/json)
-
-    + Body
-
-            {
-                "company_name": "Test User"
-            }
-        
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "company_name": "Neverland",
-                "client_key": "fOBg4dXAPTHSoil6LywgfYA"
-            }
-    
-
-# Client Information [/clients/{RESELLER_KEY}/{CLIENT_ID}/?api_key={API_KEY}]
-
-+ Parameters
-    + RESELLER_KEY (string, `02fbfd63b54341c1828e6a2426311788`)
-    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-    + CLIENT_ID (string, `00063668234b4aa19dd436e6a76ab8ae`)
-
-### Get Client Information [GET]
-
-Get information about a specific `client_id`
-
-**Repsonse Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company_name | Name of company | Neverland |
-| client_key | Client Key | AOEUaoeuntsPDe |
-| agent_count | Number of agents | 15 |
-
-
-+ Response 200 (application/json)
-
-    + Body
-    
-            {
-                "company_name": "Neverland",
-                "client_key": "AOEUaoeuntsPDe",
-                "agent_count": 15
-            }
-
-### Update a client [PUT]
-
-Update a client as `RESELLER_KEY`
-
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company_name | New Name of company | Peter Pan |
-
-**Repsonse Body:**
-
-A list of objects containing the following parameter:
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company_name | Name of company | Peter Pan |
-| client_key | Client Key | AOEUaoeuntsPDe |
-
-+ Request (application/json)
-
-    + Body
-
-            {
-                "company_name": "Peter Pan"
-            }
-        
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "company_name": "Peter Pan"
-            }
-
 
 ########################################
 # Group Agents
@@ -557,11 +420,9 @@ List all items in the support Queue for a certain `CLIENT_KEY`.
 
             [
                 {
-                    "company": 1,
-                    "queue_id": 1,
-                    "queue_start_time": "",
-                    "ip_address": "",
-                    "join_link": ""
+                    "start_time": 1,
+                    "session": 1,
+                    "url": ""
                 }
             ]
             
@@ -574,7 +435,7 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | url | Url to co-browse | http://www.google.com |
-| id | ID of item in the Queue (optional) | fOBg4dXAPTHSoil6LywgfYA |
+| id | Session ID of item in the Queue | fuSHr0sRQ1usugvheahwQ |
 
 
 **Response Body:**
@@ -589,7 +450,8 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
     + Body
 
             {
-                "url": "http://www.surfly.com/"
+                "url": "http://www.surfly.com/",
+                "id": "fuSHr0sRQ1usugvheahwQ"
             }
         
 + Response 200 (application/json)
@@ -597,11 +459,9 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
     + Body
 
             {
-                "company": "",
-                "queue_id": 1,
-                "queue_start_time": "",
-                "ip_address": "",
-                "join_link": ""
+                "start_time": "",
+                "session": 1,
+                "url": ""
             }
 
 
@@ -609,7 +469,7 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
 
 + Parameters
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-    + QUEUE_ID (string, `1`)
+    + QUEUE_ID (string, `fuSHr0sRQ1usugvheahwQ`)
 
 ### Get Queue Information [GET]
 
@@ -619,11 +479,9 @@ Get information about a certain queue by `queue_id`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company | Name of the company | Company name = ABC  |
-| queue_id | Session ID| 31 |
-| queue_start_time | Queue Start Time | 2014-11-03T08:22:41.075Z |
-| ip_address | IP Address | 192.168.1.130|
-| join_link | Queue Join Link | http://surfly.com/ |
+| id | Session ID| fuSHr0sRQ1usugvheahwQ |
+| start_time | Queue Start Time | 2014-11-03T08:22:41.075Z |
+| URL | Session URL | http://surfly.com/ |
 
 
 + Response 200 (application/json)
@@ -631,11 +489,9 @@ Get information about a certain queue by `queue_id`
     + Body
 
             {
-                "company": "Company name = ABC",
-                "queue_id": 3,
-                "queue_start_time": "2014-11-03T08:22:41.075Z",
-                "ip_address": "192.168.1.130",
-                "join_link": "http://surfly.com/"
+                "start_time": "2014-11-03T08:22:41.075Z",
+                "session": "fuSHr0sRQ1usugvheahwQ",
+                "url": "http://surfly.com/"
             }
 
 
@@ -653,7 +509,7 @@ Get information about a certain queue by `queue_id`
     + Body
 
             {
-                "id": 25
+                "id": "fuSHr0sRQ1usugvheahwQ"
             }
         
 + Response 200 (application/json)
@@ -665,14 +521,146 @@ Get information about a certain queue by `queue_id`
             }
 
 
+
 ########################################
-# Group Reseller
+# Group Clients
+Clients related resources of the **Surfly API**
 
-Reseller related resources of the **Surfly API**
 
-Example command: List all ACTIVE sessions for a certain Client, Year & Month
+# Clients Collection [/clients/{RESELLER_KEY}/?api_key={API_KEY}]
+Reseller functionality
 
-`curl https://api.surfly.com/v2/sessions/?api_key=3b57bd2db21c46d2875508b982968d26&clientkey=00063668234b4aa19dd436e6a76ab8ae&active_session=true&year=2015&month=01`
++ Parameters
+    + RESELLER_KEY (string, `02fbfd63b54341c1828e6a2426311788`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+
+### Lists all your clients [GET]
+
+Return all your clients by `RESELLER_KEY`
+
+**Repsonse Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| company_name | Name of Company | Neverland |
+| client_key | Client Key | AOEUaoeuntsPDe |
+| agent_count | Number of agents | 15 |
+
++ Response 200 (application/json)
+
+
+    + Body
+
+            [{
+                "company_name": "Neverland",
+                "client_key": "AOEUaoeuntsPDe",
+                "agent_count": 15
+            }]
+
+### Create a new client [POST]
+
+Add a new client as `RESELLER_KEY`
+
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| company_name | Name of new company | Neverland |
+
+**Repsonse Body:**
+
+A list of objects containing the following parameter:
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| company_name | Name of company | Neverland |
+| client_key | Client Key | AOEUaoeuntsPDe |
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "company_name": "Test User"
+            }
+        
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "company_name": "Neverland",
+                "client_key": "fOBg4dXAPTHSoil6LywgfYA"
+            }
+    
+
+# Client Information [/clients/{RESELLER_KEY}/{CLIENT_ID}/?api_key={API_KEY}]
+
++ Parameters
+    + RESELLER_KEY (string, `02fbfd63b54341c1828e6a2426311788`)
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+    + CLIENT_ID (string, `00063668234b4aa19dd436e6a76ab8ae`)
+
+### Get Client Information [GET]
+
+Get information about a specific `client_id`
+
+**Repsonse Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| company_name | Name of company | Neverland |
+| client_key | Client Key | AOEUaoeuntsPDe |
+| agent_count | Number of agents | 15 |
+
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "company_name": "Neverland",
+                "client_key": "AOEUaoeuntsPDe",
+                "agent_count": 15
+            }
+
+### Update a client [PUT]
+
+Update a client as `RESELLER_KEY`
+
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| company_name | New Name of company | Peter Pan |
+
+**Repsonse Body:**
+
+A list of objects containing the following parameter:
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| company_name | Name of company | Peter Pan |
+| client_key | Client Key | AOEUaoeuntsPDe |
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "company_name": "Peter Pan"
+            }
+        
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "company_name": "Peter Pan"
+            }
+
+
+
 
 
 # Reseller Sessions Collection [/sessions/?api_key={API_KEY}&clientkey={CLIENT_KEY}&active_session=true&year=2015&month=01]
@@ -682,7 +670,7 @@ Example command: List all ACTIVE sessions for a certain Client, Year & Month
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
  
 
-### List Active Sessions for Reseller's Client [GET]
+### Example: List Active Sessions for Reseller's Client [GET]
 
 List all ACTIVE sessions for a certain `Client`, `Year`, `Month`
 
@@ -713,195 +701,3 @@ active_session, agent_id, year, month are optional
 
 
 
-# Reseller Sessions Creation [/sessions/?api_key={API_KEY}&clientkey={CLIENT_KEY}]
-
-+ Parameters
-    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
-    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-
-### Create a session [POST]
-
-Reseller create the session using `CLIENT_KEY`
-
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| url | Url to co-browse | http://www.google.com |
-| agent_id | ID of the agent | fOBg4dXAPTHSoil6LywgfYA |
-
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| id | session id, which can be used to end the session | fOBg4dXAPTHSoil6LywgfYA |
-| leader_link |  the link that must be opened in a ***leader*** (controlling) browser. It has a 2 minute time out attached to it, if not used within that time, the session will be closed. | https://session.surfly.com/mWdJBh0xZQMmSlx0dhbUNSg |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-
-
-+ Request (application/json)
-
-    + Body
-
-            {
-                "url": "http://www.surfly.com/",
-                "agent_id": 1
-            }
-
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "id": "fm6pApJ18SvqlVEpnCx8Qmg",
-                "agent_id": "jGBAOLFaRv6NG57AZubK8A",
-                "viewer_link": "https://session.surfly.com/fm6pApJ18SvqlVEpnCx8Qmg",
-                "start_time": "2014-12-11T15:12:22.447Z",
-                "end_time": null,
-                "duration": null,
-                "ip_leader": "127.0.0.1",
-                "leader_link": "https://session.surfly.com/mUBRJyslQStVXPEwUwFyQ",
-                "ip_follower": "127.0.0.1",
-                "emails_send": [
-                {
-                  "to": [],
-                  "from": null
-                }
-                ]
-            }
-
-
-# Reseller Queue Collection [/queue/?api_key={API_KEY}&clientkey={CLIENT_KEY}]
-
-+ Parameters
-    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
-    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-
-### List all Active Sessions in the Queue [GET]
-
-List all items in the support Queue for a certain `CLIENT_KEY`.
-
-
-+ Response 200 (application/json)
-
-    + Body
-
-            [
-                {
-                    "company": 1,
-                    "queue_id": 1,
-                    "queue_start_time": "",
-                    "ip_address": "",
-                    "join_link": ""
-                }
-            ]
-            
-### Reseller Add an item to the Queue [POST]
-
-A new item can be put in the Queue, this item will auto expire after 30 seconds. In order to make sure that your item stays alive you will need to repeat the request with the same ID.
-
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| url | Url to co-browse | http://www.google.com |
-| id | ID of item in the Queue (optional) | fOBg4dXAPTHSoil6LywgfYA |
-
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| id | Queue id, which can be used to identify the item in the queue  | fOBg4dXAPTHSoil6LywgfYA |
-
-
-+ Request (application/json)
-
-    + Body
-
-            {
-                "url": "http://www.surfly.com/"
-            }
-        
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "company": "",
-                "queue_id": 1,
-                "queue_start_time": "",
-                "ip_address": "",
-                "join_link": ""
-            }
-
-
-# Reseller Agents Collection [/agents/?api_key={API_KEY}&clientkey={CLIENT_KEY}]
-
-+ Parameters
-    + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
-    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-
-### List all agents [GET]
-
-List all agents for a certain `CLIENT_KEY`.
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| agent_id | Agent ID  | fOBg4dXAPTHSoil6LywgfYA |
-| agent_name | Name of the agent | Peter Pan |
-| agent_email | email address of the agent | peter@neverland.net |
-
-
-+ Response 200 (application/json)
-
-    + Body
-
-            [
-                {
-                    "agent_id": 1,
-                    "agent_name": "Peter Pan",
-                    "agent_email": "peter@neverland.net"
-                }
-            ]
-
-### Create a new agent [POST]
-
-Create a new AGENT
-            
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| agent_name | Name of the agent | Peter Pan |
-| agent_email | Email address | peter@neverland.net |
-
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| agent_id | agent id | 1 |
-
-
-
-+ Request (application/json)
-
-    + Body
-
-            {
-                "username": "hello_world",
-                "agent_email": "hello@world.net",
-                "password":"Pass@123"
-            }
-        
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "agent_id": "1" 
-            }
