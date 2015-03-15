@@ -5,7 +5,177 @@ HOST: https://api.surfly.com/v2/
 
 
 # Surfly
-The Surfly API allows you to integrate the functionality of our dashboard in a programatical manner. With our API you can do the following things: 
+
+With the Surfly API you'll be able to easily create a Surfly session URL. A Surfly session URL is simple a URL which can be added to any iframe which will result in an instant co-browsing session. 
+
+A Surfly session can be automatically started through: 
+
+ - Widget integration
+ - REST API
+ 
+The widget integration is suitable for straightforward on-website integration of a Surfly session. The REST API allows clients to completely integrate Surfly in their own product and hook up directly to our client or agent management system.
+
+
+## Session Display Options
+
+The appearance of a session can be controlled through different session options:
+
+ - ui_off - disable chatbox control
+ - no_videochat - hide video icon
+ - docked_only - only start session in docked mode (no text + videochat)
+ - no_splash - hide popup while start session
+ 
+ - iframe size settings
+  - min_width - set min_width of iframe.
+  - min_height - set min_height of iframe.
+  - max_width - set max_width of iframe.
+  - max_height - set max_height of iframe.
+  - set_to_smallest - take follower size into account (default: true)
+   
+These options can be passed to Surfly through or the Widget or the Session Create REST call.
+
+## Session Control
+
+
+After the iframe has been created, it can be controlled via postMessage and it will emit messages back to parent.
+
+### Events
+
+The messages sent by Surfly iframes to the parent window are JSON-encoded strings that have the following format:
+
+```json
+{"surfly":
+  {
+    "type": "<event type>"
+    "params": {<additional parameters depending on event type}
+  }
+}
+```
+
+<!-- "client_id": <from query string> -->
+
+
+#### The location of the top iframe has changed
+
+ - type: `"relocated"`
+ - params: `{"url": <absolute URL of new location>, "how": <how>}`
+
+ how is `"load"` if the page was loaded, or `"history"` if the URL was changed through history API.
+
+#### Another viewer joined
+
+ - type: `"viewer_joined"`
+ - params: `{"count": <the updated total number of viewers>}`
+
+<!-- params: {"client_id": <client_id of the new participant TODO> -->
+
+
+#### A viewer has left
+
+ - type: `"viewer_left"`
+ - params: `{"count": <the updated total number of viewers>}`
+
+<!-- params: {"client_id": <client_id of the new participant TODO> -->
+
+#### Session was finished
+
+ - type: `"session_ended"`
+ - params: `{"reason": "<one of the following>"}`
+  - `"leader_ended"`     leader ended the session via end the session command
+  - `"leader_left"`      leader closed the browser
+  - `"leader_timeout"`   leader connection timed out
+  - `"api"`              session was ended via HTTP API
+
+
+#### Error
+
+ This event is sent if the session cannot be joined and ended abuptly.
+
+ - type: "error"
+ - params: `{"reason": <on of the following>}`
+  - `"other_connection"` happens on if the leader_link was opened elsewhere. The new window/browser becomes the leader and the old leader is kicked out. It also happens if viewer_link was open again on the same browser.
+  - `"connect_failed"` happens if WebSocket connection to Surfly cannot be established.
+
+<!--
+  - "SESSION_NOT_FOUND"
+  - "BROWSER_NOT_SUPPORTED"
+-->
+
+
+#### Message
+
+ - type: `"message"`
+ - params: `{"data": "<data>"}`
+
+#### Control over session was transferred to another party
+
+ - type `"control"`
+ - params:
+  - `"to"`: index of the client that now have the control. Always 0 for leader, 1 or more for a viewer.
+  - `"gained"`: if true, the control was just gained; if false, the control was just lost
+
+
+
+### Commands
+
+Commands are sent by calling postMessage on the Surfly iframe. The message should be a JSON-encoded object. Currently only the leader frame accepts the command.
+
+#### Relocate
+
+```
+{"command": "relocate", "url": "<new url to go to>"}
+```
+
+#### End the session
+
+```
+{"command": "end"}
+```
+
+#### Send a message to other parties
+
+```
+{"command": "message", "data": "<data>"}
+```
+
+This will broadcast string "<data>" to all other parties in the session.
+
+
+#### Change controlling party
+
+```
+{"command": "control", "to": <client index>}
+```
+
+`<client index>` is 0 for leader and 1 or more for viewers.
+
+This will put leader into viewer mode and selected follower will become the pilot of the session. The following actions will now be done by follower:
+
+ - scrolling
+ - clicking
+ - entering data in forms
+
+If ran by follower currently holding control, it will return control back to leader.
+
+
+## Widget Integration
+
+### widget options
+ 
+ - widgetkey - unique key for widget.
+ - position - Location of the chat button, possible values:
+    - "bottomleft"
+    - "bottomright"
+    - "middleright".
+ - hidden(boolean) - hide the button
+ - auto_start(boolean) - start the session automatically
+ - theme_inverted(boolean) - use the inverted theme
+
+
+
+## REST API
+
+The Surfly REST API allows you to integrate the functionality of our dashboard in a programatical manner. With our API you can do the following things: 
 
  * Clients - Create new clients *(reseller only)*
  * Agents - Manage your agents
@@ -18,7 +188,6 @@ To access our API you will need to authenticate by using basic HTTP authenticati
  * CLIENT_KEY
 
 Both keys can be found on your API page in your dashboard. We recommend that you keep your CLIENT_KEY and RESELLER_KEY secret at all times.
-
 
 
 
@@ -698,6 +867,7 @@ active_session, agent_id, year, month are optional
                 "start_time": "Fri, 10 okt 10:20 AM",
                 "duration": 123
             }]
+
 
 
 
