@@ -714,6 +714,9 @@ Return all your clients by `RESELLER_KEY`
 | company_name | Name of Company | Neverland |
 | client_key | Client Key | AOEUaoeuntsPDe |
 | agent_count | Number of agents | 15 |
+| widget_key | Widget Key | 24d1414c71a94cbf9f205ed4fc4999b5 |
+| rest_key | Rest Key | 3b57bd2db21c46d2875508b982968d26 |
+| domains | Domains | surfly.com, *.surfly.com |
 
 + Response 200 (application/json)
 
@@ -723,7 +726,10 @@ Return all your clients by `RESELLER_KEY`
             [{
                 "company_name": "Neverland",
                 "client_key": "AOEUaoeuntsPDe",
-                "agent_count": 15
+                "agent_count": 15,
+                "widget_key": "24d1414c71a94cbf9f205ed4fc4999b5",
+                "rest_key": "3b57bd2db21c46d2875508b982968d26",
+                "domains": "surfly.com, *.surfly.com"
             }]
 
 ### Create a new client [POST]
@@ -781,6 +787,9 @@ Get information about a specific `client_id`
 | company_name | Name of company | Neverland |
 | client_key | Client Key | AOEUaoeuntsPDe |
 | agent_count | Number of agents | 15 |
+| widget_key | Widget Key | 24d1414c71a94cbf9f205ed4fc4999b5 |
+| rest_key | Rest Key | 3b57bd2db21c46d2875508b982968d26 |
+| domains | Domains | surfly.com, *.surfly.com |
 
 
 + Response 200 (application/json)
@@ -790,7 +799,10 @@ Get information about a specific `client_id`
             {
                 "company_name": "Neverland",
                 "client_key": "AOEUaoeuntsPDe",
-                "agent_count": 15
+                "agent_count": 15,
+                "widget_key": "24d1414c71a94cbf9f205ed4fc4999b5",
+                "rest_key": "3b57bd2db21c46d2875508b982968d26",
+                "domains": "surfly.com, *.surfly.com"
             }
 
 ### Update a client [PUT]
