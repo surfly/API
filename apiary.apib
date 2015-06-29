@@ -882,4 +882,56 @@ active_session, agent_id, year, month are optional
 
 
 
+########################################
+# Group Invoice
+Invoice related resources of the **Surfly API**
+
+
+# Invoice Collection [/get/invoice/details/?api_key={API_KEY}]
+Reseller functionality
+
++ Parameters
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+
+### Lists your current month's invoice [GET]
+
+Return your current month's invoice by client_key
+
+**Repsonse Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| item_list | List of company logs | amount, description, unit_price, quantity |
+| issue_date |  Invoice Issue Date | 2015-6-06 |
+| to_address | Address of the company Admin or Reseller | ABC,1221,Netherlands,4343 |
+| from_address | Address of the Surfly Admin | Surfly Admin, Netherlands |
+| payment_term | Payment term in days | 14 |
+| sub_total | Subtotal of the Invoice | 1490 |
+| send_invoice | Send invoice to mail | false |
+| currency | Currency | euro |
+| invoice_number | Invoice ID | 5 |
+| total | Total amount of invoice | 1490 |
+
++ Response 200 (application/json)
+
+    + Body
+
+            [{
+                "item_list": [{
+                    "amount": 40,
+                    "description": "Date from 2015-06-29 to 2015-01-29",
+                    "unit_price": 0.67,
+                    "quantity": 60
+                }],
+                "issue_date": "2015-6-06",
+                "to_address": "ABC,1221,Netherlands,4343",
+                "from_address": "Surfly Admin, Netherlands",
+                "payment_term": 14,
+                "sub_total": 1490,
+                "send_invoice": false,
+                "currency": "euro",
+                "invoice_number": 5,
+                "total": 1490
+            }]
+
 
