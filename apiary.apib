@@ -271,7 +271,7 @@ Create a new AGENT
 
 + Parameters
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-    + AGENT_ID (string, `1`)
+    + AGENT_ID (string, `2`)
 
 ### Get Agent Information [GET]
 
@@ -283,7 +283,7 @@ Get information about a certain agent by `agent_id`
 | ---------------| ------------| --------|
 | agent_name | Name of the agent | Peter Pan |
 | agent_email | Email address | peter@neverland.net |
-| id | Agent Id | 1
+| id | Agent Id | 2
 
 
 + Response 200 (application/json)
@@ -291,7 +291,7 @@ Get information about a certain agent by `agent_id`
     + Body
     
             {
-                "agent_id": 6,
+                "agent_id": 2,
                 "agent_name": "Peter Pan",
                 "agent_email": "peter@neverland.net"
             }
@@ -313,7 +313,7 @@ Update a AGENT
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| agent_id | agent id | 1 |
+| agent_id | agent id | 2 |
 
 + Request (application/json)
 
@@ -330,9 +330,23 @@ Update a AGENT
 
             {
                 "agent_name": "Peter",
-                "agent_id": 1,
+                "agent_id": 2,
                 "agent_email": "peter@neverland.com"
             }
+
+### Delete an agent [DELETE]
+
+DELETE a AGENT
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "response": "Agent has been removed successfully"
+            }
+
+
 
 
 
@@ -774,7 +788,7 @@ A list of objects containing the following parameter:
 + Parameters
     + RESELLER_KEY (string, `02fbfd63b54341c1828e6a2426311788`)
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-    + CLIENT_ID (string, `00063668234b4aa19dd436e6a76ab8ae`)
+    + CLIENT_ID (string, `63668234b4aa19dd436e6a76ab8ae000`)
 
 ### Get Client Information [GET]
 
@@ -838,6 +852,18 @@ A list of objects containing the following parameter:
 
             {
                 "company_name": "Peter Pan"
+            }
+
+### Remove the Client [DELETE]
+
+Delete this client
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "response":"Client has been removed Successfully"
             }
 
 
