@@ -2,44 +2,330 @@ FORMAT: 1A
 HOST: https://api.surfly.com/v2/
 
 
+# Surfly's Co-Browsing API
+
+While Surfly can be used directly from the Surfly website we also have an
+extensive API in order for our clients to be able to integrate Surfly tightly
+into their current website or web application. One can even completely automate
+the management of client and agent creation through our REST API.
+
+The following types of customizations of Surfly can be achieved:
+
+ - Website Integration
+ - Full Session Continuation
+ - Session Customization
+ - Customize session start or join page
+ - Application Integration
+ - Agent Creation
+ - Reseller Automatization
 
 
-# Surfly
+##### Website Integration
 
-With Surfly's <a href="https://www.surfly.com">cobrowsing</a> you'll be able to easily create a Surfly session URL. A Surfly session URL is simple a URL which can be added to any iframe which will result in an instant co-browsing session. 
-
-A Surfly session can be automatically started through: 
-
- - Widget integration
- - REST API
- 
-The widget integration is suitable for straightforward on-website integration of a Surfly session. The REST API allows clients to completely integrate Surfly in their own product and hook up directly to our client or agent management system.
+Add Surfly to your website and allow the visitors of your website to create a
+support request by clicking on our support button.  The style and color of this
+button can be fully customized to match your applications or website’s look and
+feel.
 
 
-## Session Display Options
+##### Session Customization
 
-The appearance of a session can be controlled through different session options:
+Enable or disable the videochat, allow users to navigate to different websites
+or not, use a textchat mode or a pure docked mode or for our Enterprise
+customers completely remove all Surfly UI and fully customize the look and feel
+of the session.
 
- - ui_off - disable chatbox control
- - no_videochat - hide video icon
- - docked_only - only start session in docked mode (no text + videochat)
- - no_splash - hide popup while start session
- 
- - iframe size settings
-  - min_width - set min_width of iframe.
-  - min_height - set min_height of iframe.
-  - max_width - set max_width of iframe.
-  - max_height - set max_height of iframe.
-  - set_to_smallest - take follower size into account (default: true)
-   
-These options can be passed to Surfly through or the Widget or the Session Create REST call.
+##### Custom session start or join page
 
-## Session Control
+Start a session from your own website or maybe even create a specific invite
+page or landing page for your clients.
+
+##### Full Session Continuation
+
+When your users are already logged in on your website you probably don’t want
+that starting a Surfly session will break the flow and or require them to login
+again. Surfly can pick up the session exactly where the uses
+
+##### Deep Application Integration
+
+Session can be started through the Javascript and the REST API. By using the
+REST API you can integrate our websharing technology in your own application or
+build a thin layer around our technology.
 
 
-After the iframe has been created, it can be controlled via postMessage and it will emit messages back to parent.
+##### Automatic Agent Creation
 
-### Events
+Agents can be added through the admin interface, but if your agents are more
+dynamic these can also be added and removed through our REST API.
+
+##### Reseller Automatization
+
+Resellers can use our API to create fresh new Sufly clients, decide whether you
+want to invoice them directly or if we should handle this for you.
+
+
+These type of customizations or integrations can be built through 3 different
+ways in how one can interface with Surfly:
+
+ - The Surfly Code Snippet
+ - The Javascript API
+ - The REST API
+
+
+----
+#  The Surfly Code Snippet
+
+Surfly's code snippet is a small snippet of Javascript code that can be copied
+in in your website template.
+
+## The Surfly Widget and extension
+
+Adding the Code Snippet is relatively straightforward. The snippet can be
+obtained from the 'integration' page on your account settings panel.
+
+Copy the piece of code and paste it somewhere in the source of your
+website or application. We make sure to load the Surfly code in an asynchronous
+and non-blocking way in order to not have any effect on your page load times.
+
+The snippet comes with lots of options which we will
+detail below.
+
+### The extension
+
+If you do not want to immediately add the code to your website but still want to
+take a look at how Surfly's integration can work you can use our Chrome extension. This
+extension will add our Javascript snippet code to any website you are currently
+browsing, it will also give you all the options to easily configure the snippet
+and try out various settings.
+
+In order to install the extension do the following:
+
+ 1. Download the Chrome Extension
+ 2. Open Chrome
+ 3. Go to  Tools / Preferences / Settings   (depends on your OS)
+ 4. Go to ‘Extensions’
+ 5. Click on ‘Load unpacked extension’
+ 6. Point it to the downloaded file
+
+
+----
+# Customizing Surfly's Session Behavior
+
+We allow a variety of options in how Surfly can be customized. These can
+be configured in the Javascript snippet, as an option in a REST call or by simply
+switching a flag in the Chrome extension.
+
+#### Session Interaction Options
+
+
+|  Option | Default | Description |
+| ---------------| ------------|------------|
+| agent_can_request_control | false | Can the agent request control after which it can be granted |
+| agent_can_take_control | false | Can the agent take control without requirement that the controller needs to grant it |
+| redirect_follower_to_queue | false | After session end return the follower to the Surfly Queue page |
+| soft_session_end | false | After session end leader stays in the session |
+| autohide_control | false | Do not show the widget when no agent has joined the session |
+| videochat | true | Is videochat allowed |
+| splash | false | Do we need to show the splash screen on session start |
+| newurl  | true | Should we show the 'newurl button' in the widget |
+| Sharing_button | true | Should we show the 'sharing button' in the widget |
+
+
+#### Session Appearance Options
+
+|  Option | Default | Description |
+| ---------------| ------------|------------|
+| whitelabel | false | Do not show a Surfly logo (enterprise only) |
+| ui_off | false | Just co-browsing no user interface (enterprise only) |
+| docked_only | false | Only show the control options, do not show a video / textchat box |
+| dock_top_position | false | By default we place the dock at the bottom-left, with this option you can put it on top |
+| set_to_smallest | true | By default we resize the active viewport to viewport size of the participant with the smallest screen. This can be disabled |
+| min_width | 0 | Restrict minimal width of the viewport |
+| min_height | 0 | Restrict minimal height of the viewport |
+| max_width | 0 | Restrict max width of the viewport |
+| max_height | 0  | Restrict max height of the viewport |
+
+
+#### Support Button Appearance
+
+|  Option | Default | Description |
+| ---------------| ------------|------------|
+| position | 'bottomleft' | Where should we place the Surfly support button, options are, 'bottomleft', 'bottomright', 'middleright' |
+| hidden | false | Do not show the button |
+| auto_start | false | Instead of showing a button, immediately start a session |
+| theme_font_size | 14 | size of the text in the button |
+| theme_font_color | white | support button foreground color|
+| theme_font_background | surfly-red | support button background color |
+
+
+----
+
+# Customizing the User Flow
+
+The flexibility of Surfly allows it to be used with different types of usecases.
+This allows you not only to customize how a Surfly session looks but also how a
+session can be integrated in your work flow.
+
+
+## Automatically starting a session
+
+
+#### Using auto_start
+
+If you want to allow your clients to start a session from a branded page you can
+simply include our javascript snippet and set the 'auto_start' flag to true.
+
+
+#### Using a special anchor link
+
+Another way to start a session is to add the anchor '#surflystart' to any page
+on which the Javascript snippet has been added. This can be used in various
+ways, if you want to create a customized button that starts a session you can
+simply put it within a "A" anchor. For example:
+
+```html
+<a href="#surflystart"> Start a surfly session </a>
+```
+
+
+## Detecting a Surfly Session
+
+You might want to change the behaviour of the website depending whether it is a
+Surfly session or not. Example use cases are for example hiding a customized 'session
+start' button within the Surfly session or remove certain toolbars for a nicer
+integration.
+
+#### From within Javascript
+
+To detect a Surfly session from the client side one can simply one can simply
+check for the existance of a global variable called `__surfly`
+
+For example, to hide a button within a Surfly session one could do the
+following:
+
+```javascript
+if (window.__surfly) {
+    document.getElementById('session_start_button').display = "none";
+}
+
+```
+
+
+
+#### At the backend
+
+As all Surfly sessions will originate from our proxy servers this could be used
+as a way to identify whether the request comes from Surfly or a client directly.
+However, we use different IP ranges for our proxy servers and they also change
+over time, so we recommend a different way to do this.
+
+On each session that comes through our proxy, we will add a 'X-Forwarded-For'
+header that points to the original IP of the 'leader'.
+
+When creating a request one can also set the 'headers' option (in both the
+Javascript call and the REST call) to add aditional headers. These headers can
+used to for example add an "Authorization" header to allow to user to be logged
+in on your own backend or a custom header which can be used as an identifier. We
+will send these headers with each request made during the session.
+
+
+## Session Continuation
+
+The high performance of Surfly can be attributed to our proxy approach. If a
+user wants to continue the web-session as-is it requires that we can transfer
+all information to our proxy.
+
+This feature is called 'session-continuation' and works as follows:
+
+ - A Surfly session is started on the current website from the same url in a
+   hidden iFrame
+ - The widget makes sure that Surfly knows about session variables (cookies)
+ - After the session has been started we synchronize the current state with the
+   fresh state loaded through the iframe.
+
+
+In order to fully synchronize all session variables we need to be able to send over all
+session specific cookies. These cookies can be passed to the Javascript Widget
+or a REST call.
+
+When you have trouble finding out the exact cookies you'll need to pass, you can
+also use a different approach. The session can alse be set up through a
+'continuation point'. A continuation point is a helper script run on the
+background that can made all session variables available through a secure and
+unique link. An example of such a continuation point can be found here:
+https://github.com/surfly/continuation
+
+The above behaviour can also be demonstrated through the Surfly Chrome
+extension mentioned above. This Chrome extension will take care of the
+continuation by itself, extract the session cookies and pass them along to
+Surfly when starting a session.
+
+If you need more help with this please contact us at support@surfly.com, we can
+consult on the implemantion or build the integration for you.
+
+
+
+## Change Queue Behaviour
+
+It is possible to integrate Surfly on your website with some sort of support
+button. Once a user clicks this button, his support request will be queue'd
+where one of the available agents can than answer the request. The user will be
+the 'leader' of the session and the agent who joins will be the follower of the
+session.
+
+Surfly comes with relatively basic Queue functionality. If you want to integrate
+the Queue functionality in your own application or even hook it up to a
+completely different Queue system  it can be accomplished in a few different ways:
+
+#### Set a Javascript specific endpoint
+
+
+You can configure the 'QUEUE_ENDPOINT' in the Javascript snippet to specify
+where we should fire a request each time a new user wants to start a session.
+
+As long as an agent is Queue'd, we will fire a POST request each 5 seconds to this
+endpoint containing the following body:
+
+
+```
+{
+    'url': <actual url to start a session on>,
+    'id': <session_id>,
+    'viewer_link': <the link the agent needs to open to join the session>,
+    'ip_address': <ip address of the website visitor>
+}
+```
+
+Your controller that handles this request can than display or dispatch the
+viewer link to any of the available agents.
+
+
+#### Set a Javascript Queue handler
+
+If you want to handle the Queue functionality yourself completely you can also
+provide us with two callbacks:
+
+ - `QUEUE_HANDLER`
+ - `QUEUE_CALLBACK`
+
+We will call `QUEUE_HANDLER` every 5 seconds a user is requesting a Surfly
+session. The argument to this call is a JSON object with the following
+parameters:
+
+ - id : session id
+ - viewer_link: the link the agent should open
+ - ip_address: the ip address of the client
+
+
+----
+
+# Customize the Session Interface
+
+After the iframe has been created, it can be controlled via postMessage and it
+will emit messages back to the parent frame. One can start a Surfly session with
+the UI=OFF flag as described above.
+
+## Events
 
 The messages sent by Surfly iframes to the parent window are JSON-encoded strings that have the following format:
 
@@ -55,14 +341,14 @@ The messages sent by Surfly iframes to the parent window are JSON-encoded string
 <!-- "client_id": <from query string> -->
 
 
-#### The location of the top iframe has changed
+### The location of the top iframe has changed
 
  - type: `"relocated"`
  - params: `{"url": <absolute URL of new location>, "how": <how>}`
 
  how is `"load"` if the page was loaded, or `"history"` if the URL was changed through history API.
 
-#### Another viewer joined
+### Another viewer joined
 
  - type: `"viewer_joined"`
  - params: `{"count": <the updated total number of viewers>}`
@@ -70,14 +356,14 @@ The messages sent by Surfly iframes to the parent window are JSON-encoded string
 <!-- params: {"client_id": <client_id of the new participant TODO> -->
 
 
-#### A viewer has left
+### A viewer has left
 
  - type: `"viewer_left"`
  - params: `{"count": <the updated total number of viewers>}`
 
 <!-- params: {"client_id": <client_id of the new participant TODO> -->
 
-#### Session was finished
+### Session was finished
 
  - type: `"session_ended"`
  - params: `{"reason": "<one of the following>"}`
@@ -87,7 +373,7 @@ The messages sent by Surfly iframes to the parent window are JSON-encoded string
   - `"api"`              session was ended via HTTP API
 
 
-#### Error
+### Error
 
  This event is sent if the session cannot be joined and ended abuptly.
 
@@ -102,12 +388,12 @@ The messages sent by Surfly iframes to the parent window are JSON-encoded string
 -->
 
 
-#### Message
+### Message
 
  - type: `"message"`
  - params: `{"data": "<data>"}`
 
-#### Control over session was transferred to another party
+### Control over session was transferred to another party
 
  - type `"control"`
  - params:
@@ -116,23 +402,23 @@ The messages sent by Surfly iframes to the parent window are JSON-encoded string
 
 
 
-### Commands
+## Commands
 
 Commands are sent by calling postMessage on the Surfly iframe. The message should be a JSON-encoded object. Currently only the leader frame accepts the command.
 
-#### Relocate
+### Relocate
 
 ```
 {"command": "relocate", "url": "<new url to go to>"}
 ```
 
-#### End the session
+### End the session
 
 ```
 {"command": "end"}
 ```
 
-#### Send a message to other parties
+### Send a message to other parties
 
 ```
 {"command": "message", "data": "<data>"}
@@ -141,7 +427,7 @@ Commands are sent by calling postMessage on the Surfly iframe. The message shoul
 This will broadcast string "<data>" to all other parties in the session.
 
 
-#### Change controlling party
+### Change controlling party
 
 ```
 {"command": "control", "to": <client index>}
@@ -158,22 +444,8 @@ This will put leader into viewer mode and selected follower will become the pilo
 If ran by follower currently holding control, it will return control back to leader.
 
 
-## Widget Integration
-
-### widget options
- 
- - widgetkey - unique key for widget.
- - position - Location of the chat button, possible values:
-    - "bottomleft"
-    - "bottomright"
-    - "middleright".
- - hidden(boolean) - hide the button
- - auto_start(boolean) - start the session automatically
- - theme_inverted(boolean) - use the inverted theme
-
-
-
-## REST API
+----
+# REST API
 
 The Surfly REST API allows you to integrate the functionality of our dashboard in a programatical manner. With our API you can do the following things: 
 
@@ -194,8 +466,6 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 ########################################
 # Group Agents
 
-Agents related resources of the **Surfly API**
-
 
 # Agents Collection [/agents/?api_key={API_KEY}]
 
@@ -204,66 +474,33 @@ Agents related resources of the **Surfly API**
 
 ### List all agents [GET]
 
-List all agents for a certain `CLIENT_KEY`.
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| agent_id | Agent ID  | fOBg4dXAPTHSoil6LywgfYA |
-| agent_name | Name of the agent | Peter Pan |
-| agent_email | email address of the agent | peter@neverland.net |
-
 
 + Response 200 (application/json)
 
-    + Body
-
-            [
-                {
-                    "agent_id": 1,
-                    "agent_name": "Peter Pan",
-                    "agent_email": "peter@neverland.net"
-                }
-            ]
+        [
+            {
+                "agent_id": 1,
+                "agent_name": "Peter Pan",
+                "agent_email": "peter@neverland.net"
+            }
+        ]
 
 ### Create a new agent [POST]
-
-Create a new AGENT
-            
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| agent_name | Name of the agent | Peter Pan |
-| agent_email | Email address | peter@neverland.net |
-
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| agent_id | agent id | 1 |
-
 
 
 + Request (application/json)
 
-    + Body
+        {
+            "username": "Peter Pan",
+            "agent_email": "peter@neverland.net",
+            "password":"Pass@123"
+        }
 
-            {
-                "username": "Peter Pan",
-                "agent_email": "peter@neverland.net",
-                "password":"Pass@123"
-            }
-        
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "agent_id": "1" 
-            }
+        {
+            "agent_id": "1" 
+        }
 
 
 
@@ -275,76 +512,41 @@ Create a new AGENT
 
 ### Get Agent Information [GET]
 
-Get information about a certain agent by `agent_id`
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| agent_name | Name of the agent | Peter Pan |
-| agent_email | Email address | peter@neverland.net |
-| id | Agent Id | 2
-
 
 + Response 200 (application/json)
 
-    + Body
-    
-            {
-                "agent_id": 2,
-                "agent_name": "Peter Pan",
-                "agent_email": "peter@neverland.net"
-            }
+        {
+            "agent_id": 2,
+            "agent_name": "Peter Pan",
+            "agent_email": "peter@neverland.net"
+        }
 
 
 ### Update an agent [PUT]
 
-Update a AGENT
-            
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| agent_name (optional) | Name of the agent | Peter Pan |
-| agent_email (optional) | Email address | peter@neverland.net |
-
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| agent_id | agent id | 2 |
-
 + Request (application/json)
 
-    + Body
+        {
+            "username": "Peter",
+            "agent_email": "peter@neverland.com"
+        }
 
-            {
-                "username": "Peter",
-                "agent_email": "peter@neverland.com"
-            }
-        
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "agent_name": "Peter",
-                "agent_id": 2,
-                "agent_email": "peter@neverland.com"
-            }
+        {
+            "agent_name": "Peter",
+            "agent_id": 2,
+            "agent_email": "peter@neverland.com"
+        }
 
 ### Delete an agent [DELETE]
 
-Delete an Agent
 
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "response": "Agent has been removed successfully"
-            }
+        {
+            "response": "Agent has been removed successfully"
+        }
 
 
 
@@ -352,166 +554,93 @@ Delete an Agent
 
 ########################################
 # Group Sessions
-Sessions related resources of the **Surfly API**
-
-
 
 
 # Sessions Collection [/sessions/?api_key={API_KEY}]
 
 + Parameters
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
- 
 
 ### List all Sessions [GET]
-
-List all session for a certain `CLIENT_KEY`
-
-
-**Response Body:**
-
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-| start_time | time the session started | Fri, 10 okt 10:20 AM |
-| duration | Length of the session | 123 |
 
 
 + Response 200 (application/json)
 
-   + Body
-
-            [{
-                "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
-                "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
-                "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
-                "start_time": "Fri, 10 okt 10:20 AM",
-                "duration": 123
-            }]
+        [{
+            "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
+            "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+            "start_time": "Fri, 10 okt 10:20 AM",
+            "duration": 123
+        }]
 
 # Active Sessions Collection [/sessions/?api_key={API_KEY}&active_session=true]
 
 + Parameters
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
- 
 
 ### List all Active Sessions [GET]
 
-List all ACTIVE session for a certain `CLIENT_KEY`
-
-
-**Response Body:**
-
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-| start_time | time the session started | Fri, 10 okt 10:20 AM |
-| duration | Length of the session | 123 |
 
 + Response 200 (application/json)
 
-   + Body
-
-            [{
-                "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
-                "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
-                "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
-                "start_time": "Fri, 10 okt 10:20 AM",
-                "duration": 123
-            }]
+        [{
+            "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
+            "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+            "start_time": "Fri, 10 okt 10:20 AM",
+            "duration": 123
+        }]
 
 # Agent Sessions Collection [/sessions/?api_key={API_KEY}&active_session=true&agent_id=1&year=2015&month=01]
 
 + Parameters
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
- 
 
 ### List Active Sessions for Agent [GET]
 
-List all ACTIVE sessions for a certain `Agent`, `Year`, `Month`
-
-active_session, agent_id, year, month are optional
-
-**Response Body:**
-
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-| start_time | time the session started | Fri, 10 okt 10:20 AM |
-| duration | Length of the session | 123 |
 
 + Response 200 (application/json)
 
-   + Body
-
-            [{
-                "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
-                "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
-                "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
-                "start_time": "Fri, 10 okt 10:20 AM",
-                "duration": 123
-            }]
+        [{
+            "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
+            "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+            "start_time": "Fri, 10 okt 10:20 AM",
+            "duration": 123
+        }]
 
 
 
 ### Create a session [POST]
 
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| url | Url to co-browse | http://www.google.com |
-| agent_id | ID of the agent | fOBg4dXAPTHSoil6LywgfYA |
-
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| id | session id, which can be used to end the session | fOBg4dXAPTHSoil6LywgfYA |
-| leader_link |  the link that must be opened in a ***leader*** (controlling) browser. It has a 2 minute time out attached to it, if not used within that time, the session will be closed. | https://session.surfly.com/mWdJBh0xZQMmSlx0dhbUNSg |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-
 
 + Request (application/json)
 
-    + Body
+        {
+            "url": "http://www.surfly.com/",
+            "agent_id": 1
+        }
 
-            {
-                "url": "http://www.surfly.com/",
-                "agent_id": 1
-            }
-        
 + Response 200 (application/json)
 
-    + Body
-
+        {
+            "id": "fm6pApJ18SvqlVEpnCx8Qmg",
+            "agent_id": "jGBAOLFaRv6NG57AZubK8A",
+            "viewer_link": "https://session.surfly.com/fm6pApJ18SvqlVEpnCx8Qmg",
+            "start_time": "2014-12-11T15:12:22.447Z",
+            "end_time": null,
+            "duration": null,
+            "ip_leader": "127.0.0.1",
+            "leader_link": "https://session.surfly.com/mUBRJyslQStVXPEwUwFyQ",
+            "ip_follower": "127.0.0.1",
+            "emails_send": [
             {
-                "id": "fm6pApJ18SvqlVEpnCx8Qmg",
-                "agent_id": "jGBAOLFaRv6NG57AZubK8A",
-                "viewer_link": "https://session.surfly.com/fm6pApJ18SvqlVEpnCx8Qmg",
-                "start_time": "2014-12-11T15:12:22.447Z",
-                "end_time": null,
-                "duration": null,
-                "ip_leader": "127.0.0.1",
-                "leader_link": "https://session.surfly.com/mUBRJyslQStVXPEwUwFyQ",
-                "ip_follower": "127.0.0.1",
-                "emails_send": [
-                {
-                  "to": [],
-                  "from": null
-                }
-                ]
+              "to": [],
+              "from": null
             }
+            ]
+        }
 
 
 # Session Information [/sessions/{SESSION_ID}/?api_key={API_KEY}]
@@ -523,57 +652,36 @@ active_session, agent_id, year, month are optional
 
 ### Get session information [GET]
 
-Get information about a certain session or end a certain session.
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| id | session id, which can be used to end the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-| start_time | time the session started | Fri, 10 okt 2014 10:20:24 |
-| end_time | time the session ended | Fri, 10 okt 2014 10:51:46 |
-| duration | Length of the session (in seconds) |  1882 |
-| ip_leader | IP address of leader | 192.168.1.1 |
-| ip_followers | comma seperated list of IP's of followers | 10.0.0.1, 10.0.0.2 |
-| emails_send | list of email invatiations send | agent@company.com, client@company2.com |
-
 
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "id": "fwqcOuuMwTty7ii3kcA8Q",
-                "agent_id": 1,
-                "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
-                "start_time": "Fri, 10 okt 2014 10:20:24",
-                "end_time": "Fri, 10 okt 2014 10:51:46",
-                "duration": 1882,
-                "ip_leader": "192.168.1.1",
-                "leader_link": "",
-                "ip_follower": "",
-                "emails_send": [
-                                    {
-                                        "to": [],
-                                        "from": null
-                                    }
-                                ]
-            }
+        {
+            "id": "fwqcOuuMwTty7ii3kcA8Q",
+            "agent_id": 1,
+            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+            "start_time": "Fri, 10 okt 2014 10:20:24",
+            "end_time": "Fri, 10 okt 2014 10:51:46",
+            "duration": 1882,
+            "ip_leader": "192.168.1.1",
+            "leader_link": "",
+            "ip_follower": "",
+            "emails_send": [
+                                {
+                                    "to": [],
+                                    "from": null
+                                }
+                            ]
+        }
 
 
 ### End a session [DELETE]
 
-Simply ends a session.
 
 + Response 200 (application/json)
 
-    + Body
-    
-            {
-                "response":""
-            }
+        {
+            "response":""
+        }
 
 
 
@@ -585,7 +693,6 @@ Simply ends a session.
 ########################################
 # Group Queue
 
-Manage and maintain the QUEUE for a certain client.
 
 # Queue Collection [/queue/?api_key={API_KEY}]
 
@@ -594,58 +701,34 @@ Manage and maintain the QUEUE for a certain client.
 
 ### List all Active Sessions in the Queue [GET]
 
-List all items in the support Queue for a certain `CLIENT_KEY`.
-
 
 + Response 200 (application/json)
 
-    + Body
+        [
+            {
+                "start_time": 1,
+                "session": 1,
+                "url": ""
+            }
+        ]
 
-            [
-                {
-                    "start_time": 1,
-                    "session": 1,
-                    "url": ""
-                }
-            ]
-            
 ### Add an item to the Queue [POST]
-
-A new item can be put in the Queue, this item will auto expire after 30 seconds. In order to make sure that your item stays alive you will need to repeat the request with the same ID.
-
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| url | Url to co-browse | http://www.google.com |
-| id | Session ID of item in the Queue | fuSHr0sRQ1usugvheahwQ |
-
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| id | Queue id, which can be used to identify the item in the queue  | fOBg4dXAPTHSoil6LywgfYA |
 
 
 + Request (application/json)
 
-    + Body
+        {
+            "url": "http://www.surfly.com/",
+            "id": "fuSHr0sRQ1usugvheahwQ"
+        }
 
-            {
-                "url": "http://www.surfly.com/",
-                "id": "fuSHr0sRQ1usugvheahwQ"
-            }
-        
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "start_time": "",
-                "session": 1,
-                "url": ""
-            }
+        {
+            "start_time": "",
+            "session": 1,
+            "url": ""
+        }
 
 
 # Queue information [/queue/{QUEUE_ID}/?api_key={API_KEY}]
@@ -656,62 +739,37 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
 
 ### Get Queue Information [GET]
 
-Get information about a certain queue by `queue_id`
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| id | Session ID| fuSHr0sRQ1usugvheahwQ |
-| start_time | Queue Start Time | 2014-11-03T08:22:41.075Z |
-| URL | Session URL | http://surfly.com/ |
-
 
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "start_time": "2014-11-03T08:22:41.075Z",
-                "session": "fuSHr0sRQ1usugvheahwQ",
-                "url": "http://surfly.com/"
-            }
+        {
+            "start_time": "2014-11-03T08:22:41.075Z",
+            "session": "fuSHr0sRQ1usugvheahwQ",
+            "url": "http://surfly.com/"
+        }
 
 
 ### Remove item from the Queue [DELETE]
 
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| id | ID of item in the Queue (optional) | 25 |
-
 
 + Request (application/json)
 
-    + Body
+        {
+            "id": "fuSHr0sRQ1usugvheahwQ"
+        }
 
-            {
-                "id": "fuSHr0sRQ1usugvheahwQ"
-            }
-        
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "detail":""
-            }
+        {
+            "detail":""
+        }
 
 
 
 ########################################
 # Group Clients
-Clients related resources of the **Surfly API**
-
 
 # Clients Collection [/clients/{RESELLER_KEY}/?api_key={API_KEY}]
-Reseller functionality
 
 + Parameters
     + RESELLER_KEY (string, `02fbfd63b54341c1828e6a2426311788`)
@@ -719,69 +777,33 @@ Reseller functionality
 
 ### Lists all your clients [GET]
 
-Return all your clients by `RESELLER_KEY`
-
-**Repsonse Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company_name | Name of Company | Neverland |
-| client_key | Client Key | AOEUaoeuntsPDe |
-| agent_count | Number of agents | 15 |
-| widget_key | Widget Key | 24d1414c71a94cbf9f205ed4fc4999b5 |
-| rest_key | Rest Key | 3b57bd2db21c46d2875508b982968d26 |
-| domains | Domains | surfly.com, *.surfly.com |
-
 + Response 200 (application/json)
 
 
-    + Body
-
-            [{
-                "company_name": "Neverland",
-                "client_key": "AOEUaoeuntsPDe",
-                "agent_count": 15,
-                "widget_key": "24d1414c71a94cbf9f205ed4fc4999b5",
-                "rest_key": "3b57bd2db21c46d2875508b982968d26",
-                "domains": "surfly.com, *.surfly.com"
-            }]
+        [{
+            "company_name": "Neverland",
+            "client_key": "AOEUaoeuntsPDe",
+            "agent_count": 15,
+            "widget_key": "24d1414c71a94cbf9f205ed4fc4999b5",
+            "rest_key": "3b57bd2db21c46d2875508b982968d26",
+            "domains": "surfly.com, *.surfly.com"
+        }]
 
 ### Create a new client [POST]
 
-Add a new client as `RESELLER_KEY`
-
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company_name | Name of new company | Neverland |
-
-**Repsonse Body:**
-
-A list of objects containing the following parameter:
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company_name | Name of company | Neverland |
-| client_key | Client Key | AOEUaoeuntsPDe |
 
 + Request (application/json)
 
-    + Body
+        {
+            "company_name": "Test User"
+        }
 
-            {
-                "company_name": "Test User"
-            }
-        
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "company_name": "Neverland",
-                "client_key": "fOBg4dXAPTHSoil6LywgfYA"
-            }
-    
+        {
+            "company_name": "Neverland",
+            "client_key": "fOBg4dXAPTHSoil6LywgfYA"
+        }
 
 # Client Information [/clients/{RESELLER_KEY}/{CLIENT_ID}/?api_key={API_KEY}]
 
@@ -792,79 +814,39 @@ A list of objects containing the following parameter:
 
 ### Get Client Information [GET]
 
-Get information about a specific `client_id`
-
-**Repsonse Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company_name | Name of company | Neverland |
-| client_key | Client Key | AOEUaoeuntsPDe |
-| agent_count | Number of agents | 15 |
-| widget_key | Widget Key | 24d1414c71a94cbf9f205ed4fc4999b5 |
-| rest_key | Rest Key | 3b57bd2db21c46d2875508b982968d26 |
-| domains | Domains | surfly.com, *.surfly.com |
-
-
 + Response 200 (application/json)
 
-    + Body
-    
-            {
-                "company_name": "Neverland",
-                "client_key": "AOEUaoeuntsPDe",
-                "agent_count": 15,
-                "widget_key": "24d1414c71a94cbf9f205ed4fc4999b5",
-                "rest_key": "3b57bd2db21c46d2875508b982968d26",
-                "domains": "surfly.com, *.surfly.com"
-            }
+        {
+            "company_name": "Neverland",
+            "client_key": "AOEUaoeuntsPDe",
+            "agent_count": 15,
+            "widget_key": "24d1414c71a94cbf9f205ed4fc4999b5",
+            "rest_key": "3b57bd2db21c46d2875508b982968d26",
+            "domains": "surfly.com, *.surfly.com"
+        }
 
 ### Update a client [PUT]
 
-Update a client as `RESELLER_KEY`
-
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company_name | New Name of company | Peter Pan |
-
-**Repsonse Body:**
-
-A list of objects containing the following parameter:
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company_name | Name of company | Peter Pan |
-| client_key | Client Key | AOEUaoeuntsPDe |
 
 + Request (application/json)
 
-    + Body
+        {
+            "company_name": "Peter Pan"
+        }
 
-            {
-                "company_name": "Peter Pan"
-            }
-        
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "company_name": "Peter Pan"
-            }
+        {
+            "company_name": "Peter Pan"
+        }
 
 ### Delete the Client [DELETE]
 
-Delete the client
-
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "response":"Client has been removed Successfully"
-            }
+        {
+            "response":"Client has been removed Successfully"
+        }
 
 
 
@@ -879,85 +861,48 @@ Delete the client
 
 ### Example: List Active Sessions for Reseller's Client [GET]
 
-List all ACTIVE sessions for a certain `Client`, `Year`, `Month`
-
-active_session, agent_id, year, month are optional
-
-**Response Body:**
-
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-| start_time | time the session started | Fri, 10 okt 10:20 AM |
-| duration | Length of the session | 123 |
 
 + Response 200 (application/json)
 
-   + Body
-
-            [{
-                "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
-                "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
-                "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
-                "start_time": "Fri, 10 okt 10:20 AM",
-                "duration": 123
-            }]
+        [{
+            "session_id": "fOBg4dXAPTHSoil6LywgfYA",
+            "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
+            "start_time": "Fri, 10 okt 10:20 AM",
+            "duration": 123
+        }]
 
 
 
 ########################################
 # Group Invoice
-Invoice related resources of the **Surfly API**
 
 
 # Invoice Collection [/get/invoice/details/?api_key={API_KEY}]
-Reseller functionality
 
 + Parameters
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
 
 ### Lists your current month's invoice [GET]
 
-Return your current month's invoice by client_key
-
-**Repsonse Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| item_list | List of company logs | amount, description, unit_price, quantity |
-| issue_date |  Invoice Issue Date | 2015-6-06 |
-| to_address | Address of the company Admin or Reseller | ABC,1221,Netherlands,4343 |
-| from_address | Address of the Surfly Admin | Surfly Admin, Netherlands |
-| payment_term | Payment term in days | 14 |
-| sub_total | Subtotal of the Invoice | 1490 |
-| send_invoice | Send invoice to mail | false |
-| currency | Currency | euro |
-| invoice_number | Invoice ID | 5 |
-| total | Total amount of invoice | 1490 |
-
 + Response 200 (application/json)
 
-    + Body
-
-            [{
-                "item_list": [{
-                    "amount": 40,
-                    "description": "Date from 2015-06-29 to 2015-01-29",
-                    "unit_price": 0.67,
-                    "quantity": 60
-                }],
-                "issue_date": "2015-6-06",
-                "to_address": "ABC,1221,Netherlands,4343",
-                "from_address": "Surfly Admin, Netherlands",
-                "payment_term": 14,
-                "sub_total": 1490,
-                "send_invoice": false,
-                "currency": "euro",
-                "invoice_number": 5,
-                "total": 1490
-            }]
+        [{
+            "item_list": [{
+                "amount": 40,
+                "description": "Date from 2015-06-29 to 2015-01-29",
+                "unit_price": 0.67,
+                "quantity": 60
+            }],
+            "issue_date": "2015-6-06",
+            "to_address": "ABC,1221,Netherlands,4343",
+            "from_address": "Surfly Admin, Netherlands",
+            "payment_term": 14,
+            "sub_total": 1490,
+            "send_invoice": false,
+            "currency": "euro",
+            "invoice_number": 5,
+            "total": 1490
+        }]
 
 
