@@ -287,11 +287,12 @@ completely different Queue system  it can be accomplished in a few different way
 #### Set a Javascript specific endpoint
 
 
-You can configure the 'QUEUE_ENDPOINT' in the Javascript snippet to specify
-where we should fire a request each time a new user wants to start a session.
+You can configure the 'QUEUE_ENDPOINT' in the Javascript snippet to specify where
+we should fire a request each time a new user wants to start a session.
 
-As long as an agent is Queue'd, we will fire a POST request each 5 seconds to this
-endpoint containing the following body:
+As long as an agent is Queue'd, we will fire a POST request to this endpoint
+containing the following body:
+
 
 
 ```
@@ -307,7 +308,7 @@ Your controller that handles this request can than display or dispatch the
 viewer link to any of the available agents.
 
 
-#### Set a Javascript Queue handler
+#### Set up custom Javascript Queue functionality
 
 If you want to handle the Queue functionality yourself completely you can also
 provide us with two callbacks:
@@ -315,14 +316,24 @@ provide us with two callbacks:
  - `QUEUE_HANDLER`
  - `QUEUE_CALLBACK`
 
-We will call `QUEUE_HANDLER` every 5 seconds a user is requesting a Surfly
-session. The argument to this call is a JSON object with the following
-parameters:
+We will call `QUEUE_HANDLER` a user is requesting a Surfly session. The argument
+to this call is a JSON object with the following parameters:
+
 
  - id : session id
  - viewer_link: the link the agent should open
  - ip_address: the ip address of the client
 
+If you use any one of the above Queue functionality `QUEUE_HANDLER` or `QUEUE_ENDPOINT`
+in your custom page.
+
+`QUEUE_CALLBACK` is the way to trace the status of the queue. It will contains two params:
+
+ - status (true or false)
+   - true   (on successful join or rejoin)
+   - false  (after cancel, close)
+ - data
+   - queue (a unique queue identifier)
 
 ----
 
