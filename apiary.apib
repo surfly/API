@@ -44,7 +44,7 @@ page or landing page for your clients.
 
 When your users are already logged in on your website you probably don’t want
 that starting a Surfly session will break the flow and or require them to login
-again. Surfly can pick up the session exactly where the uses
+again. Surfly can pick up the session exactly where the user is
 
 ##### Deep Application Integration
 
@@ -76,7 +76,7 @@ ways in how one can interface with Surfly:
 #  The Surfly Code Snippet
 
 Surfly's code snippet is a small snippet of Javascript code that can be copied
-in in your website template.
+into your website template.
 
 ## The Surfly Widget and extension
 
@@ -161,7 +161,7 @@ switching a flag in the Chrome extension.
 ## Field Masking
 
 The business plan comes with the option to enable field-masking. This allows you to set a
-special attribute on a FORM element called `surfly_private`. This will than prevent Surfly
+special attribute on a FORM element called `surfly_private`. This will then prevent Surfly
 from actually synchronizing the content of the field to followers. This can be useful for
 sensitive fields such as creditcard numbers or social security numbers.
 
@@ -204,8 +204,8 @@ integration.
 
 #### From within Javascript
 
-To detect a Surfly session from the client side one can simply one can simply
-check for the existance of a global variable called `__surfly`
+To detect a Surfly session from the client side one can simply
+check for the existence of a global variable called `__surfly`
 
 For example, to hide a button within a Surfly session one could do the
 following:
@@ -256,7 +256,7 @@ session specific cookies. These cookies can be passed to the Javascript Widget
 or a REST call.
 
 When you have trouble finding out the exact cookies you'll need to pass, you can
-also use a different approach. The session can alse be set up through a
+also use a different approach. The session can also be set up through a
 'continuation point'. A continuation point is a helper script run on the
 background that can made all session variables available through a secure and
 unique link. An example of such a continuation point can be found here:
@@ -268,7 +268,7 @@ continuation by itself, extract the session cookies and pass them along to
 Surfly when starting a session.
 
 If you need more help with this please contact us at support@surfly.com, we can
-consult on the implemantion or build the integration for you.
+consult on the implementation or build the integration for you.
 
 
 
@@ -276,7 +276,7 @@ consult on the implemantion or build the integration for you.
 
 It is possible to integrate Surfly on your website with some sort of support
 button. Once a user clicks this button, his support request will be queue'd
-where one of the available agents can than answer the request. The user will be
+where one of the available agents can then answer the request. The user will be
 the 'leader' of the session and the agent who joins will be the follower of the
 session.
 
@@ -304,7 +304,7 @@ containing the following body:
 }
 ```
 
-Your controller that handles this request can than display or dispatch the
+Your controller that handles this request can then display or dispatch the
 viewer link to any of the available agents.
 
 
@@ -442,7 +442,7 @@ Commands are sent by calling postMessage on the Surfly iframe. The message shoul
 {"command": "message", "data": "<data>"}
 ```
 
-This will broadcast string "<data>" to all other parties in the session.
+This will broadcast string `"<data>"` to all other parties in the session.
 
 
 ### Change controlling party
