@@ -321,7 +321,7 @@ We will pass the endpoint response to `QUEUE_CALLBACK` every time (see below), s
 store some session metadata in additional fields.
 
 
-#### Set up custom Javascript Queue functionality
+#### Set up custom Javascript queue handler
 
 If you want to handle the Queue functionality yourself completely you can also
 provide us with a custom Javascript function object in `QUEUE_HANDLER` option.
@@ -338,11 +338,10 @@ will be given two arguments:
 
 #### Tracking queue status
 
-If you use `QUEUE_HANDLER` or `QUEUE_ENDPOINT`, you can also set the
-`QUEUE_CALLBACK` Javascript function to trace the status of the queue.
+You can also provide a Javascript function in `QUEUE_CALLBACK` option to trace the status of the queue.
 We will call this function every time when a user joins, rejoins, or leaves the queue.
 
-It will be provided with two params:
+It will be called with two arguments:
 
  - status (true or false)
    - true   (on successful join or rejoin)
