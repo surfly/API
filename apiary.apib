@@ -284,58 +284,69 @@ session.
 
 Surfly comes with relatively basic Queue functionality. If you want to integrate
 the Queue functionality in your own application or even hook it up to a
-completely different Queue system  it can be accomplished in a few different ways:
+completely different Queue system it can be accomplished in a few different ways:
 
-#### Set a Javascript specific endpoint
-
+#### Set a custom queue endpoint
 
 You can configure the 'QUEUE_ENDPOINT' in the Javascript snippet to specify where
 we should fire a request each time a new user wants to start a session.
 
 As long as an agent is Queue'd, we will fire a POST request to this endpoint
-containing the following body:
-
+containing the following JSON in request body:
 
 
 ```
 {
-    'url': <actual url to start a session on>,
-    'id': <session_id>,
-    'viewer_link': <the link the agent needs to open to join the session>,
-    'ip_address': <ip address of the website visitor>
+    "url": <actual url to start a session on>,
+    "id": <session_id>,
+    "viewer_link": <the link the agent needs to open to join the session>,
+    "ip_address": <ip address of the website visitor>
 }
 ```
 
 Your controller that handles this request can then display or dispatch the
 viewer link to any of the available agents.
 
+Endpoint is expected to respond with a JSON object. It must contain at least one
+field - `identifier`, which should be a unique string identifying the current session:
 
-#### Set up custom Javascript Queue functionality
+```
+{
+    "identifier": "<unique_id>",
+    ...additional session metadata...
+}
+```
+
+We will pass the endpoint response to `QUEUE_CALLBACK` every time (see below), so you can
+store some session metadata in additional fields.
+
+
+#### Set up custom Javascript queue handler
 
 If you want to handle the Queue functionality yourself completely you can also
-provide us with two callbacks:
+provide us with a custom Javascript function object in `QUEUE_HANDLER` option.
 
- - `QUEUE_HANDLER`
- - `QUEUE_CALLBACK`
+If it is specified, we will call `QUEUE_HANDLER` when a user requests a Surfly
+session (instead of making AJAX call to `QUEUE_ENDPOINT`). `QUEUE_HANDLER`
+will be given two arguments:
 
-We will call `QUEUE_HANDLER` a user is requesting a Surfly session. The argument
-to this call is a JSON object with the following parameters:
+- JSON object with session information (see request format for `QUEUE_ENDPOINT` above)
+- a success callback function. `QUEUE_HANDLER` must call this callback after a successful
+  queue join. You must pass a session metadata object as a first argument (see
+  response format for `QUEUE_ENDPOINT`)
 
 
- - id : session id
- - viewer_link: the link the agent should open
- - ip_address: the ip address of the client
+#### Tracking queue status
 
-If you use any one of the above Queue functionality `QUEUE_HANDLER` or `QUEUE_ENDPOINT`
-in your custom page.
+You can also provide a Javascript function in `QUEUE_CALLBACK` option to trace the status of the queue.
+We will call this function every time when a user joins, rejoins, or leaves the queue.
 
-`QUEUE_CALLBACK` is the way to trace the status of the queue. It will contains two params:
+It will be called with two arguments:
 
  - status (true or false)
    - true   (on successful join or rejoin)
    - false  (after cancel, close)
- - data
-   - queue (a unique queue identifier)
+ - session - an object describing the session (this is received from `QUEUE_HANDLER` or `QUEUE_ENDPOINT`)
 
 ----
 
