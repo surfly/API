@@ -643,44 +643,6 @@ Both keys can be found on your API page in your dashboard. We recommend that you
             "duration": 123
         }]
 
-# Active Sessions Collection [/sessions/?api_key={API_KEY}&active_session=true]
-
-+ Parameters
-    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-
-### List all Active Sessions [GET]
-
-
-+ Response 200 (application/json)
-
-        [{
-            "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
-            "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
-            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
-            "start_time": "Fri, 10 okt 10:20 AM",
-            "duration": 123
-        }]
-
-# Agent Sessions Collection [/sessions/?api_key={API_KEY}]
-
-+ Parameters
-    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-
-### List Active Sessions for Agent [GET]
-
-
-+ Response 200 (application/json)
-
-        [{
-            "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
-            "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
-            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
-            "start_time": "Fri, 10 okt 10:20 AM",
-            "duration": 123
-        }]
-
-
-
 ### Create a session [POST]
 
 
@@ -709,6 +671,46 @@ Both keys can be found on your API page in your dashboard. We recommend that you
             }
             ]
         }
+
+
+
+# Active Sessions Collection [/sessions/?api_key={API_KEY}&active_session=true]
+
++ Parameters
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+
+### List all Active Sessions [GET]
+
+
++ Response 200 (application/json)
+
+        [{
+            "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
+            "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+            "start_time": "Fri, 10 okt 10:20 AM",
+            "duration": 123
+        }]
+
+# Agent Sessions Collection [/sessions/?api_key={API_KEY}&active_session=true&agent_id=1&year=2015&month=01]
+
++ Parameters
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+
+### List Active Sessions for Agent [GET]
+
+
++ Response 200 (application/json)
+
+        [{
+            "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
+            "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+            "start_time": "Fri, 10 okt 10:20 AM",
+            "duration": 123
+        }]
+
+
 
 
 # Session Information [/sessions/{SESSION_ID}/?api_key={API_KEY}]
