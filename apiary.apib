@@ -129,6 +129,7 @@ switching a flag in the Chrome extension.
 | on_end_redirect_follower_to_queue | false | After session end return the follower to the Surfly Queue page |
 | leader_redirect_url | false | After session end redirect the leader to a custom URL |
 | follower_redirect_url | false | After session end redirect the follower to a custom URL |
+| format_session_id | True | Change the session id in something easy to communicate over the phone (eg, 123-123-123) |
 | videochat | true | Is videochat allowed |
 | splash | true | Do we need to show the splash screen on session start |
 | newurl  | true | Should we show the 'newurl button' in the widget |
@@ -660,7 +661,7 @@ Both keys can be found on your API page in your dashboard. We recommend that you
             "duration": 123
         }]
 
-# Agent Sessions Collection [/sessions/?api_key={API_KEY}&active_session=true&agent_id=1&year=2015&month=01]
+# Agent Sessions Collection [/sessions/?api_key={API_KEY}]
 
 + Parameters
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
@@ -686,10 +687,7 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 + Request (application/json)
 
         {
-            "url": "http://www.surfly.com/",
-            "format_session_id": false,
-            "headers": [],
-            "agent_id": 1
+            "url": "http://www.surfly.com/"
         }
 
 + Response 200 (application/json)
@@ -973,5 +971,3 @@ Both keys can be found on your API page in your dashboard. We recommend that you
             "invoice_number": 5,
             "total": 1490
         }]
-
-
