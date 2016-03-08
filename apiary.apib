@@ -60,7 +60,7 @@ dynamic these can also be added and removed through our REST API.
 
 ##### Reseller Automatization
 
-Resellers can use our API to create fresh new Sufly clients, decide whether you
+Resellers can use our API to create fresh new Surfly clients, decide whether you
 want to invoice them directly or if we should handle this for you.
 
 
@@ -129,7 +129,7 @@ switching a flag in the Chrome extension.
 | on_end_redirect_follower_to_queue | false | After session end return the follower to the Surfly Queue page |
 | leader_redirect_url | false | After session end redirect the leader to a custom URL |
 | follower_redirect_url | false | After session end redirect the follower to a custom URL |
-| format_session_id | True | Change the session id in something easy to communicate over the phone (eg, 123-123-123) |
+| format_session_id | true | Change the session id in something easy to communicate over the phone (eg, 123-123-123) |
 | videochat | true | Is videochat allowed |
 | splash | true | Do we need to show the splash screen on session start |
 | newurl  | true | Should we show the 'newurl button' in the widget |
@@ -517,13 +517,13 @@ If ran by follower currently holding control, it will return control back to lea
 ----
 # REST API
 
-The Surfly REST API allows you to integrate the functionality of our dashboard in a programatical manner. With our API you can do the following things: 
+The Surfly REST API allows you to integrate the functionality of our dashboard in a programatical manner. With our API you can do the following things:
 
  * Clients - Create new clients *(reseller only)*
  * Agents - Manage your agents
  * Sessions - Get an overview of all your session
  * Queue - Manipulate the incoming Queue for your agents
- 
+
 To access our API you will need to authenticate by using basic HTTP authentication.  In addition, some API calls require extra information such as:
 
  * RESELLER_KEY  *(reseller only)*
@@ -569,7 +569,7 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 + Response 200 (application/json)
 
         {
-            "agent_id": "1" 
+            "agent_id": "1"
         }
 
 
@@ -637,9 +637,9 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 + Response 200 (application/json)
 
         [{
-            "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
+            "session_id": "fOBg4dXAPTHSoil6LywgfYA",
             "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
-            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
             "start_time": "Fri, 10 okt 10:20 AM",
             "duration": 123
         }]
@@ -686,9 +686,9 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 + Response 200 (application/json)
 
         [{
-            "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
+            "session_id": "fOBg4dXAPTHSoil6LywgfYA",
             "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
-            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
             "start_time": "Fri, 10 okt 10:20 AM",
             "duration": 123
         }]
@@ -704,9 +704,9 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 + Response 200 (application/json)
 
         [{
-            "session_id": "fOBg4dXAPTHSoil6LywgfYA", 
+            "session_id": "fOBg4dXAPTHSoil6LywgfYA",
             "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
-            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
             "start_time": "Fri, 10 okt 10:20 AM",
             "duration": 123
         }]
@@ -729,7 +729,7 @@ Both keys can be found on your API page in your dashboard. We recommend that you
         {
             "id": "fwqcOuuMwTty7ii3kcA8Q",
             "agent_id": 1,
-            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q", 
+            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
             "start_time": "Fri, 10 okt 2014 10:20:24",
             "end_time": "Fri, 10 okt 2014 10:51:46",
             "duration": 1882,
@@ -942,7 +942,7 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 + Parameters
     + CLIENT_KEY (string, `00063668234b4aa19dd436e6a76ab8ae`)
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
- 
+
 
 ### Example: List Active Sessions for Reseller's Client [GET]
 
