@@ -165,6 +165,7 @@ switching a flag in the Chrome extension.
 | theme_font_color | white | support button foreground color|
 | theme_font_background | surfly-red | support button background color |
 | end_of_session_popup_url | false | if this parameter is set, after session end the user will see a popup window with contents from the specified URL |
+| QUEUE_METADATA_CALLBACK | false |  JS callback that can provide optional metadata (see queue customization section below) |
 | QUEUE_ENDPOINT | false | Custom queue endpoint (see queue customization section below) |
 | QUEUE_HANDLER | false | Custom JS queue handler (see queue customization section below) |
 | QUEUE_CALLBACK | false | JS callback for queue monitoring (see queue customization section below) |
@@ -286,7 +287,7 @@ consult on the implementation or build the integration for you.
 
 
 
-## Change Queue Behaviour
+## Queue Behaviour Customization
 
 It is possible to integrate Surfly on your website with some sort of support
 button. Once a user clicks this button, his support request will be queue'd
@@ -294,17 +295,31 @@ where one of the available agents can then answer the request. The user will be
 the 'leader' of the session and the agent who joins will be the follower of the
 session.
 
-Surfly comes with relatively basic Queue functionality. If you want to integrate
-the Queue functionality in your own application or even hook it up to a
-completely different Queue system it can be accomplished in a few different ways:
+Surfly comes with a relatively straightforward dashboard. We not only allow you to enrich
+the information we present on this dashboard but you can also completely build your own dashboard
+and integrate it in your own web application. 
 
-#### Set a custom queue endpoint
+Our Queue functionallity works as follows: 
+
+  1. User requests a session, through any of the provided options (button, #surflystart or Javascript call)
+  2. We optionally enrich the Queue request by calling `QUEUE_METADATA_CALLBACK` if set
+  3. We call `QUEUE_HANDLER` with a *callback* and a *JSON Request Object* containing (enriched) session information.
+    - Our own `QUEUE_HANDLER` we make a REST call to `QUEUE_ENDPOINT` with this *JSON object*
+    - Once the QUEUE was succesfully, `QUEUE_HANDLER` should call the provided *callback* with the status and 
+       a *JSON Response Object*
+  4. On any further Queue status change we call `QUEUE_CALLBACK` with this *JSON Session Object*
+  
+
+#### Set a custom Queue Endpoint
 
 You can configure the 'QUEUE_ENDPOINT' in the Javascript snippet to specify where
 we should fire a request each time a new user wants to start a session.
 
+
+##### JSON Request Format
+
 As long as an agent is Queue'd, we will fire a POST request to this endpoint
-containing the following JSON in request body:
+containing the following JSON in the request body:
 
 
 ```
@@ -319,13 +334,15 @@ containing the following JSON in request body:
 Your controller that handles this request can then display or dispatch the
 viewer link to any of the available agents.
 
+##### JSON Response Format
+
 Endpoint is expected to respond with a JSON object. It must contain at least one
 field - `identifier`, which should be a unique string identifying the current session:
 
 ```
 {
     "identifier": "<unique_id>",
-    ...additional session metadata...
+    ...additional session metadata from server side...
 }
 ```
 
@@ -333,32 +350,57 @@ We will pass the endpoint response to `QUEUE_CALLBACK` every time (see below), s
 store some session metadata in additional fields.
 
 
-#### Set up custom Javascript queue handler
+#### Set up custom Javascript Queue Handler
 
 If you want to handle the Queue functionality yourself completely you can also
-provide us with a custom Javascript function object in `QUEUE_HANDLER` option.
+provide us with a custom Javascript function object as a `QUEUE_HANDLER` option.
 
 If it is specified, we will call `QUEUE_HANDLER` when a user requests a Surfly
-session (instead of making AJAX call to `QUEUE_ENDPOINT`). `QUEUE_HANDLER`
+session (instead of making an AJAX call to `QUEUE_ENDPOINT`). `QUEUE_HANDLER`
 will be given two arguments:
 
-- JSON object with session information (see request format for `QUEUE_ENDPOINT` above)
+- JSON object with session information (see *JSON Request Format* for `QUEUE_ENDPOINT` above)
 - a success callback function. `QUEUE_HANDLER` must call this callback after a successful
-  queue join. You must pass a session metadata object as a first argument (see
-  response format for `QUEUE_ENDPOINT`)
+  queue join. You must pass a session metadata object as a first argument (see *JSON
+  Response Format* for `QUEUE_ENDPOINT` above)
+
+
+#### Enriching a Queue request with Metadata
+
+Prior to making the call to `QUEUE_HANDLER` we will call `QUEUE_METADATA_CALLBACK` which can enrich
+the Queue request with additional METADATA from the client side. For example, if you have the widget
+added to a section of your web application where the user is required to be logged in you probably
+have some knowledge about the user which might be usefull to pass along to the agent. Information such
+as name, email or even phonenumber.
+
+To make sure that this information becomes available in the dashboard you can set `QUEUE_METADATA_CALLBACK`
+to a special function that will return an object that provides these values as key, value pairs. For example:
+
+```
+{
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "+123123123123"
+}
+```
+
+Of these key,value pairs, `name` and `email` will also be provided to the Surfly session so that it can display the
+name of the user in the chatbox and make sure that the accompanying gravatar matches his email address.
+
+
 
 
 #### Tracking queue status
 
-You can also provide a Javascript function in `QUEUE_CALLBACK` option to trace the status of the queue.
-We will call this function every time when a user joins, rejoins, or leaves the queue.
+You can also provide a Javascript function in `QUEUE_CALLBACK` option to trace the status of the queue on the client side.
+We will call this function every time a user is being queue'd, rejoins, or leaves the queue.
 
 It will be called with two arguments:
 
  - status (true or false)
    - true   (on successful join or rejoin)
    - false  (after cancel, close)
- - session - an object describing the session (this is received from `QUEUE_HANDLER` or `QUEUE_ENDPOINT`)
+ - session - a *JSON Response object* describing the session (this is received from `QUEUE_HANDLER` or `QUEUE_ENDPOINT`)
 
 ----
 
@@ -587,8 +629,8 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 
         {
             "agent_id": 2,
-            "agent_name": "Peter Pan",
-            "agent_email": "peter@neverland.net"
+            "agent_name": "John Doe",
+            "agent_email": "john.doe@example.com"
         }
 
 
@@ -789,7 +831,7 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 + Request (application/json)
 
         {
-            "url": "http://www.surfly.com/",
+            "url": "http://www.example.com/",
             "id": "fuSHr0sRQ1usugvheahwQ"
         }
 
@@ -816,7 +858,7 @@ Both keys can be found on your API page in your dashboard. We recommend that you
         {
             "start_time": "2014-11-03T08:22:41.075Z",
             "session": "fuSHr0sRQ1usugvheahwQ",
-            "url": "http://surfly.com/"
+            "url": "http://example.com/"
         }
 
 
@@ -857,7 +899,7 @@ Both keys can be found on your API page in your dashboard. We recommend that you
             "agent_count": 15,
             "widget_key": "24d1414c71a94cbf9f205ed4fc4999b5",
             "rest_key": "3b57bd2db21c46d2875508b982968d26",
-            "domains": "surfly.com, *.surfly.com"
+            "domains": "example.com, *.example.com"
         }]
 
 ### Create a new client [POST]
@@ -893,7 +935,7 @@ Both keys can be found on your API page in your dashboard. We recommend that you
             "agent_count": 15,
             "widget_key": "24d1414c71a94cbf9f205ed4fc4999b5",
             "rest_key": "3b57bd2db21c46d2875508b982968d26",
-            "domains": "surfly.com, *.surfly.com"
+            "domains": "example.com, *.example.com"
         }
 
 ### Set Client Domain List [POST]
@@ -901,13 +943,13 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 + Request (application/json)
 
         {
-            "domains": "surfly.com, *.surfly.com"
+            "domains": "example.com, *.example.com"
         }
 
 + Response 200 (application/json)
 
         {
-            "domains": "surfly.com, *.surfly.com"
+            "domains": "example.com, *.example.com"
         }
 
 ### Update a client [PUT]
