@@ -296,7 +296,7 @@ frontend example-com-https
 
 backend surfly_continuation_point_https
     http-request set-header X-Continuation-Origin https://example.com
-    http-request set-header Host example.com
+    http-request set-header Host surfly.com
     server surfly surfly.com:443 ssl
 ```
 
