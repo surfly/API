@@ -44,7 +44,7 @@ page or landing page for your clients.
 
 When your users are already logged in on your website you probably don’t want
 that starting a Surfly session will break the flow and or require them to login
-again. Surfly can pick up the session exactly where the user is
+again. Surfly can pick up the session exactly where the user is.
 
 ##### Deep Application Integration
 
@@ -258,34 +258,81 @@ The high performance of Surfly can be attributed to our proxy approach. If a
 user wants to continue the web-session as-is it requires that we can transfer
 all information to our proxy.
 
-This feature is called 'session-continuation' and works as follows:
+This feature is called 'session continuation' and works as follows:
 
  - A Surfly session is started on the current website from the same url in a
    hidden iFrame
  - The widget makes sure that Surfly knows about session variables (cookies)
  - After the session has been started we synchronize the current state with the
-   fresh state loaded through the iframe.
+   fresh state loaded through the iframe
+ - When Surfly finish is about to end, we transfer session data to the original
+   page
 
+Session continuation is currently supported only for sessions started with
+Surfly widget.
+There are several ways to set up session continuation.
 
-In order to fully synchronize all session variables we need to be able to send over all
-session specific cookies. These cookies can be passed to the Javascript Widget
-or a REST call.
+### Full session continuation
 
-When you have trouble finding out the exact cookies you'll need to pass, you can
-also use a different approach. The session can also be set up through a
-'continuation point'. A continuation point is a helper script run on the
-background that can made all session variables available through a secure and
-unique link. An example of such a continuation point can be found here:
-https://github.com/surfly/continuation
+This approach allows to transfer all session data, including cookies with `httpOnly`
+flag. However, it requires some collaboration from the integrating website.
+To make it work, website needs to forward all HTTP requests for the path `/surfly_cookie_transfer/`
+to Surfly server. This is usually a tiny change in load balancer configuration.
+For example, if you use nginx, just add these lines in your config file:
 
-The above behaviour can also be demonstrated through the Surfly Chrome
-extension mentioned above. This Chrome extension will take care of the
-continuation by itself, extract the session cookies and pass them along to
-Surfly when starting a session.
+```
+location /surfly_cookie_transfer/ {
+    proxy_pass https://surfly.com;
+    proxy_set_header X-Continuation-Origin https://example.com/;
+}
+```
+
+In case of haproxy, configuration can be something like following:
+
+```
+frontend example-com-https
+  acl surfly_session_continuation hdr(host) -i example.com path_beg /surfly_cookie_transfer/
+  use_backend surfly_continuation_point_https if surfly_session_continuation
+  ...your custom configuration here...
+
+backend surfly_continuation_point_https
+    http-request set-header X-Continuation-Origin https://example.com
+    http-request set-header Host surfly.com
+    server surfly surfly.com:443 ssl
+```
+
+Note that you also need to set an additional request header `X-Continuation-Origin`
+so that Surfly can identify your website.
+
+After setting up the continuation point, add the following widget options:
+
+```javascript
+  cookie_transfer_enabled: true,
+  cookie_transfer_proxying: true,
+  cookie_transfer_urls: ["https://example.com/surfly_cookie_transfer/"]
+```
+
+<!-- 
+### Soft session continuation
+
+It is also possible to integrate session continuation without changing load
+balancer configuration. All you need to do is to make sure that Surfly widget
+is present on all pages, where you want to transfer cookies from (this is not necessarily
+the same page where you start Surfly session from). However,
+since in this case Surfly doesn't have access to the HTTP requests, we *won't transfer
+httpOnly cookies*. If you don't need to syncronize httpOnly cookies, you can use this
+approach.
+
+Make sure that you set the following options in your widget:
+```javascript
+  cookie_transfer_enabled: true,
+  cookie_transfer_proxying: false,
+  cookie_transfer_urls: ["https://example.com/some_page/where/you/want/to/synchronize/cookies/from/"]
+```
+-->
 
 If you need more help with this please contact us at support@surfly.com, we can
 consult on the implementation or build the integration for you.
-
 
 
 ## Queue Behaviour Customization
