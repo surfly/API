@@ -135,7 +135,8 @@ switching a flag in the Chrome extension.
 | newurl  | true | Should we show the 'newurl button' in the widget |
 | sharing_button | true | Should we show the 'sharing button' in the widget |
 | enable_sounds | true | Enable sound notifications |
-| start_muted| false | All participants start with muted microphone|
+| start_muted | false | All participants start with muted microphone|
+| low_quality_video | false | Video quality is limited to 320x240@15 |
 
 
 #### Session Appearance Options
@@ -312,7 +313,7 @@ After setting up the continuation point, add the following widget options:
   cookie_transfer_urls: ["https://example.com/surfly_cookie_transfer/"]
 ```
 
-<!-- 
+<!--
 ### Soft session continuation
 
 It is also possible to integrate session continuation without changing load
@@ -345,18 +346,18 @@ session.
 
 Surfly comes with a relatively straightforward dashboard. We not only allow you to enrich
 the information we present on this dashboard but you can also completely build your own dashboard
-and integrate it in your own web application. 
+and integrate it in your own web application.
 
-Our Queue functionallity works as follows: 
+Our Queue functionallity works as follows:
 
   1. User requests a session, through any of the provided options (button, #surflystart or Javascript call)
   2. We optionally enrich the Queue request by calling `QUEUE_METADATA_CALLBACK` if set
   3. We call `QUEUE_HANDLER` with a *callback* and a *JSON Request Object* containing (enriched) session information.
     - Our own `QUEUE_HANDLER` we make a REST call to `QUEUE_ENDPOINT` with this *JSON object*
-    - Once the QUEUE was succesfully, `QUEUE_HANDLER` should call the provided *callback* with the status and 
+    - Once the QUEUE was succesfully, `QUEUE_HANDLER` should call the provided *callback* with the status and
        a *JSON Response Object*
   4. On any further Queue status change we call `QUEUE_CALLBACK` with this *JSON Session Object*
-  
+
 
 #### Set a custom Queue Endpoint
 
