@@ -124,6 +124,7 @@ switching a flag in the Chrome extension.
 | agent_can_take_control | false | Can the agent take control without requirement that the controller needs to grant it |
 | agent_can_end_session | true | Show End Session button on follower's end |
 | allow_original_file_download | false | Allow users to download shared files (when set to false, users can only view them) |
+| blacklist | "[]" | (enterprise only) Restrict access to the specific resources. [More...](#restrictions)|
 | enable_sounds | true | Enable sound notifications |
 | filesharing | true | Allow file sharing |
 | follower_redirect_url | false | After session end redirect the follower to a custom URL |
@@ -137,7 +138,32 @@ switching a flag in the Chrome extension.
 | start_muted | false | All participants start with muted microphone|
 | store_chat_logs | false | If enabled, chat logs will be available for download in Surfly dashboard |
 | videochat | true | Is videochat allowed |
+| whitelist | "[]" | (enterprise only) Allow access only to the specific resources. [More...](#restrictions)|
 
+<a name="restrictions"></a>
+#### Restrictions format
+A string representation of the JSON array is expected. Every element of the array is an object with the following properties:
+ - `pattern` - regular expresstion. Requested url will be matched to this regular expression
+ - (optional) `redirect` - an url to redirect user to
+
+##### Blacklist example:
+Restrict access to the `example.com`. When user tries to access `example.com` he will be redirected to the default page provided by Surfly
+
+```
+{
+    "pattern": ".*example\\.com.*"
+}
+```
+
+##### Whitelist example:
+Allow access only to the `example.com`. When user tries to access `example.com` he will be redirected to the provided redirect url
+
+```
+{
+    "pattern": ".*example\\.com.*",
+    "redirect": "https://example.com/restricted"
+}
+```
 
 #### Session Appearance Options
 
