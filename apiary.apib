@@ -123,57 +123,83 @@ switching a flag in the Chrome extension.
 | agent_can_request_control | false | Can the agent request control after which it can be granted |
 | agent_can_take_control | false | Can the agent take control without requirement that the controller needs to grant it |
 | agent_can_end_session | true | Show End Session button on follower's end |
-| filesharing | true | Allow file sharing |
 | allow_original_file_download | false | Allow users to download shared files (when set to false, users can only view them) |
-| store_chat_logs | false | If enabled, chat logs will be available for download in Surfly dashboard |
-| on_end_redirect_follower_to_queue | false | After session end return the follower to the Surfly Queue page |
-| leader_redirect_url | false | After session end redirect the leader to a custom URL |
+| blacklist | "[]" | (enterprise only) Restrict access to the specific resources. [More...](#restrictions)|
+| enable_sounds | true | Enable sound notifications |
+| filesharing | true | Allow file sharing |
 | follower_redirect_url | false | After session end redirect the follower to a custom URL |
 | format_session_id | true | Change the session id in something easy to communicate over the phone (eg, 123-123-123) |
-| videochat | true | Is videochat allowed |
-| splash | true | Do we need to show the splash screen on session start |
-| newurl  | true | Should we show the 'newurl button' in the widget |
-| sharing_button | true | Should we show the 'sharing button' in the widget |
-| enable_sounds | true | Enable sound notifications |
-| start_muted | false | All participants start with muted microphone|
+| leader_redirect_url | false | After session end redirect the leader to a custom URL |
 | low_quality_video | false | Video quality is limited to 320x240@15 |
+| newurl  | true | Should we show the 'newurl button' in the widget |
+| on_end_redirect_follower_to_queue | false | After session end return the follower to the Surfly Queue page |
+| sharing_button | true | Should we show the 'sharing button' in the widget |
+| splash | true | Do we need to show the splash screen on session start |
+| start_muted | false | All participants start with muted microphone|
+| store_chat_logs | false | If enabled, chat logs will be available for download in Surfly dashboard |
+| videochat | true | Is videochat allowed |
+| whitelist | "[]" | (enterprise only) Allow access only to the specific resources. [More...](#restrictions)|
 
+<a name="restrictions"></a>
+#### Restrictions format
+A string representation of the JSON array is expected. Every element of the array is an object with the following properties:
+ - `pattern` - regular expresstion. Requested url will be matched to this regular expression
+ - (optional) `redirect` - an url to redirect user to
+
+##### Blacklist example:
+Restrict access to the `example.com`. When user tries to access `example.com` he will be redirected to the default page provided by Surfly
+
+```
+{
+    "pattern": ".*example\\.com.*"
+}
+```
+
+##### Whitelist example:
+Allow access only to the `example.com`. When user tries to access `example.com` he will be redirected to the provided redirect url
+
+```
+{
+    "pattern": ".*example\\.com.*",
+    "redirect": "https://example.com/restricted"
+}
+```
 
 #### Session Appearance Options
 
 |  Option | Default | Description |
 | ---------------| ------------|------------|
-| white_label | false | Do not show a Surfly logo (enterprise only) |
-| chat_box_color | #eb777f | Color of UI (chatbox) elements inside the session |
-| ui_off | false | Just co-browsing no user interface (enterprise only) |
-| docked_only | false | Only show the control options, do not show a video / textchat box |
-| dock_top_position | false | By default we place the dock at the bottom-left, with this option you can put it on top |
-| set_to_smallest | true | By default we resize the active viewport to viewport size of the participant with the smallest screen. This can be disabled |
-| min_width | 0 | Restrict minimal width of the viewport |
-| min_height | 0 | Restrict minimal height of the viewport |
-| max_width | 0 | Restrict max width of the viewport |
 | max_height | 0  | Restrict max height of the viewport |
+| max_width | 0 | Restrict max width of the viewport |
+| min_height | 0 | Restrict minimal height of the viewport |
+| min_width | 0 | Restrict minimal width of the viewport |
+| chat_box_color | #eb777f | Color of UI (chatbox) elements inside the session |
+| dock_top_position | false | By default we place the dock at the bottom-left, with this option you can put it on top |
+| docked_only | false | Only show the control options, do not show a video / textchat box |
+| set_to_smallest | true | By default we resize the active viewport to viewport size of the participant with the smallest screen. This can be disabled |
+| ui_off | false | Just co-browsing no user interface (enterprise only) |
+| white_label | false | Do not show a Surfly logo (enterprise only) |
 
 
 ## Support Button Appearance
 
 |  Option | Default | Description |
 | ---------------| ------------|------------|
-| position | 'bottomleft' | Where should we place the Surfly support button, options are, 'bottomleft', 'bottomright', 'middleright' |
-| hidden | false | Do not show the button |
 | auto_start | false | Instead of showing a button, immediately start a session |
 | autohide_button | true | Hide the Surfly button when no agent is available |
-| theme_font_size | 14 | size of the text in the button |
-| theme_font_color | white | support button foreground color|
-| theme_font_background | surfly-red | support button background color |
+| block_until_agent_joins | true | In case of Surfly button, block the screen until a follower joins |
 | end_of_session_popup_url | false | if this parameter is set, after session end the user will see a popup window with contents from the specified URL |
+| hide_until_agent_joins | true | In case of Surfly button, do not show the cobrowsing window until a follower joins the session |
+| hidden | false | Do not show the button |
+| position | 'bottomleft' | Where should we place the Surfly support button, options are, 'bottomleft', 'bottomright', 'middleright' |
 | QUEUE_METADATA_CALLBACK | false |  JS callback that can provide optional metadata (see queue customization section below) |
 | QUEUE_ENDPOINT | false | Custom queue endpoint (see queue customization section below) |
 | QUEUE_HANDLER | false | Custom JS queue handler (see queue customization section below) |
 | QUEUE_CALLBACK | false | JS callback for queue monitoring (see queue customization section below) |
 | stealth_mode | true | When enabled, users can use CTRL + ENTER to start a Surfly session |
-| block_until_agent_joins | true | In case of Surfly button, block the screen until a follower joins |
-| hide_until_agent_joins | true | In case of Surfly button, do not show the cobrowsing window until a follower joins the session |
+| theme_font_background | surfly-red | support button background color |
+| theme_font_color | white | support button foreground color|
+| theme_font_size | 14 | size of the text in the button |
 
 
 ## Field Masking
