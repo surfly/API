@@ -146,6 +146,8 @@ A string representation of the JSON array is expected. Every element of the arra
  - `pattern` - regular expresstion. Requested url will be matched to this regular expression
  - (optional) `redirect` - an url to redirect user to
 
+If you want to end the Surfly session when an user requests restricted url, see `"end_session"` widget API command
+
 ##### Blacklist example:
 Restrict access to the `example.com`. When user tries to access `example.com` he will be redirected to the default page provided by Surfly
 
@@ -629,6 +631,27 @@ This will put leader into viewer mode and selected follower will become the pilo
  - entering data in forms
 
 If ran by follower currently holding control, it will return control back to leader.
+
+
+### End session
+The session should be started with the Surfly button. Sending this API message will trig following events:
+ - session continuation
+ - end of the session
+ - leader is redirected to the page specified in `redirect`
+
+ `targetOrigin` should be the domain name of the starting page
+
+```
+Surfly.sendApiMessage(
+    'widget_message',
+    {
+        targetOrigin: "https://example.com",
+        target: 'widget',
+        msg: 'end_session',
+        redirect: "https://newpage.com"
+    }
+);
+```
 
 
 ----
