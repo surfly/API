@@ -146,6 +146,16 @@ A string representation of the JSON array is expected. Every element of the arra
  - `pattern` - regular expresstion. Requested url will be matched to this regular expression
  - (optional) `redirect` - an url to redirect user to
 
+If a session was started with Surfly button and you want to end the session when an user requests restricted page, redirect him to the page that includes `widget.js` and execute the following code:
+```
+Surfly.endSession(redirect_url);
+```
+
+`endSession` function will trigger following events:
+ - session continuation
+ - end of the session
+ - leader is redirected to the page specified in `redirect_url`
+
 ##### Blacklist example:
 Restrict access to the `example.com`. When user tries to access `example.com` he will be redirected to the default page provided by Surfly
 
@@ -156,7 +166,7 @@ Restrict access to the `example.com`. When user tries to access `example.com` he
 ```
 
 ##### Whitelist example:
-Allow access only to the `example.com`. When user tries to access `example.com` he will be redirected to the provided redirect url
+Allow access only to the `example.com`. When user tries to access any other website he will be redirected to the provided redirect url
 
 ```
 {
