@@ -148,15 +148,13 @@ A string representation of the JSON array is expected. Every element of the arra
 
 If a session was started with Surfly button and you want to end the session when an user requests restricted page, redirect him to the page that includes `widget.js` and execute the following code:
 ```
-Surfly.endSession(origin, redirect_url);
+Surfly.endSession(redirect_url);
 ```
 
 `endSession` function will trigger following events:
  - session continuation
  - end of the session
  - leader is redirected to the page specified in `redirect_url`
-
- `origin` should be the domain name of the starting page
 
 ##### Blacklist example:
 Restrict access to the `example.com`. When user tries to access `example.com` he will be redirected to the default page provided by Surfly
