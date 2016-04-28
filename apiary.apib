@@ -43,7 +43,7 @@ page or landing page for your clients.
 ##### Full Session Continuation
 
 When your users are already logged in on your website you probably don’t want
-that starting a Surfly session will break the flow and or require them to login
+a Surfly session break the flow and/or require them to login
 again. Surfly can pick up the session exactly where the user is.
 
 ##### Deep Application Integration
@@ -320,7 +320,8 @@ For example, if you use nginx, just add these lines in your config file:
 ```
 location /surfly_cookie_transfer/ {
     proxy_pass https://surfly.com;
-    proxy_set_header X-Continuation-Origin https://example.com/;
+    proxy_set_header X-Continuation-Origin https://example.com;
+    proxy_set_header X-Widget-Key 24d1414c71a94cbf9f205ed4fc4999b5;
 }
 ```
 
@@ -334,12 +335,15 @@ frontend example-com-https
 
 backend surfly_continuation_point_https
     http-request set-header X-Continuation-Origin https://example.com
+    http-request set-header X-Widget-Key 24d1414c71a94cbf9f205ed4fc4999b5
     http-request set-header Host surfly.com
     server surfly surfly.com:443 ssl
 ```
 
-Note that you also need to set an additional request header `X-Continuation-Origin`
-so that Surfly can identify your website.
+Note that you also need to set an additional request headers:
+`X-Widget-Key` should contain your widget key (the same that is used in javscript snippet).
+`X-Continuation-Origin` should contain the origin of the page where Surfly widget is integrated.
+That is, a protocol scheme followed by domain name and a port in case it is non-standard.
 
 After setting up the continuation point, add the following widget options:
 
@@ -349,7 +353,6 @@ After setting up the continuation point, add the following widget options:
   cookie_transfer_urls: ["https://example.com/surfly_cookie_transfer/"]
 ```
 
-<!--
 ### Soft session continuation
 
 It is also possible to integrate session continuation without changing load
@@ -366,7 +369,6 @@ Make sure that you set the following options in your widget:
   cookie_transfer_proxying: false,
   cookie_transfer_urls: ["https://example.com/some_page/where/you/want/to/synchronize/cookies/from/"]
 ```
--->
 
 If you need more help with this please contact us at support@surfly.com, we can
 consult on the implementation or build the integration for you.
