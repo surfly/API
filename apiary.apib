@@ -380,16 +380,19 @@ After setting up the continuation point, add the following widget options:
 It is also possible to integrate session continuation without changing load
 balancer configuration. All you need to do is to make sure that Surfly widget
 is present on all pages, where you want to transfer cookies from (this is not necessarily
-the same page where you start Surfly session from). However,
-since in this case Surfly doesn't have access to the HTTP requests, we *won't transfer
-httpOnly cookies*. If you don't need to syncronize httpOnly cookies, you can use this
-approach.
+the same page where you start Surfly session from). However, soft session continuation
+has some limitations:
+
+- we will only transfer cookies from the current page
+- for security reasons, session will be transferred back only if the last page
+  opened inside the session is on the same domain *and* has a Surfly widget on it
+- since in this case Surfly doesn't have access to the HTTP requests, we *won't transfer
+httpOnly cookies*
 
 Make sure that you set the following options in your widget:
 ```javascript
   cookie_transfer_enabled: true,
-  cookie_transfer_proxying: false,
-  cookie_transfer_urls: ["https://example.com/some_page/where/you/want/to/synchronize/cookies/from/"]
+  cookie_transfer_proxying: false
 ```
 
 If you need more help with this please contact us at support@surfly.com, we can
