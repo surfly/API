@@ -190,7 +190,28 @@ Allow access only to the `example.com`. When user tries to access any other webs
 | set_to_smallest | true | By default we resize the active viewport to viewport size of the participant with the smallest screen. This can be disabled |
 | ui_off | false | Just co-browsing no user interface (enterprise only) |
 | white_label | false | Do not show a Surfly logo (enterprise only) |
+| drawing_color | "default" | "Magic marker" color (see Drawing section below) |
+| drawing_mode | "temporary" | "Magic marker" mode (see Drawing section below) |
 
+
+##### Drawing
+
+There are multiple ways of communication within a Surfly session. One of them is
+a drawing feature. This is enabled by default and allows users who are not
+in control to highlight things on the page in a sort of "magic marker" style.
+There are two options used to change the drawing behavior: `drawing_mode` and
+`drawing_color`. They can be set both as session options and via postMessage API
+(see postMessage commands section).
+
+By default, `drawing_color` is set to `"default"` value which means that each user will
+draw with his own color. You can set it to any color you like (specify a valid CSS
+color string, e.g. `"blue"` or `"#0000ff"`). In this case all users will draw
+with the same color.
+
+`drawing_mode` option can be set to one of the following values:
+- "temporary" - drawings will fadeout automatically
+- "permanent" - drawings will stay there until the next drawing_mode change
+- "disabled" - drawing functionality disabled
 
 ## Support Button Appearance
 
@@ -387,7 +408,7 @@ Surfly comes with a relatively straightforward dashboard. We not only allow you 
 the information we present on this dashboard but you can also completely build your own dashboard
 and integrate it in your own web application.
 
-Our Queue functionallity works as follows:
+Our Queue functionality works as follows:
 
   1. User requests a session, through any of the provided options (button, #surflystart or Javascript call)
   2. We optionally enrich the Queue request by calling `QUEUE_METADATA_CALLBACK` if set
@@ -643,6 +664,14 @@ This will put leader into viewer mode and selected follower will become the pilo
 
 If ran by follower currently holding control, it will return control back to leader.
 
+
+### Change drawing settings (only on leader side)
+
+```
+{"command": "drawing_settings", "settings": {"mode": "<drawing_mode>", "color": "<drawing_color>"}}
+```
+
+Valid values are discussed in Drawing section. Note that one of "mode" and "color" keys may be omitted
 
 ----
 # REST API
