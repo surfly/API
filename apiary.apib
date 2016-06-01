@@ -6,7 +6,7 @@ HOST: https://api.surfly.com/v2/
 
 While Surfly can be used directly from the Surfly website, we also have an
 extensive API in order for our clients to be able to integrate Surfly tightly
-into their current website or web application. One can even completely automate
+into their current website or web application. You can even completely automate
 the management of client and agent creation through our REST API.
 
 The following types of customizations of Surfly can be achieved:
@@ -19,13 +19,15 @@ The following types of customizations of Surfly can be achieved:
  - [Agent Creation](#agent_creation)
  - [Reseller Automatization](#reseller_automatization)
 
+For example code please see the [Reference Code](#reference_code) section below.
+
 <a name="website_integration></a>
 ##### Website Integration
 
 Add Surfly to your website and allow the visitors to your website to create a
 support request by clicking on our support button.  The style and color of this
 button can be fully customized to match your applications or website’s look and
-feel.
+feel. See the [support button appearance](#support_button) table for more information:
 
 <a name="session_customization"></a>
 ##### Session Customization
@@ -64,9 +66,11 @@ dynamic, these can also be added and removed through our REST API.
 <a name="reseller_automization"></a>
 ##### Reseller Automatization
 
-Resellers can use our API to create fresh new Surfly clients.  You decide whether you
+Resellers can use our API to create new Surfly clients.  You decide whether you
 want to invoice them directly or if we should handle this for you.
 
+
+#### Adding customization
 
 These type of customizations or integrations can be built in 3 different
 ways, in order to manage the interface with Surfly:
@@ -94,7 +98,7 @@ and non-blocking way in order to not have any effect on your page load times.
 The snippet comes with lots of options which we will
 detail below:
 
-### The extension
+### The chrome extension
 
 If you do not want to immediately add the code to your website, but still want to
 take a look at how Surfly's integration can work, you can use our Chrome extension. This
@@ -156,7 +160,7 @@ A blocked url is always added as a query parameter to the redirect url:
 http://mysite.com/restricted?blocked_url=https%3A%2F%2Fexample.com
 ```
 
-If a session was started with the Surfly button, and you want to end the session when an user requests restricted page, redirect him to the page that includes `widget.js` and execute the following code:
+If a session was started with the Surfly button, and you want to end the session when a user requests restricted page, redirect them to the page that includes `widget.js` and execute the following code:
 ```
 Surfly.endSession(redirect_url);
 ```
@@ -191,8 +195,8 @@ Allow access only to the `example.com`. When the user tries to access any other 
 | ---------------| ------------|------------|
 | max_height | 0  | Restrict max height of the viewport |
 | max_width | 0 | Restrict max width of the viewport |
-| min_height | 0 | Restrict minimal height of the viewport |
-| min_width | 0 | Restrict minimal width of the viewport |
+| min_height | 0 | Restrict min height of the viewport |
+| min_width | 0 | Restrict min width of the viewport |
 | chat_box_color | #eb777f | Color of UI (chatbox) elements inside the session |
 | dock_top_position | false | By default we place the dock at the bottom-left, with this option you can put it on top |
 | docked_only | false | Only show the control options, do not show a video / textchat box |
@@ -212,7 +216,7 @@ There are two options used to change the drawing behavior: `drawing_mode` and
 `drawing_color`. They can be set both as session options and via postMessage API
 (see postMessage commands section).
 
-By default, `drawing_color` is set to `"default"` value which means that each user will
+As the `drawing_color` is set to the `"default"` value, this means that each user will
 draw with their own color. You can set it to any color you like (specify a valid CSS
 color string, e.g. `"blue"` or `"#0000ff"`). In this case all users will draw
 with the same color.
@@ -222,6 +226,7 @@ The `drawing_mode` option can be set to one of the following values:
 - "permanent" - drawings will stay there until the next drawing_mode change
 - "disabled" - drawing functionality disabled
 
+<a name="support_button"></a>
 ## Support Button Appearance
 
 |  Option | Default | Description |
@@ -232,7 +237,7 @@ The `drawing_mode` option can be set to one of the following values:
 | end_of_session_popup_url | false | If this parameter is set, after session end the user will see a popup window with the contents from the specified URL |
 | hide_until_agent_joins | true | In case of the Surfly button, do not show the cobrowsing window until a follower joins the session |
 | hidden | false | Do not show the button |
-| position | 'bottomleft' | Where should we place the Surfly support button? Options are: 'bottomleft', 'bottomright', 'middleright' |
+| position | 'bottomleft' | Positions the Surfly Support Button. The options are: 'bottomleft', 'bottomright', 'middleright' |
 | QUEUE_METADATA_CALLBACK | false |  A JS callback that can provide optional metadata (see queue customization section below) |
 | QUEUE_ENDPOINT | false | Custom queue endpoint (see queue customization section below) |
 | QUEUE_HANDLER | false | Custom JS queue handler (see queue customization section below) |
@@ -255,7 +260,7 @@ sensitive fields such as creditcard numbers or social security numbers.
 # Customizing the User Flow
 
 The flexibility of Surfly allows it to be used with different types of usecases.
-This allows you not only to customize how a Surfly session looks but also how a
+This allows you not only to customize how a Surfly session looks, but also how a
 session can be integrated in your work flow.
 
 
@@ -282,17 +287,17 @@ simply put it within a "A" anchor. For example:
 
 ## Detecting a Surfly Session
 
-You might want to change the behaviour of the website depending whether it is a
-Surfly session or not. Example use cases are for example hiding a customized 'session
-start' button within the Surfly session or remove certain toolbars for a nicer
+You might want to change the behaviour of the website depending on whether it is a
+Surfly session or not. Example use cases are, for example, hiding a customized 'session
+start' button within the Surfly session or to remove certain toolbars for a nicer
 integration.
 
 #### From within Javascript
 
-To detect a Surfly session from the client side one can simply
+To detect a Surfly session from the client side, you can simply
 check for the existence of a global variable called `__surfly`
 
-For example, to hide a button within a Surfly session one could do the
+For example, to hide a button within a Surfly session, you could do the
 following:
 
 ```javascript
@@ -313,7 +318,7 @@ over time, so we recommend a different way to do this.
 On each session that comes through our proxy, we will add an 'X-Forwarded-For'
 header that points to the original IP of the 'leader'.
 
-When creating a request, one can also set the 'headers' option (in both the
+When creating a request, you can also set the 'headers' option (in both the
 Javascript call and the REST call) to add additional headers. These headers can
 used to, for example, add an "Authorization" header to allow to user to be logged
 in on your own backend or a custom header which can be used as an identifier. We
@@ -323,7 +328,7 @@ will send these headers with each request made during the session.
 ## Session Continuation
 
 The high performance of Surfly can be attributed to our proxy approach. If a
-user wants to continue the web-session as-is, it requires that we can transfer
+user wants to continue the web-session as-is, it is necessary to transfer
 all information to our proxy.
 
 This feature is called 'session continuation', and works as follows:
@@ -528,7 +533,7 @@ It will be called with two arguments:
 # Customize the Session Interface
 
 After the iframe has been created, it can be controlled via postMessage and
-will emit messages back to the parent frame. One can start a Surfly session with
+will emit messages back to the parent frame. You can start a Surfly session with
 the UI=OFF flag as described above.
 
 ## Events
@@ -702,7 +707,7 @@ To access our API, you will need to authenticate by using basic HTTP authenticat
 
 Both keys can be found on your API page in your dashboard. We recommend that you keep your CLIENT_KEY and RESELLER_KEY secret at all times.
 
-
+<a name="reference_code"></a>
 
 ########################################
 # Group Agents
