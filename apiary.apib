@@ -519,6 +519,13 @@ It will be called with two arguments:
    - false  (after cancel, close)
  - session - a *JSON Response object* describing the session (this is received from `QUEUE_HANDLER` or `QUEUE_ENDPOINT`)
 
+
+## Creating custom log messages
+It is possible to create custom log message during the Surfly session using log function:
+```
+Surfly.log("Custom message");
+```
+
 ----
 
 # Customize the Session Interface
@@ -1155,3 +1162,73 @@ Both keys can be found on your API page in your dashboard. We recommend that you
             "invoice_number": 5,
             "total": 1490
         }]
+
+
+########################################
+# Group Logs
+
+# Logs Collection [/logs/?api_key={API_KEY}]
+
++ Parameters
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+
+### List all logs [GET]
+
+
++ Response 200 (application/json)
+
+    [{
+        "next": null,
+        "previous": null,
+        "results": [{
+            "id": 1,
+            "agent_id": 1,
+            "created": "2016-05-30T15:13:03.253096Z",
+            "session_id": "ffqrdp05TRWemTfJNyVRHZw",
+            "details": "New session with url http://google.com/ was started"
+        }]
+    }]
+
+### Create log instance [POST]
+
+
++ Request (application/json)
+
+    {
+        "session_id": "ffqrdp05TRWemTfJNyVRHZw",
+        "details": "Log message"
+    }
+
++ Response 200 (application/json)
+
+    {
+        "id": 2,
+        "agent_id": 1,
+        "created": "2016-05-31T08:22:58.310337Z",
+        "session_id": "ffqrdp05TRWemTfJNyVRHZw",
+        "details": "Log message"
+    }
+
+
+# Session Logs Collection [/logs/?api_key={API_KEY}&session_id={SESSION_ID}]
+
++ Parameters
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+    + SESSION_ID (string, `ffqrdp05TRWemTfJNyVRHZw`)
+
+### List all session logs [GET]
+
+
++ Response 200 (application/json)
+
+    [{
+        "next": null,
+        "previous": null,
+        "results": [{
+            "id": 1,
+            "agent_id": 1,
+            "created": "2016-05-30T15:13:03.253096Z",
+            "session_id": "ffqrdp05TRWemTfJNyVRHZw",
+            "details": "New session with url http://google.com/ was started"
+        }]
+    }]
