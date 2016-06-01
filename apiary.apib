@@ -1,11 +1,40 @@
 FORMAT: 1A
 HOST: https://api.surfly.com/v2/
 
+# Definition of terms
+
+Throughout the API we refer to several terms specific Surfly.  For clarification, 
+these are defined below:
+
+Client
+ - A company that is a customer of Surfly 
+
+Agent
+ - An employee of the client company, who is available to help when the 'Start Session'
+  button is pressed
+
+User 
+ - A generic term for either the agent, leader or follower.  Simply put,  a user is someone who 
+ interacts with Surfly.  
+
+Leader 
+ - A leader initiates the session.  They are normally in control of the session, but 
+  can pass this control over to the follower.
+
+Follower
+ - Is invited to join the session by the leader.
+
+UI
+ - User Interface
+
+iframe 
+ - The implementation of Surfly.  
+
 
 # The Co-Browsing API
 
-While Surfly can be used directly from the Surfly website, we also have an
-extensive API in order for our clients to be able to integrate Surfly tightly
+Whilst Surfly can be used directly from the Surfly website, we also have an
+extensive API.  This enables our clients to integrate Surfly tightly
 into their current website or web application. You can even completely automate
 the management of client and agent creation through our REST API.
 
@@ -47,7 +76,7 @@ page or landing page for your clients.
 ##### Full Session Continuation
 
 When your users are already logged in on your website, you probably don’t want
-a Surfly session break the flow and/or require them to login
+a Surfly session breaking the flow and/or require them to login
 again. Surfly can pick up the session exactly where the user is.
 
 <a name="application_integration"></a>
@@ -91,12 +120,14 @@ into your website template.
 Adding the Code Snippet is relatively straightforward. The snippet can be
 obtained from the 'integration' page on your account settings panel.
 
-Copy the piece of code and paste it somewhere in the source of your
-website or application. We will make sure to load the Surfly code in an asynchronous
+Copy the code snippet and paste it into your website or applications source code.
+We will make sure to load the Surfly code in an asynchronous
 and non-blocking way in order to not have any effect on your page load times.
 
+For more information, please see the [Integration Tutorial](#integration_tutorial)
+
 The snippet comes with lots of options which we will
-detail below:
+detail in the [Session Interaction Options](#session_interaction_options) below:
 
 ### The chrome extension
 
@@ -119,10 +150,11 @@ In order to install the extension do the following:
 ----
 # Customizing Surfly Session Behavior
 
-We allow a variety of options for customization of Surfly. These can
+We allow a variety of options for customizing Surfly. These can
 be configured in the Javascript snippet, as an option in a REST call, or by simply
 switching a flag in the Chrome extension.
 
+<a name="session_interaction_options"></a>
 ## Session Interaction Options
 
 
@@ -139,13 +171,13 @@ switching a flag in the Chrome extension.
 | format_session_id | true | Change the session id to something easy to communicate over the phone (eg, 123-123-123) |
 | leader_redirect_url | false | After the session ends, redirect the leader to a custom URL |
 | low_quality_video | false | Video quality is limited to 320x240@15 |
-| newurl  | true | Should we show the 'newurl button' in the widget |
+| newurl  | true | Should we show the 'newurl button' in the widget? |
 | on_end_redirect_follower_to_queue | false | After session end return the follower to the Surfly Queue page |
-| sharing_button | true | Should we show the 'sharing button' in the widget |
-| splash | true | Do we need to show the splash screen on session start |
-| start_muted | false | All participants start with muted microphone|
+| sharing_button | true | Should we show the 'sharing button' in the widget? |
+| splash | true | Do we need to show the splash screen on session start? |
+| start_muted | false | All participants start with muted microphone |
 | store_chat_logs | false | If enabled, chat logs will be available for download in Surfly dashboard |
-| videochat | true | Is videochat allowed |
+| videochat | true | Is videochat allowed? |
 | whitelist | "[]" | (enterprise only) Allow access only to the specific resources. [More...](#restrictions)|
 
 <a name="restrictions"></a>
@@ -203,18 +235,19 @@ Allow access only to the `example.com`. When the user tries to access any other 
 | set_to_smallest | true | By default we resize the active viewport to viewport size of the participant with the smallest screen. This can be disabled |
 | ui_off | false | Just co-browsing, no user interface (enterprise only) |
 | white_label | false | Do not show a Surfly logo (enterprise only) |
-| drawing_color | "default" | "Magic marker" color (see Drawing section below) |
-| drawing_mode | "temporary" | "Magic marker" mode (see Drawing section below) |
+| drawing_color | "default" | "Magic marker" color [see Drawing section below](#drawing_section) |
+| drawing_mode | "temporary" | "Magic marker" mode [see Drawing section below](#drawing_section) |
 
-
+<a name="drawing_section"></a>
 ##### Drawing
 
 There are multiple ways to communicate within a Surfly session. One of them is
-a drawing feature. This is enabled by default and allows users who are not
-in control to highlight things on the page in a sort of "magic marker" style.
-There are two options used to change the drawing behavior: `drawing_mode` and
+the drawing feature. This is enabled by default and allows users who are not
+in control to highlight features on the page in the style of a "magic marker".
+As can be seen from the session appearance options table above, there are 
+two options used to change the drawing behavior: `drawing_mode` and
 `drawing_color`. They can be set both as session options and via postMessage API
-(see postMessage commands section).
+(see the [postMessage commands](#postMessage_commands) section).
 
 As the `drawing_color` is set to the `"default"` value, this means that each user will
 draw with their own color. You can set it to any color you like (specify a valid CSS
@@ -223,7 +256,7 @@ with the same color.
 
 The `drawing_mode` option can be set to one of the following values:
 - "temporary" - drawings will fadeout automatically
-- "permanent" - drawings will stay there until the next drawing_mode change
+- "permanent" - drawings will stay there until the next drawing_mode change	
 - "disabled" - drawing functionality disabled
 
 <a name="support_button"></a>
@@ -247,6 +280,7 @@ The `drawing_mode` option can be set to one of the following values:
 | theme_font_color | white | The support button foreground color|
 | theme_font_size | 14 | The size of the text in the button |
 
+For more information on customizing the support button, please see the [tutorial](#support_button_tutorial)
 
 ## Field Masking
 
@@ -261,7 +295,8 @@ sensitive fields such as creditcard numbers or social security numbers.
 
 The flexibility of Surfly allows it to be used with different types of usecases.
 This allows you not only to customize how a Surfly session looks, but also how a
-session can be integrated in your work flow.
+session can be integrated in your work flow.  Detail on how to start a session can be 
+found below.  For more information, see the [Starting a session tutorial](#start_session_tutorial)
 
 
 ## Automatically starting a session
@@ -289,7 +324,7 @@ simply put it within a "A" anchor. For example:
 
 You might want to change the behaviour of the website depending on whether it is a
 Surfly session or not. Example use cases are, for example, hiding a customized 'session
-start' button within the Surfly session or to remove certain toolbars for a nicer
+start' button within the Surfly session, or to remove certain toolbars for a more aesthetic 
 integration.
 
 #### From within Javascript
@@ -297,7 +332,7 @@ integration.
 To detect a Surfly session from the client side, you can simply
 check for the existence of a global variable called `__surfly`
 
-For example, to hide a button within a Surfly session, you could do the
+For example, to hide a button within a Surfly session, you could implement the
 following:
 
 ```javascript
@@ -334,7 +369,7 @@ all information to our proxy.
 This feature is called 'session continuation', and works as follows:
 
  - A Surfly session is started on the current website from the same url in a
-   hidden iFrame
+   hidden iframe
  - The widget makes sure that Surfly knows about session variables (cookies)
  - After the session has been started we synchronize the current state with the
    fresh state loaded through the iframe
@@ -347,7 +382,7 @@ There are several ways to set up session continuation.
 
 ### Full session continuation
 
-This approach allows the transfer of all session data, including cookies with `httpOnly`
+This approach allows the transfer of all session data, including cookies with a `httpOnly`
 flag. However, it requires some collaboration from the integrating website.
 To make it work, the website needs to forward all HTTP requests for the path `/surfly_cookie_transfer/`
 to Surfly server. This is usually a tiny change in load balancer configuration.
@@ -422,7 +457,7 @@ the 'leader' of the session and the agent who joins will be the follower of the
 session.
 
 Surfly comes with a relatively straightforward dashboard. We not only allow you to enrich
-the information we present on this dashboard but you can also completely build your own dashboard
+the information presented on this dashboard but you can also completely build your own dashboard
 and integrate it in your own web application.
 
 Our Queue functionality works as follows:
@@ -473,7 +508,7 @@ field - `identifier`, which should be a unique string identifying the current se
 ```
 
 We will pass the endpoint response to `QUEUE_CALLBACK` every time (see below), so you can
-store some session metadata in additional fields.
+store session metadata in additional fields.
 
 
 #### Set up custom Javascript Queue Handler
@@ -486,7 +521,7 @@ session (instead of making an AJAX call to `QUEUE_ENDPOINT`). `QUEUE_HANDLER`
 will be given two arguments:
 
 - JSON object with session information (see *JSON Request Format* for `QUEUE_ENDPOINT` above)
-- a success callback function. `QUEUE_HANDLER` must call this callback after a successful
+- a success callback function, `QUEUE_HANDLER` must call this callback after a successful
   queue join. You must pass a session metadata object as a first argument (see *JSON
   Response Format* for `QUEUE_ENDPOINT` above)
 
@@ -512,7 +547,6 @@ to a special function that will return an object that provides these values as k
 
 Of these key,value pairs, `name` and `email` will also be provided to the Surfly session so that the session can display the
 name of the user in the chatbox and make sure that the accompanying gravatar matches his email address.
-
 
 
 
@@ -679,16 +713,17 @@ This will put leader into viewer mode and selected follower will become the pilo
  - clicking
  - entering data in forms
 
-If ran by follower currently holding control, it will return control back to leader.
+If ran by the follower currently holding control, it will return control back to leader.
 
 
-### Change drawing settings (only on leader side)
+<a name="postMessage_commands"></a>
+### Change the drawing settings (only on leader side)
 
 ```
 {"command": "drawing_settings", "settings": {"mode": "<drawing_mode>", "color": "<drawing_color>"}}
 ```
 
-Valid values are discussed in Drawing section. Note that one of "mode" and "color" keys may be omitted
+Valid values are discussed in the [Drawing section](#drawing_section). Note that one of "mode" and "color" keys may be omitted
 
 ----
 # REST API
@@ -706,6 +741,116 @@ To access our API, you will need to authenticate by using basic HTTP authenticat
  * CLIENT_KEY
 
 Both keys can be found on your API page in your dashboard. We recommend that you keep your CLIENT_KEY and RESELLER_KEY secret at all times.
+
+----
+# Tutorial
+
+<a name="integration_tutorial"></a>
+### How to Integrate Surfly into your website
+
+As specified above, there are three ways in which to integrate Surfly:
+
+ - The [Surfly code snippet](#surfly_code_snippet)
+ - The [javascript API](#javascript_API)
+ - The [REST API](#rest_API)
+
+<a name="surfly_code_snippet"></a>
+#### The Surfly code snippet tutorial
+
+This can be found in the 'integrations page' in your account settings.  
+
+  [Image of the page and where to find it]
+
+Copy this into the source of your website:
+
+  [Image of the website source code with the snippet]
+
+You can adapt the session interaction options like so:
+
+ [video/ interactive tutorial showing different functionality]
+
+
+<a name="javascript_API"></a>
+#### The Javascript API Tutorial 
+
+e.g Use __surfly in order to check if a surfly session is running 
+
+<a name="rest_API"></a>
+#### REST API Tutorial
+
+[-- re-read this --]
+
+<a name="start_session_tutorial"></a>
+### Starting a session tutorial 
+
+As specified above, there are three ways in which to do this
+ - The [auto_start option](#auto_start_tutorial)
+ - The [#surflystart anchor](#surflystart_anchor_tutorial)
+ - [Stealth mode](#stealth_mode_tutorial)
+
+<a name="auto_start_tutorial></a>
+#### auto_start tutorial
+
+To start a session from a branded page, set the 'auto_start' flag to true.
+This will start a session automatically.
+
+  [image/ code/ animation]
+
+<a name="surflystart_anchor_tutorial></a>
+#### #surflystart_anchor tutorial
+
+To use this, put the anchor #surflystart on a page where the javascript Surfly
+snippet has been enabled. 
+
+ [add animation/ tutorial]
+
+
+<a name="stealth_mode_tutorial"></a>
+#### Stealth mode tutorial 
+
+The default for this is 'true'.  This allows the visitors to the website to 
+simply use 'CTRL+C' to start a session.
+
+[image/ video? animation]
+
+<a name="support_button_tutorial"></a>
+### Button Customization tutorial 
+
+#### Customization
+
+[primarily focuses upon the table]
+
+theme_font_background
+
+theme_font_color
+
+theme_font_size
+
+position
+
+hidden 
+
+#### Widgit options
+
+<a name="session_appearance_tutorial"></a>
+### Session Appearance options
+
+<a name="drawing_tutorial"></a>
+#### Drawing tutorial
+
+This can be enabled in the session appearance options.  
+
+[ example code and animation]
+
+Modes for each of the drawing modes:
+
+[animation- temporary, permanent, disabled]
+
+#### Disable the Chat box
+
+This can be done via the ui_off mode (from Session Appearance options), and is
+available to enterprise only.  
+
 
 <a name="reference_code"></a>
 
