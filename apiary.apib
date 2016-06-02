@@ -1170,65 +1170,65 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 # Logs Collection [/logs/?api_key={API_KEY}]
 
 + Parameters
-    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+    + API_KEY (string, `jj34bd2db21c46d2875508b982968d26`)
 
 ### List all logs [GET]
 
 
 + Response 200 (application/json)
 
-    [{
+    {
         "next": null,
         "previous": null,
         "results": [{
             "id": 1,
-            "agent_id": 1,
+            "agent_id": 4,
             "created": "2016-05-30T15:13:03.253096Z",
-            "session_id": "ffqrdp05TRWemTfJNyVRHZw",
-            "details": "New session with url http://google.com/ was started"
+            "session_id": "flogr0sRQ1usugvheahwQ",
+            "details": "New session with url http://surfly.com/ was started"
         }]
-    }]
+    }
 
 ### Create log instance [POST]
 
 
 + Request (application/json)
 
-    {
-        "session_id": "ffqrdp05TRWemTfJNyVRHZw",
-        "details": "Log message"
-    }
+        {
+            "session_id": "flogr0sRQ1usugvheahwQ",
+            "details": "Log message"
+        }
 
 + Response 200 (application/json)
 
-    {
-        "id": 2,
-        "agent_id": 1,
-        "created": "2016-05-31T08:22:58.310337Z",
-        "session_id": "ffqrdp05TRWemTfJNyVRHZw",
-        "details": "Log message"
-    }
+        {
+            "id": 1,
+            "agent_id": 4,
+            "created": "2016-05-31T08:22:58.310337Z",
+            "session_id": "flogr0sRQ1usugvheahwQ",
+            "details": "Log message"
+        }
 
 
 # Session Logs Collection [/logs/?api_key={API_KEY}&session_id={SESSION_ID}]
 
 + Parameters
-    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-    + SESSION_ID (string, `ffqrdp05TRWemTfJNyVRHZw`)
+    + API_KEY (string, `jj34bd2db21c46d2875508b982968d26`)
+    + SESSION_ID (string, `flogr0sRQ1usugvheahwQ`)
 
 ### List all session logs [GET]
 
 
 + Response 200 (application/json)
 
-    [{
-        "next": null,
-        "previous": null,
-        "results": [{
-            "id": 1,
-            "agent_id": 1,
-            "created": "2016-05-30T15:13:03.253096Z",
-            "session_id": "ffqrdp05TRWemTfJNyVRHZw",
-            "details": "New session with url http://google.com/ was started"
-        }]
-    }]
+        {
+            "next": null,
+            "previous": null,
+            "results": [{
+                "id": 1,
+                "agent_id": 4,
+                "created": "2016-05-30T15:13:03.253096Z",
+                "session_id": "flogr0sRQ1usugvheahwQ",
+                "details": "New session with url http://surfly.com/ was started"
+            }]
+        }
