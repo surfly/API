@@ -1,71 +1,107 @@
 FORMAT: 1A
 HOST: https://api.surfly.com/v2/
 
+# Definition of terms
+
+Throughout the API we refer to several terms specific to Surfly.  For clarification, 
+these are defined below:
+
+Client
+ - A company that is a customer of Surfly 
+
+Agent
+ - An employee of the client company, who is available to help when the 'Start Session'
+  button is pressed
+
+User 
+ - A generic term for either the agent, leader or follower.  Simply put,  a user is someone who 
+ interacts with the Surfly application.  
+
+Leader 
+ - A leader initiates the session, and invites followers to join them.  They are normally in control of the session, but 
+  can pass this control over to the follower.
+
+Follower
+ - Is invited to join the session by the leader.
+
+UI
+ - User Interface
+
+
+----
 
 # The Co-Browsing API
 
-While Surfly can be used directly from the Surfly website we also have an
-extensive API in order for our clients to be able to integrate Surfly tightly
-into their current website or web application. One can even completely automate
+Whilst Surfly can be used directly from the Surfly website, we also have an
+extensive API.  This enables our clients to integrate Surfly tightly
+into their current website or web application. You can even completely automate
 the management of client and agent creation through our REST API.
 
 The following types of customizations of Surfly can be achieved:
 
- - Website Integration
- - Full Session Continuation
- - Session Customization
- - Customize session start or join page
- - Application Integration
- - Agent Creation
- - Reseller Automatization
+ - [Website Integration](#website_integration)
+ - [Full Session Continuation](#full_session_continuation)
+ - [Session Customization](#session_customization)
+ - [Customize session start or join page](#custom_session_start)
+ - [Application Integration](#application_integration)
+ - [Agent Creation](#agent_creation)
+ - [Reseller Automatization](#reseller_automatization)
 
+For example code please see the [Reference Code](#reference_code) section below.
 
+<a name="website_integration></a>
 ##### Website Integration
 
-Add Surfly to your website and allow the visitors of your website to create a
+Add Surfly to your website and allow the visitors to your website to create a
 support request by clicking on our support button.  The style and color of this
 button can be fully customized to match your applications or website’s look and
-feel.
+feel. See the [support button appearance](#support_button) table for more information:
 
-
+<a name="session_customization"></a>
 ##### Session Customization
 
 Enable or disable the videochat, allow users to navigate to different websites
-or not, use a textchat mode or a pure docked mode or for our Enterprise
-customers completely remove all Surfly UI and fully customize the look and feel
+or not, use a textchat mode or a pure docked mode or, for our Enterprise
+customers, completely remove all Surfly UI and fully customize the look and feel
 of the session.
 
+<a name="custom_session_start"></a>
 ##### Custom session start or join page
 
-Start a session from your own website or maybe even create a specific invite
+Start a session from your own website, or maybe even create a specific invite
 page or landing page for your clients.
 
+<a name="full_session_continuation"></a>
 ##### Full Session Continuation
 
-When your users are already logged in on your website you probably don’t want
-a Surfly session break the flow and/or require them to login
+When your users are already logged in on your website, you probably don’t want
+a Surfly session breaking the flow and/or require them to login
 again. Surfly can pick up the session exactly where the user is.
 
+<a name="application_integration"></a>
 ##### Deep Application Integration
 
-Session can be started through the Javascript and the REST API. By using the
-REST API you can integrate our websharing technology in your own application or
+A session can be started through the Javascript and the REST API. By using the
+REST API, you can integrate our websharing technology into your own application or
 build a thin layer around our technology.
 
-
+<a name="automatic_agent_creation"></a>
 ##### Automatic Agent Creation
 
-Agents can be added through the admin interface, but if your agents are more
-dynamic these can also be added and removed through our REST API.
+Agents can be added through the admin interface, but, if your agents are more
+dynamic, these can also be added and removed through our REST API.
 
+<a name="reseller_automization"></a>
 ##### Reseller Automatization
 
-Resellers can use our API to create fresh new Surfly clients, decide whether you
+Resellers can use our API to create new Surfly clients.  You decide whether you
 want to invoice them directly or if we should handle this for you.
 
 
-These type of customizations or integrations can be built through 3 different
-ways in how one can interface with Surfly:
+#### Adding customization
+
+These type of customizations or integrations can be built in 3 different
+ways, in order to manage the interface with Surfly:
 
  - The Surfly Code Snippet
  - The Javascript API
@@ -83,17 +119,18 @@ into your website template.
 Adding the Code Snippet is relatively straightforward. The snippet can be
 obtained from the 'integration' page on your account settings panel.
 
-Copy the piece of code and paste it somewhere in the source of your
-website or application. We make sure to load the Surfly code in an asynchronous
-and non-blocking way in order to not have any effect on your page load times.
+Copy the code snippet and paste it into your website or applications source code.
+We will make sure to load the Surfly code in an asynchronous
+and non-blocking way so as not to have an effect on your page load times.
+
 
 The snippet comes with lots of options which we will
-detail below.
+detail in the [Session Interaction Options](#session_interaction_options) below:
 
-### The extension
+### The chrome extension
 
-If you do not want to immediately add the code to your website but still want to
-take a look at how Surfly's integration can work you can use our Chrome extension. This
+If you do not want to immediately add the code to your website, but still want to
+take a look at how Surfly's integration can work for you, use our Chrome extension. This
 extension will add our Javascript snippet code to any website you are currently
 browsing, it will also give you all the options to easily configure the snippet
 and try out various settings.
@@ -111,55 +148,61 @@ In order to install the extension do the following:
 ----
 # Customizing Surfly Session Behavior
 
-We allow a variety of options in how Surfly can be customized. These can
-be configured in the Javascript snippet, as an option in a REST call or by simply
+A variety of options are available for customizing Surfly. These can
+be configured in the Javascript snippet, as an option in a REST call, or by simply
 switching a flag in the Chrome extension.
 
+<a name="session_interaction_options"></a>
 ## Session Interaction Options
 
 
 |  Option | Default | Description |
 | ---------------| ------------|------------|
-| agent_can_request_control | false | Can the agent request control after which it can be granted |
-| agent_can_take_control | false | Can the agent take control without requirement that the controller needs to grant it |
+| agent_can_request_control | false | The agent can request control, after which it can be granted by the controller |
+| agent_can_take_control | false | The agent can take control without the requirement that the controller needs to grant it |
 | agent_can_end_session | true | Show End Session button on follower's end |
 | allow_original_file_download | false | Allow users to download shared files (when set to false, users can only view them) |
 | blacklist | "[]" | (enterprise only) Restrict access to the specific resources. [More...](#restrictions)|
 | enable_sounds | true | Enable sound notifications |
 | filesharing | true | Allow file sharing |
 | follower_redirect_url | false | After session end redirect the follower to a custom URL |
-| format_session_id | true | Change the session id in something easy to communicate over the phone (eg, 123-123-123) |
-| leader_redirect_url | false | After session end redirect the leader to a custom URL |
+| format_session_id | true | Change the session id to something easy to communicate over the phone (eg, 123-123-123) |
+| leader_redirect_url | false | After the session ends, redirect the leader to a custom URL |
 | low_quality_video | false | Video quality is limited to 320x240@15 |
-| newurl  | true | Should we show the 'newurl button' in the widget |
+| newurl  | true | Should we show the 'newurl button' in the widget? |
 | on_end_redirect_follower_to_queue | false | After session end return the follower to the Surfly Queue page |
-| sharing_button | true | Should we show the 'sharing button' in the widget |
-| splash | true | Do we need to show the splash screen on session start |
-| start_muted | false | All participants start with muted microphone|
+| sharing_button | true | Should we show the 'sharing button' in the widget? |
+| splash | true | Do we need to show the splash screen on session start? |
+| start_muted | false | All participants start with muted microphone |
 | store_chat_logs | false | If enabled, chat logs will be available for download in Surfly dashboard |
-| videochat | true | Is videochat allowed |
+| videochat | true | Is videochat allowed? |
 | whitelist | "[]" | (enterprise only) Allow access only to the specific resources. [More...](#restrictions)|
 | only_embedded_sessions | false | By default, if 3rd-party cookies are disabled, we start the session in a new browser tab. If this option is set to true, Surfly will not start session when 3rd-party cookies are disabled. |
 
 <a name="restrictions"></a>
 #### Restrictions format
 A string representation of the JSON array is expected. Every element of the array is an object with the following properties:
- - `pattern` - regular expresstion. Requested url will be matched to this regular expression
- - (optional) `redirect` - an url to redirect user to. You can also specify special `{{referer}}` pattern in the beginning of a redirect link, and that will be replaced by the Referer value at the moment of redirect. Basically, user will be redirected to the page where he clicked a restricted link.
- - (optional) `type` - restriction type. If present and set to `"all"`, restriction will be applied to all requests (otherwise restrictions affect only requests to top-level pages)
+ - `pattern` - regular expression. The requested url will be matched to this regular expression
+ - (optional) `redirect` - an url to redirect the user to. You can also specify the special `{{referer}}` pattern in the beginning of a redirect link, and that will be replaced by the Referer value at the moment of redirect. Basically, the user will be redirected to the page where they clicked the restricted link.
+ - (optional) `type` - restriction type. If present, and set to `"all"`, restriction will be applied to all requests (otherwise restrictions affect only requests to top-level pages)
 
-If a session was started with Surfly button and you want to end the session when an user requests restricted page, redirect him to the page that includes `widget.js` and execute the following code:
+A blocked url is always added as a query parameter to the redirect url:
+```
+http://mysite.com/restricted?blocked_url=https%3A%2F%2Fexample.com
+```
+
+If a session was started with the Surfly button, and you want to end the session when a user requests a restricted page, redirect them to the page that includes `widget.js` and execute the following code:
 ```
 Surfly.endSession(redirect_url);
 ```
 
-`endSession` function will trigger following events:
+`endSession` function will trigger the following events:
  - session continuation
  - end of the session
  - leader is redirected to the page specified in `redirect_url`
 
 ##### Blacklist example:
-Restrict access to the `example.com`. When user tries to access `example.com` he will be redirected to the default page provided by Surfly
+Restrict access to the website `example.com`. When the user tries to access `example.com` they will be redirected to the default page provided by Surfly
 
 ```
 {
@@ -168,7 +211,7 @@ Restrict access to the `example.com`. When user tries to access `example.com` he
 ```
 
 ##### Whitelist example:
-Allow access only to the `example.com`. When user tries to access any other website he will be redirected to the provided redirect url
+Allow access only to the `example.com`. When the user tries to access any other website they will be redirected to the provided redirect url
 
 ```
 {
@@ -183,37 +226,39 @@ Allow access only to the `example.com`. When user tries to access any other webs
 | ---------------| ------------|------------|
 | max_height | 0  | Restrict max height of the viewport |
 | max_width | 0 | Restrict max width of the viewport |
-| min_height | 0 | Restrict minimal height of the viewport |
-| min_width | 0 | Restrict minimal width of the viewport |
+| min_height | 0 | Restrict min height of the viewport |
+| min_width | 0 | Restrict min width of the viewport |
 | chat_box_color | #eb777f | Color of UI (chatbox) elements inside the session |
 | dock_top_position | false | By default we place the dock at the bottom-left, with this option you can put it on top |
 | docked_only | false | Only show the control options, do not show a video / textchat box |
 | set_to_smallest | true | By default we resize the active viewport to viewport size of the participant with the smallest screen. This can be disabled |
-| ui_off | false | Just co-browsing no user interface (enterprise only) |
+| ui_off | false | Just co-browsing, no user interface (enterprise only) |
 | white_label | false | Do not show a Surfly logo (enterprise only) |
-| drawing_color | "default" | "Magic marker" color (see Drawing section below) |
-| drawing_mode | "temporary" | "Magic marker" mode (see Drawing section below) |
+| drawing_color | "default" | "Magic marker" color [see Drawing section below](#drawing_section) |
+| drawing_mode | "temporary" | "Magic marker" mode [see Drawing section below](#drawing_section) |
 
-
+<a name="drawing_section"></a>
 ##### Drawing
 
-There are multiple ways of communication within a Surfly session. One of them is
-a drawing feature. This is enabled by default and allows users who are not
-in control to highlight things on the page in a sort of "magic marker" style.
-There are two options used to change the drawing behavior: `drawing_mode` and
+There are multiple ways to communicate within a Surfly session. One of them is
+the drawing feature. This is enabled by default and allows users who are not
+in control to highlight features on the page in the style of a "magic marker".
+As can be seen from the session appearance options table above, there are 
+two options used to change the drawing behavior: `drawing_mode` and
 `drawing_color`. They can be set both as session options and via postMessage API
-(see postMessage commands section).
+(see the [postMessage commands](#postMessage_commands) section).
 
-By default, `drawing_color` is set to `"default"` value which means that each user will
-draw with his own color. You can set it to any color you like (specify a valid CSS
+As the `drawing_color` is set to the `"default"` value, this means that each user will
+draw with their own color. You can set it to any color you like (specify a valid CSS
 color string, e.g. `"blue"` or `"#0000ff"`). In this case all users will draw
 with the same color.
 
-`drawing_mode` option can be set to one of the following values:
+The `drawing_mode` option can be set to one of the following values:
 - "temporary" - drawings will fadeout automatically
-- "permanent" - drawings will stay there until the next drawing_mode change
+- "permanent" - drawings will stay there until the next drawing_mode change	
 - "disabled" - drawing functionality disabled
 
+<a name="support_button"></a>
 ## Support Button Appearance
 
 |  Option | Default | Description |
@@ -222,16 +267,18 @@ with the same color.
 | autohide_button | true | Hide the Surfly button when no agent is available |
 | block_until_agent_joins | true | In case of Surfly button, block the screen until a follower joins |
 | end_of_session_popup_url | false | if this parameter is set, after session end the user will see a popup window with contents from the specified URL |
+| block_until_agent_joins | true | In case of the Surfly button, block the screen until a follower joins |
+| end_of_session_popup_url | false | If this parameter is set, after session end the user will see a popup window with the contents from the specified URL |
 | hidden | false | Do not show the button |
-| position | 'bottomleft' | Where should we place the Surfly support button, options are, 'bottomleft', 'bottomright', 'middleright' |
-| QUEUE_METADATA_CALLBACK | false |  JS callback that can provide optional metadata (see queue customization section below) |
+| position | 'bottomleft' | Positions the Surfly Support Button. The options are: 'bottomleft', 'bottomright', 'middleright' |
+| QUEUE_METADATA_CALLBACK | false |  A JS callback that can provide optional metadata (see queue customization section below) |
 | QUEUE_ENDPOINT | false | Custom queue endpoint (see queue customization section below) |
 | QUEUE_HANDLER | false | Custom JS queue handler (see queue customization section below) |
 | QUEUE_CALLBACK | false | JS callback for queue monitoring (see queue customization section below) |
 | stealth_mode | true | When enabled, users can use CTRL + ENTER to start a Surfly session |
-| theme_font_background | surfly-red | support button background color |
-| theme_font_color | white | support button foreground color|
-| theme_font_size | 14 | size of the text in the button |
+| theme_font_background | surfly-red | The support button background color |
+| theme_font_color | white | The support button foreground color|
+| theme_font_size | 14 | The size of the text in the button |
 
 
 ## Field Masking
@@ -246,8 +293,9 @@ sensitive fields such as creditcard numbers or social security numbers.
 # Customizing the User Flow
 
 The flexibility of Surfly allows it to be used with different types of usecases.
-This allows you not only to customize how a Surfly session looks but also how a
-session can be integrated in your work flow.
+This allows you not only to customize how a Surfly session looks, but also how a
+session can be integrated in your work flow.  Details on how to start a session can be 
+found below.  
 
 
 ## Automatically starting a session
@@ -273,17 +321,17 @@ simply put it within a "A" anchor. For example:
 
 ## Detecting a Surfly Session
 
-You might want to change the behaviour of the website depending whether it is a
-Surfly session or not. Example use cases are for example hiding a customized 'session
-start' button within the Surfly session or remove certain toolbars for a nicer
+You might want to change the behaviour of the website depending on whether it is a
+Surfly session or not. Example use cases are, for example, hiding a customized 'session
+start' button within the Surfly session, or to remove certain toolbars for a more aesthetic 
 integration.
 
 #### From within Javascript
 
-To detect a Surfly session from the client side one can simply
+To detect a Surfly session from the client side, you can simply
 check for the existence of a global variable called `__surfly`
 
-For example, to hide a button within a Surfly session one could do the
+For example, to hide a button within a Surfly session, you could implement the
 following:
 
 ```javascript
@@ -296,17 +344,17 @@ if (window.__surfly) {
 
 #### At the backend
 
-As all Surfly sessions will originate from our proxy servers this could be used
+As all Surfly sessions will originate from our proxy servers, this could be used
 as a way to identify whether the request comes from Surfly or a client directly.
-However, we use different IP ranges for our proxy servers and they also change
+However, we use different IP ranges for our proxy servers, and they also change
 over time, so we recommend a different way to do this.
 
-On each session that comes through our proxy, we will add a 'X-Forwarded-For'
+On each session that comes through our proxy, we will add an 'X-Forwarded-For'
 header that points to the original IP of the 'leader'.
 
-When creating a request one can also set the 'headers' option (in both the
-Javascript call and the REST call) to add aditional headers. These headers can
-used to for example add an "Authorization" header to allow to user to be logged
+When creating a request, you can also set the 'headers' option (in both the
+Javascript call and the REST call) to add additional headers. These headers can
+be used to, for example, add an "Authorization" header to allow to user to be logged
 in on your own backend or a custom header which can be used as an identifier. We
 will send these headers with each request made during the session.
 
@@ -314,13 +362,13 @@ will send these headers with each request made during the session.
 ## Session Continuation
 
 The high performance of Surfly can be attributed to our proxy approach. If a
-user wants to continue the web-session as-is it requires that we can transfer
+user wants to continue the web-session as-is, it is necessary to transfer
 all information to our proxy.
 
-This feature is called 'session continuation' and works as follows:
+This feature is called 'session continuation', and works as follows:
 
  - A Surfly session is started on the current website from the same url in a
-   hidden iFrame
+   hidden iframe
  - The widget makes sure that Surfly knows about session variables (cookies)
  - After the session has been started we synchronize the current state with the
    fresh state loaded through the iframe
@@ -333,10 +381,10 @@ There are several ways to set up session continuation.
 
 ### Full session continuation
 
-This approach allows to transfer all session data, including cookies with `httpOnly`
+This approach allows the transfer of all session data, including cookies with a `httpOnly`
 flag. However, it requires some collaboration from the integrating website.
-To make it work, website needs to forward all HTTP requests for the path `/surfly_cookie_transfer/`
-to Surfly server. This is usually a tiny change in load balancer configuration.
+To make it work, the website needs to forward all HTTP requests for the path `/surfly_cookie_transfer/`
+to the Surfly server. This is usually a small adjustment in load balancer configuration.
 For example, if you use nginx, just add these lines in your config file:
 
 ```
@@ -347,7 +395,7 @@ location /surfly_cookie_transfer/ {
 }
 ```
 
-In case of haproxy, configuration can be something like following:
+In case of haproxy, see the example configuration below:
 
 ```
 frontend example-com-https
@@ -362,7 +410,7 @@ backend surfly_continuation_point_https
     server surfly surfly.com:443 ssl
 ```
 
-Note that you also need to set an additional request headers:
+Please note that you also need to set additional request headers:
 `X-Widget-Key` should contain your widget key (the same that is used in javscript snippet).
 `X-Continuation-Origin` should contain the origin of the page where Surfly widget is integrated.
 That is, a protocol scheme followed by domain name and a port in case it is non-standard.
@@ -378,15 +426,15 @@ After setting up the continuation point, add the following widget options:
 ### Soft session continuation
 
 It is also possible to integrate session continuation without changing load
-balancer configuration. All you need to do is to make sure that Surfly widget
-is present on all pages, where you want to transfer cookies from (this is not necessarily
+balancer configuration. All you need to do is to make sure that the Surfly widget
+is present on all the pages you want to transfer cookies from (this is not necessarily
 the same page where you start Surfly session from). However, soft session continuation
 has some limitations:
 
 - we will only transfer cookies from the current page
-- for security reasons, session will be transferred back only if the last page
+- for security reasons, a session will be transferred back only if the last page
   opened inside the session is on the same domain *and* has a Surfly widget on it
-- since in this case Surfly doesn't have access to the HTTP requests, we *won't transfer
+- since, in this case, Surfly doesn't have access to the HTTP requests, we *won't transfer
 httpOnly cookies*
 
 Make sure that you set the following options in your widget:
@@ -395,29 +443,29 @@ Make sure that you set the following options in your widget:
   cookie_transfer_proxying: false
 ```
 
-If you need more help with this please contact us at support@surfly.com, we can
-consult on the implementation or build the integration for you.
+If you need more help with this, please contact us at support@surfly.com. We can
+consult you on the implementation, or build the integration for you.
 
 
 ## Queue Behaviour Customization
 
-It is possible to integrate Surfly on your website with some sort of support
-button. Once a user clicks this button, his support request will be queue'd
+It is possible to integrate Surfly into your website with a support
+button. Once a user clicks this button, their support request will be queue'd
 where one of the available agents can then answer the request. The user will be
 the 'leader' of the session and the agent who joins will be the follower of the
 session.
 
 Surfly comes with a relatively straightforward dashboard. We not only allow you to enrich
-the information we present on this dashboard but you can also completely build your own dashboard
+the information presented on this dashboard but you can also completely build your own dashboard
 and integrate it in your own web application.
 
 Our Queue functionality works as follows:
 
-  1. User requests a session, through any of the provided options (button, #surflystart or Javascript call)
-  2. We optionally enrich the Queue request by calling `QUEUE_METADATA_CALLBACK` if set
+  1. The user requests a session, through any of the provided options (button, #surflystart or Javascript call)
+  2. We optionally enrich the Queue request by calling `QUEUE_METADATA_CALLBACK`, if set
   3. We call `QUEUE_HANDLER` with a *callback* and a *JSON Request Object* containing (enriched) session information.
-    - Our own `QUEUE_HANDLER` we make a REST call to `QUEUE_ENDPOINT` with this *JSON object*
-    - Once the QUEUE was succesfully, `QUEUE_HANDLER` should call the provided *callback* with the status and
+    - Our own `QUEUE_HANDLER` will make a REST call to `QUEUE_ENDPOINT` with this *JSON object*
+    - Once the QUEUE was succesfully called, `QUEUE_HANDLER` should call the provided *callback* with the status and
        a *JSON Response Object*
   4. On any further Queue status change we call `QUEUE_CALLBACK` with this *JSON Session Object*
 
@@ -448,7 +496,7 @@ viewer link to any of the available agents.
 
 ##### JSON Response Format
 
-Endpoint is expected to respond with a JSON object. It must contain at least one
+The endpoint is expected to respond with a JSON object. It must contain at least one
 field - `identifier`, which should be a unique string identifying the current session:
 
 ```
@@ -459,31 +507,31 @@ field - `identifier`, which should be a unique string identifying the current se
 ```
 
 We will pass the endpoint response to `QUEUE_CALLBACK` every time (see below), so you can
-store some session metadata in additional fields.
+store session metadata in additional fields.
 
 
 #### Set up custom Javascript Queue Handler
 
-If you want to handle the Queue functionality yourself completely you can also
+If you want to completely handle the Queue functionality yourself, you can also
 provide us with a custom Javascript function object as a `QUEUE_HANDLER` option.
 
 If it is specified, we will call `QUEUE_HANDLER` when a user requests a Surfly
 session (instead of making an AJAX call to `QUEUE_ENDPOINT`). `QUEUE_HANDLER`
 will be given two arguments:
 
-- JSON object with session information (see *JSON Request Format* for `QUEUE_ENDPOINT` above)
-- a success callback function. `QUEUE_HANDLER` must call this callback after a successful
+- A JSON object with session information (see *JSON Request Format* for `QUEUE_ENDPOINT` above)
+- A success callback function, `QUEUE_HANDLER`, must call this callback after a successful
   queue join. You must pass a session metadata object as a first argument (see *JSON
   Response Format* for `QUEUE_ENDPOINT` above)
 
 
 #### Enriching a Queue request with Metadata
 
-Prior to making the call to `QUEUE_HANDLER` we will call `QUEUE_METADATA_CALLBACK` which can enrich
+Prior to making the call to `QUEUE_HANDLER`, we will call `QUEUE_METADATA_CALLBACK`, which can enrich
 the Queue request with additional METADATA from the client side. For example, if you have the widget
-added to a section of your web application where the user is required to be logged in you probably
-have some knowledge about the user which might be usefull to pass along to the agent. Information such
-as name, email or even phonenumber.
+added to a section of your web application where the user is required to be logged in, you probably
+have some knowledge about the user which might be useful to pass along to the agent. Information such
+as the users' name, email or even their phonenumber.
 
 To make sure that this information becomes available in the dashboard you can set `QUEUE_METADATA_CALLBACK`
 to a special function that will return an object that provides these values as key, value pairs. For example:
@@ -496,15 +544,14 @@ to a special function that will return an object that provides these values as k
 }
 ```
 
-Of these key,value pairs, `name` and `email` will also be provided to the Surfly session so that it can display the
+Of these key,value pairs, `name` and `email` will also be provided to the Surfly session so that the session can display the
 name of the user in the chatbox and make sure that the accompanying gravatar matches his email address.
-
 
 
 
 #### Tracking queue status
 
-You can also provide a Javascript function in `QUEUE_CALLBACK` option to trace the status of the queue on the client side.
+You can also provide a Javascript function in the `QUEUE_CALLBACK` option to trace the status of the queue on the client side.
 We will call this function every time a user is being queue'd, rejoins, or leaves the queue.
 
 It will be called with two arguments:
@@ -514,13 +561,19 @@ It will be called with two arguments:
    - false  (after cancel, close)
  - session - a *JSON Response object* describing the session (this is received from `QUEUE_HANDLER` or `QUEUE_ENDPOINT`)
 
+
+## Creating custom log messages
+It is possible to create custom log message during the Surfly session using log function:
+```
+Surfly.log("Custom message");
+```
+
 ----
 
 # Customize the Session Interface
 
-After the iframe has been created, it can be controlled via postMessage and it
-will emit messages back to the parent frame. One can start a Surfly session with
-the UI=OFF flag as described above.
+After the iframe has been created, it can be controlled via postMessage and
+will emit messages back to the parent frame.
 
 ## Events
 
@@ -572,10 +625,10 @@ The messages sent by Surfly iframes to the parent window are JSON-encoded string
 
 ### Error
 
- This event is sent if the session cannot be joined and ended abuptly.
+ This event is sent if the session cannot be joined and has ended abuptly.
 
  - type: "error"
- - params: `{"reason": <on of the following>}`
+ - params: `{"reason": <one of the following>}`
   - `"other_connection"` happens on if the leader_link was opened elsewhere. The new window/browser becomes the leader and the old leader is kicked out. It also happens if viewer_link was open again on the same browser.
   - `"connect_failed"` happens if WebSocket connection to Surfly cannot be established.
 
@@ -594,14 +647,14 @@ The messages sent by Surfly iframes to the parent window are JSON-encoded string
 
  - type `"control"`
  - params:
-  - `"to"`: index of the client that now have the control. Always 0 for leader, 1 or more for a viewer.
+  - `"to"`: index of the client that now have the control. Always 0 for the leader, 1 or more for a viewer.
   - `"gained"`: if true, the control was just gained; if false, the control was just lost
 
 
 ## Usage example
 
-In the following example we are using JS API to show a popup window every time
-when a cobrowsing session is finished (similar functionality can be achieved by
+In the following example we are using a JS API to show a popup window every time
+a cobrowsing session is finished (similar functionality can be achieved by
 using `end_of_session_popup_url` option, but here we have full control over popup
 rendering).
 
@@ -659,22 +712,23 @@ This will broadcast string `"<data>"` to all other parties in the session.
 
 `<client index>` is 0 for leader and 1 or more for viewers.
 
-This will put leader into viewer mode and selected follower will become the pilot of the session. The following actions will now be done by follower:
+This will put the session leader into viewer mode and the selected follower will become the pilot of the session. The following actions can now be done by follower:
 
  - scrolling
  - clicking
  - entering data in forms
 
-If ran by follower currently holding control, it will return control back to leader.
+If the same code is ran by the follower currently holding control, it will return control back to leader.
 
 
-### Change drawing settings (only on leader side)
+<a name="postMessage_commands"></a>
+### Change the drawing settings (only on leader side)
 
 ```
 {"command": "drawing_settings", "settings": {"mode": "<drawing_mode>", "color": "<drawing_color>"}}
 ```
 
-Valid values are discussed in Drawing section. Note that one of "mode" and "color" keys may be omitted
+Valid values are discussed in the [Drawing section](#drawing_section). Note that one of "mode" and "color" keys may be omitted
 
 ----
 # REST API
@@ -686,7 +740,7 @@ The Surfly REST API allows you to integrate the functionality of our dashboard i
  * Sessions - Get an overview of all your session
  * Queue - Manipulate the incoming Queue for your agents
 
-To access our API you will need to authenticate by using basic HTTP authentication.  In addition, some API calls require extra information such as:
+To access our API, you will need to authenticate by using basic HTTP authentication.  In addition, some API calls require extra information such as:
 
  * RESELLER_KEY  *(reseller only)*
  * CLIENT_KEY
@@ -694,6 +748,7 @@ To access our API you will need to authenticate by using basic HTTP authenticati
 Both keys can be found on your API page in your dashboard. We recommend that you keep your CLIENT_KEY and RESELLER_KEY secret at all times.
 
 
+<a name="reference_code"></a>
 
 ########################################
 # Group Agents
@@ -1150,3 +1205,73 @@ Both keys can be found on your API page in your dashboard. We recommend that you
             "invoice_number": 5,
             "total": 1490
         }]
+
+
+########################################
+# Group Logs
+
+# Logs Collection [/logs/?api_key={API_KEY}]
+
++ Parameters
+    + API_KEY (string, `jj34bd2db21c46d2875508b982968d26`)
+
+### List all logs [GET]
+
+
++ Response 200 (application/json)
+
+    {
+        "next": null,
+        "previous": null,
+        "results": [{
+            "id": 1,
+            "agent_id": 4,
+            "created": "2016-05-30T15:13:03.253096Z",
+            "session_id": "flogr0sRQ1usugvheahwQ",
+            "details": "New session with url http://surfly.com/ was started"
+        }]
+    }
+
+### Create log instance [POST]
+
+
++ Request (application/json)
+
+        {
+            "session_id": "flogr0sRQ1usugvheahwQ",
+            "details": "Log message"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "agent_id": 4,
+            "created": "2016-05-31T08:22:58.310337Z",
+            "session_id": "flogr0sRQ1usugvheahwQ",
+            "details": "Log message"
+        }
+
+
+# Session Logs Collection [/logs/?api_key={API_KEY}&session_id={SESSION_ID}]
+
++ Parameters
+    + API_KEY (string, `jj34bd2db21c46d2875508b982968d26`)
+    + SESSION_ID (string, `flogr0sRQ1usugvheahwQ`)
+
+### List all session logs [GET]
+
+
++ Response 200 (application/json)
+
+        {
+            "next": null,
+            "previous": null,
+            "results": [{
+                "id": 1,
+                "agent_id": 4,
+                "created": "2016-05-30T15:13:03.253096Z",
+                "session_id": "flogr0sRQ1usugvheahwQ",
+                "details": "New session with url http://surfly.com/ was started"
+            }]
+        }
