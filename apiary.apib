@@ -718,6 +718,28 @@ This will put the session leader into viewer mode and the selected follower will
 
 If the same code is ran by the follower currently holding control, it will return control back to leader.
 
+----
+# Control change event
+
+Whenever the control of a Surfly session switches a `surflycontrolchange` event is fired inside the session.
+The event has one property, `leaderHasControl` which is set to true when the user who gained control is leader and false otherwise.
+
+An example that disables form elements which have a marker attribute when follower is in control:
+
+```javascript
+window.addEventListener('surflycontrolchange', function (event) {
+    var elements = document.querySelectorAll('[disable-on-follower-control]');
+    Array.prototype.forEach.call(elements, function (element) {
+        if (event.leaderHasControl) {
+            element.disabled = false;
+        } else {
+            element.disabled = true;
+        }
+    });
+});
+
+```
+
 
 <a name="postMessage_commands"></a>
 ### Change the drawing settings (only on leader side)
