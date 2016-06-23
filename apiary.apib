@@ -5,22 +5,22 @@ HOST: https://api.surfly.com/v2/
 
 ##### Definition of terms
 
-Throughout the API we refer to several terms specific to Surfly.  For clarification, 
+Throughout the API we refer to several terms specific to Surfly.  For clarification,
 these are defined below:
 
 Client
- - A company that is a customer of Surfly 
+ - A company that is a customer of Surfly
 
 Agent
  - An employee of the client company, who is available to help when the 'Start Session'
   button is pressed
 
-User 
- - A generic term for either the agent, leader or follower.  Simply put,  a user is someone who 
- interacts with the Surfly application.  
+User
+ - A generic term for either the agent, leader or follower.  Simply put,  a user is someone who
+ interacts with the Surfly application.
 
-Leader 
- - A leader initiates the session, and invites followers to join them.  They are normally in control of the session, but 
+Leader
+ - A leader initiates the session, and invites followers to join them.  They are normally in control of the session, but
   can pass this control over to the follower.
 
 Follower
@@ -167,9 +167,9 @@ switching a flag in the Chrome extension.
 | blacklist | "[]" | (enterprise only) Restrict access to the specific resources. [More...](#restrictions)|
 | enable_sounds | true | Enable sound notifications |
 | filesharing | true | Allow file sharing |
-| follower_redirect_url | false | After session end redirect the follower to a custom URL |
+| follower_redirect_url | "" | After session end redirect the follower to a custom URL |
 | format_session_id | true | Change the session id to something easy to communicate over the phone (eg, 123-123-123) |
-| leader_redirect_url | false | After the session ends, redirect the leader to a custom URL |
+| leader_redirect_url | "" | After the session ends, redirect the leader to a custom URL |
 | low_quality_video | false | Video quality is limited to 320x240@15 |
 | newurl  | true | Should we show the 'newurl button' in the widget? |
 | on_end_redirect_follower_to_queue | false | After session end return the follower to the Surfly Queue page |
@@ -244,7 +244,7 @@ Allow access only to the `example.com`. When the user tries to access any other 
 There are multiple ways to communicate within a Surfly session. One of them is
 the drawing feature. This is enabled by default and allows users who are not
 in control to highlight features on the page in the style of a "magic marker".
-As can be seen from the session appearance options table above, there are 
+As can be seen from the session appearance options table above, there are
 two options used to change the drawing behavior: `drawing_mode` and
 `drawing_color`. They can be set both as session options and via postMessage API
 (see the [postMessage commands](#postMessage_commands) section).
@@ -294,8 +294,8 @@ sensitive fields such as creditcard numbers or social security numbers.
 
 The flexibility of Surfly allows it to be used with different types of usecases.
 This allows you not only to customize how a Surfly session looks, but also how a
-session can be integrated in your work flow.  Details on how to start a session can be 
-found below.  
+session can be integrated in your work flow.  Details on how to start a session can be
+found below.
 
 
 ## Automatically starting a session
@@ -323,7 +323,7 @@ simply put it within a "A" anchor. For example:
 
 You might want to change the behaviour of the website depending on whether it is a
 Surfly session or not. Example use cases are, for example, hiding a customized 'session
-start' button within the Surfly session, or to remove certain toolbars for a more aesthetic 
+start' button within the Surfly session, or to remove certain toolbars for a more aesthetic
 integration.
 
 #### From within Javascript
