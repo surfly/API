@@ -570,10 +570,34 @@ Surfly.log("Custom message");
 
 ----
 
-# Customize the Session Interface
+# The Javascript API
+
+## General overview
+
+If you want to more tightly control the Surfly integration you can also completely take care of the
+session creation yourself. This will allow you to fully customize the look and feel of Surfly and or
+tightly integrate our cobrowsing technology in an existing application. 
+
+In general to accopmlish something like this one needs to take the following approach: 
+
+ - Include Surfly's `widget.js` code
+ - Set flags `hidden` and `ui_off`  to true, so that you be able to completely override the look and feel
+ - After onload create a session by calling `Surfly.session.instant_start( callback )`
+ 
+This will than automatically create the Surfly session for you and open it in an iframe, if possible, or a new browser tab.
+The created iframe will be appended to the body, fully cover the window and have an id of `surfly-iframe`.
+
+The `instant_start callback` will be called after the session has been started with the following parameters:
+
+ - ip_leader  - IP addres of the leader
+ - viewer_link  - the link that should be opened by other participants of this session
+ 
+The received viewer_link can be used by your client side javascript code to, for example, have an 
+agent join the session. 
 
 After the iframe has been created, it can be controlled via postMessage and
-will emit messages back to the parent frame.
+will emit messages back to the parent frame. The specific messages for this communication protocol are
+outlined below:
 
 ## Events
 
@@ -651,6 +675,27 @@ The messages sent by Surfly iframes to the parent window are JSON-encoded string
   - `"gained"`: if true, the control was just gained; if false, the control was just lost
 
 
+### Control change event
+
+Whenever the control of a Surfly session switches a `surflycontrolchange` event is fired inside the session.
+The event has one property, `leaderHasControl` which is set to true when the user who gained control is leader and false otherwise.
+
+An example that disables form elements which have a marker attribute when follower is in control:
+
+```javascript
+window.addEventListener('surflycontrolchange', function (event) {
+    var elements = document.querySelectorAll('[disable-on-follower-control]');
+    Array.prototype.forEach.call(elements, function (element) {
+        if (event.leaderHasControl) {
+            element.disabled = false;
+        } else {
+            element.disabled = true;
+        }
+    });
+});
+
+```
+
 ## Usage example
 
 In the following example we are using a JS API to show a popup window every time
@@ -678,6 +723,8 @@ window.addEventListener("message", function(e){
 }, false);
 ```
 
+
+<a name="postMessage_commands"></a>
 
 ## Commands
 
@@ -721,29 +768,6 @@ This will put the session leader into viewer mode and the selected follower will
 If the same code is ran by the follower currently holding control, it will return control back to leader.
 
 ----
-# Control change event
-
-Whenever the control of a Surfly session switches a `surflycontrolchange` event is fired inside the session.
-The event has one property, `leaderHasControl` which is set to true when the user who gained control is leader and false otherwise.
-
-An example that disables form elements which have a marker attribute when follower is in control:
-
-```javascript
-window.addEventListener('surflycontrolchange', function (event) {
-    var elements = document.querySelectorAll('[disable-on-follower-control]');
-    Array.prototype.forEach.call(elements, function (element) {
-        if (event.leaderHasControl) {
-            element.disabled = false;
-        } else {
-            element.disabled = true;
-        }
-    });
-});
-
-```
-
-
-<a name="postMessage_commands"></a>
 ### Change the drawing settings (only on leader side)
 
 ```
@@ -1242,24 +1266,24 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 
 + Response 200 (application/json)
 
-    {
-        "next": null,
-        "previous": null,
-        "results": [{
-            "id": 1,
-            "agent_id": 4,
-            "created": "2016-05-30T15:13:03.253096Z",
-            "session_id": "flogr0sRQ1usugvheahwQ",
-            "details": "New session with url http://surfly.com/ was started"
-        }]
-    }
+        {
+            "next": null,
+            "previous": null,
+            "results": [{
+                "id": 1,
+                "agent_id": 4,
+                "created": "2016-05-30T15:13:03.253096Z",
+                "session_id": "flogr0sRQ1usugvheahwQ",
+                "details": "New session with url http://surfly.com/ was started"
+            }]
+        }
 
 ### Create log instance [POST]
 
 
 + Request (application/json)
 
-        {
+         {
             "session_id": "flogr0sRQ1usugvheahwQ",
             "details": "Log message"
         }
