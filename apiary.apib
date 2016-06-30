@@ -237,6 +237,8 @@ Allow access only to the `example.com`. When the user tries to access any other 
 | white_label | false | Do not show a Surfly logo (enterprise only) |
 | drawing_color | "default" | "Magic marker" color [see Drawing section below](#drawing_section) |
 | drawing_mode | "temporary" | "Magic marker" mode [see Drawing section below](#drawing_section) |
+| drawing_width | 15 | "Magic marker" width [see Drawing section below](#drawing_section) |
+| drawing_timeout | 3| "Magic marker" timeout [see Drawing section below](#drawing_section) |
 
 <a name="drawing_section"></a>
 ##### Drawing
@@ -245,8 +247,8 @@ There are multiple ways to communicate within a Surfly session. One of them is
 the drawing feature. This is enabled by default and allows users who are not
 in control to highlight features on the page in the style of a "magic marker".
 As can be seen from the session appearance options table above, there are
-two options used to change the drawing behavior: `drawing_mode` and
-`drawing_color`. They can be set both as session options and via postMessage API
+four options used to change the drawing behavior: `drawing_mode`, `drawing_color`,
+`drawing_width`, and `drawing_timeout`. They can be set both as session options and via postMessage API
 (see the [postMessage commands](#postMessage_commands) section).
 
 As the `drawing_color` is set to the `"default"` value, this means that each user will
@@ -258,6 +260,11 @@ The `drawing_mode` option can be set to one of the following values:
 - "temporary" - drawings will fadeout automatically
 - "permanent" - drawings will stay there until the next drawing_mode change
 - "disabled" - drawing functionality disabled
+
+The `drawing_width` option controls the width in pixels of the "magic marker".
+
+When the `drawing_mode` is set to "temporary" the `drawing_timeout` option
+controls the time in seconds after which each drawn line starts to fade out.
 
 <a name="support_button"></a>
 ## Support Button Appearance
@@ -771,10 +778,10 @@ If the same code is ran by the follower currently holding control, it will retur
 ### Change the drawing settings (only on leader side)
 
 ```
-{"command": "drawing_settings", "settings": {"mode": "<drawing_mode>", "color": "<drawing_color>"}}
+{"command": "drawing_settings", "settings": {"mode": "<drawing_mode>", "color": "<drawing_color>", "width": <drawing_width>, "timeout": <drawing_timeout>}}
 ```
 
-Valid values are discussed in the [Drawing section](#drawing_section). Note that one of "mode" and "color" keys may be omitted
+Valid values are discussed in the [Drawing section](#drawing_section). Note that only the options which should be changed need to specified.
 
 ----
 # REST API
