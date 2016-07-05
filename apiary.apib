@@ -179,6 +179,7 @@ switching a flag in the Chrome extension.
 | store_chat_logs | false | If enabled, chat logs will be available for download in Surfly dashboard |
 | videochat | true | Is videochat allowed? |
 | whitelist | "[]" | (enterprise only) Allow access only to the specific resources. [More...](#restrictions)|
+| only_embedded_sessions | false | By default, if 3rd-party cookies are disabled, we start the session in a new browser tab. If this option is set to true, Surfly will not start session when 3rd-party cookies are disabled. |
 
 <a name="restrictions"></a>
 #### Restrictions format
@@ -273,9 +274,10 @@ controls the time in seconds after which each drawn line starts to fade out.
 | ---------------| ------------|------------|
 | auto_start | false | Instead of showing a button, immediately start a session |
 | autohide_button | true | Hide the Surfly button when no agent is available |
+| block_until_agent_joins | true | In case of Surfly button, block the screen until a follower joins |
+| end_of_session_popup_url | false | if this parameter is set, after session end the user will see a popup window with contents from the specified URL |
 | block_until_agent_joins | true | In case of the Surfly button, block the screen until a follower joins |
 | end_of_session_popup_url | false | If this parameter is set, after session end the user will see a popup window with the contents from the specified URL |
-| hide_until_agent_joins | true | In case of the Surfly button, do not show the cobrowsing window until a follower joins the session |
 | hidden | false | Do not show the button |
 | position | 'bottomleft' | Positions the Surfly Support Button. The options are: 'bottomleft', 'bottomright', 'middleright' |
 | QUEUE_METADATA_CALLBACK | false |  A JS callback that can provide optional metadata (see queue customization section below) |
