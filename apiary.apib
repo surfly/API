@@ -13,7 +13,7 @@ The Surfly REST API allows you to integrate the functionality of our dashboard i
 
  * Clients - Create new clients *(reseller only)*
  * Agents - Manage your agents
- * Sessions - Get an overview of all your session
+ * Sessions - Get an overview of all your sessions
  * Queue - Manipulate the incoming Queue for your agents
 
 To access our API, you will need to authenticate by using basic HTTP authentication.  In addition, some API calls require extra information such as:
@@ -23,7 +23,7 @@ To access our API, you will need to authenticate by using basic HTTP authenticat
 
 Both keys can be found on your API page in your dashboard. We recommend that you keep your CLIENT_KEY and RESELLER_KEY secret at all times.
 
-Below you can find the code examples with how to make the REST calls. You will need your REST API key (which can be found in the integration panel, just below the widget code). 
+Below you can find detailed code examples.
 
 
 <a name="reference_code"></a>
@@ -45,8 +45,8 @@ List all agents for a certain `CLIENT_KEY`.
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| agent_id | Agent ID  | fOBg4dXAPTHSoil6LywgfYA |
-| agent_name | Name of the agent | Peter Pan |
+| agent_id | agent ID  | 1 |
+| agent_name | name of the agent | Peter Pan |
 | agent_email | email address of the agent | peter@neverland.net |
 
 
@@ -67,17 +67,18 @@ Create a new AGENT
             
 **Request Body:**
 
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| agent_name | Name of the agent | Peter Pan |
-| agent_email | Email address | peter@neverland.net |
+  |  Name | Description | Example |
+  | ---------------| ------------| --------|
+  | username | username of the agent | Peter Pan |
+  | agent_email | email address | peter@neverland.net |
+  | password | password | Pass@123 |
 
 
 **Response Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| agent_id | agent id | 1 |
+| agent_id | agent ID | 1 |
 
 
 
@@ -110,11 +111,11 @@ Get information about a certain agent by `agent_id`
 
 **Response Body:**
 
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| agent_name | Name of the agent | Peter Pan |
-| agent_email | Email address | peter@neverland.net |
-| id | Agent Id | 1
+  |  Name | Description | Example |
+  | ---------------| ------------| --------|
+  | agent_id | agent ID | 1 |
+  | agent_name | name of the agent | Peter Pan |
+  | agent_email | email address | peter@neverland.net |
 
 
 + Response 200 (application/json)
@@ -134,15 +135,17 @@ Update a AGENT
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| agent_name (optional) | Name of the agent | Peter Pan |
-| agent_email (optional) | Email address | peter@neverland.net |
+| username (optional) | username of the agent | Peter Pan |
+| agent_email (optional) | email address | peter@neverland.net |
 
 
 **Response Body:**
 
-|  Name | Description | Example |
+| Name | Description | Example |
 | ---------------| ------------| --------|
-| agent_id | agent id | 1 |
+| agent_name | name of the agent | Peter |
+| agent_id | agent ID | 1 |
+| agent_email | email address | peter@neverland.net |
 
 + Request (application/json)
 
@@ -160,6 +163,8 @@ Update a AGENT
         }
 
 ### Delete an agent [DELETE]
+
+Removes an agent. You need to pass your API key and agent_id when you make the call.
 
 
 + Response 200 (application/json)
@@ -209,23 +214,6 @@ List all session for a certain `CLIENT_KEY`
         }]
 
 ### Create a session [POST]
-
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| url | Url to co-browse | http://www.google.com |
-| agent_id | ID of the agent | fOBg4dXAPTHSoil6LywgfYA |
-
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| id | session id, which can be used to end the session | fOBg4dXAPTHSoil6LywgfYA |
-| leader_link |  the link that must be opened in a ***leader*** (controlling) browser. It has a 2 minute time out attached to it, if not used within that time, the session will be closed. | https://session.surfly.com/mWdJBh0xZQMmSlx0dhbUNSg |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-
 
 **Request Body:**
 
@@ -417,6 +405,16 @@ Manage and maintain the QUEUE for a certain client.
 
 List all items in the support Queue for a certain `CLIENT_KEY`.
 
+| Name | Description | Example |
+| ---------------| ------------| --------|
+| start time | | 1 |
+| session | | 1 |
+| url | | "" |
+
+    "start_time": 1,
+    "session": 1,
+    "url": ""
+
 + Response 200 (application/json)
 
         [
@@ -529,7 +527,7 @@ Get information about a certain queue by `queue_id`
 
 Return all your clients by `RESELLER_KEY`
 
-**Repsonse Body:**
+**Response Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
@@ -560,7 +558,7 @@ Add a new client as `RESELLER_KEY`
 | ---------------| ------------| --------|
 | company_name | Name of new company | Neverland |
 
-**Repsonse Body:**
+**Response Body:**
 
 A list of objects containing the following parameter:
 
@@ -594,7 +592,7 @@ A list of objects containing the following parameter:
 
 Get information about a specific `client_id`
 
-**Repsonse Body:**
+**Response Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
@@ -638,7 +636,7 @@ Update a client as `RESELLER_KEY`
 | ---------------| ------------| --------|
 | company_name | New Name of company | Peter Pan |
 
-**Repsonse Body:**
+**Response Body:**
 
 A list of objects containing the following parameter:
 
@@ -716,6 +714,19 @@ active_session, agent_id, year, month are optional
 
 # Invoice Collection [/get/invoice/details/?api_key={API_KEY}]
 
+**Response body**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| issue date | the date the payment was issued | 2015-6-06 |
+| destination address | the address of the recipient | ABC,1221,Netherlands,4343 |
+| origin address | the address of the sender | Surfly Admin, Netherlands |
+| payment term | | 14 |
+| subtotal | amount due | 1490 |
+| currency | the currency type | euro |
+| invoice number | | 5 |
+| total | total payment amount| 1490 |
+
 + Parameters
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
 
@@ -751,6 +762,17 @@ active_session, agent_id, year, month are optional
 
 ### List all logs [GET]
 
+Returns a list of the logs 
+
+**Response body**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| id | the queue id | 1 |
+| agent id | the id of the agent who took the call| 4 |
+| created | the time and date the log was created | 2016-05-30T15:13:03.253096Z |
+| session id | the session id| abc123 |
+| details | the log details | "new session with url http://surfly/com/ was started" |
 
 + Response 200 (application/json)
 
@@ -767,6 +789,21 @@ active_session, agent_id, year, month are optional
         }
 
 ### Create log instance [POST]
+
+**Request body**
+| Name | Description | Event |
+| ---------------| ------------| --------|
+| session id | the session id | "flogr0sRQ1usugvheahwQ" |
+| details | the message you want to log | log message |
+
+**Response body**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| id | the queue id | 1 |
+| agent id | the agent's id | 4 |
+| created | date and time | 2016-05-31T08:22:58.310337Z |
+| details | the message you want to log | log message |
 
 
 + Request (application/json)
@@ -795,6 +832,18 @@ active_session, agent_id, year, month are optional
 
 ### List all session logs [GET]
 
+lists all the logs from the session
+
+**Response body**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| id | the queue id | 1 |
+| agent id | the id of the agent | 4 |
+| created | the time and date at which the log was created | 2016-05-30T15:13:03.253096Z |
+| session id | the session id | flogr0sRQ1usugvheahQ |
+| details | the logged message | New session with url http://surfly.com/ was started |
+
 
 + Response 200 (application/json)
 
@@ -808,4 +857,4 @@ active_session, agent_id, year, month are optional
                 "session_id": "flogr0sRQ1usugvheahwQ",
                 "details": "New session with url http://surfly.com/ was started"
             }]
-        }
+       
