@@ -1049,9 +1049,9 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 
         [
             {
-                "start_time": 1,
-                "session": 1,
-                "url": ""
+                "start_time": "2016-08-11T13:44:58.025358Z",
+                "start_url": "http://www.surfly.com/",
+                "pin": null
             }
         ]
 
@@ -1068,45 +1068,10 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 + Response 200 (application/json)
 
         {
-            "start_time": "",
-            "session": 1,
-            "url": ""
+            "start_time": "2016-08-11T13:44:58.025358Z",
+            "start_url": "http://www.surfly.com/",
+            "pin": "1234"
         }
-
-
-# Queue information [/queue/{QUEUE_ID}/?api_key={API_KEY}]
-
-+ Parameters
-    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-    + QUEUE_ID (string, `fuSHr0sRQ1usugvheahwQ`)
-
-### Get Queue Information [GET]
-
-
-+ Response 200 (application/json)
-
-        {
-            "start_time": "2014-11-03T08:22:41.075Z",
-            "session": "fuSHr0sRQ1usugvheahwQ",
-            "url": "http://example.com/"
-        }
-
-
-### Remove item from the Queue [DELETE]
-
-
-+ Request (application/json)
-
-        {
-            "id": "fuSHr0sRQ1usugvheahwQ"
-        }
-
-+ Response 200 (application/json)
-
-        {
-            "detail":""
-        }
-
 
 
 ########################################
