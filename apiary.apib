@@ -585,14 +585,14 @@ Surfly.log("Custom message");
 
 If you want to more tightly control the Surfly integration you can also completely take care of the
 session creation yourself. This will allow you to fully customize the look and feel of Surfly and or
-tightly integrate our cobrowsing technology in an existing application. 
+tightly integrate our cobrowsing technology in an existing application.
 
-In general to accopmlish something like this one needs to take the following approach: 
+In general to accopmlish something like this one needs to take the following approach:
 
  - Include Surfly's `widget.js` code
  - Set flags `hidden` and `ui_off`  to true, so that you be able to completely override the look and feel
  - After onload create a session by calling `Surfly.session.instant_start( callback )`
- 
+
 This will than automatically create the Surfly session for you and open it in an iframe, if possible, or a new browser tab.
 The created iframe will be appended to the body, fully cover the window and have an id of `surfly-iframe`.
 
@@ -600,9 +600,9 @@ The `instant_start callback` will be called after the session has been started w
 
  - ip_leader  - IP addres of the leader
  - viewer_link  - the link that should be opened by other participants of this session
- 
-The received viewer_link can be used by your client side javascript code to, for example, have an 
-agent join the session. 
+
+The received viewer_link can be used by your client side javascript code to, for example, have an
+agent join the session.
 
 After the iframe has been created, it can be controlled via postMessage and
 will emit messages back to the parent frame. The specific messages for this communication protocol are
@@ -1103,7 +1103,8 @@ Both keys can be found on your API page in your dashboard. We recommend that you
 + Request (application/json)
 
         {
-            "company_name": "Test User"
+            "company_name": "Test User",
+            "domains": "*"
         }
 
 + Response 200 (application/json)
