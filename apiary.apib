@@ -113,6 +113,7 @@ ways, in order to manage the interface with Surfly:
 A variety of options are available for customizing Surfly. These can
 be configured in the Javascript snippet, as an option in a REST call, or by simply
 switching a flag in the Chrome extension.
+Please refer to our <a href='http://docs.surfly.com/widget_options.html'>documentation</a> to see an extensive list of session options.
 
 
 ----
@@ -943,6 +944,18 @@ Returns a list of the logs
     + SESSION_ID (string, `flogr0sRQ1usugvheahwQ`)
 
 ### List all session logs [GET]
+
+lists all the logs from the session
+
+**Response body**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| id | the queue id | 1 |
+| agent id | the id of the agent | 4 |
+| created | the time and date at which the log was created | 2016-05-30T15:13:03.253096Z |
+| session id | the session id | flogr0sRQ1usugvheahQ |
+| details | the logged message | New session with url http://surfly.com/ was started |
 
 
 + Response 200 (application/json)
