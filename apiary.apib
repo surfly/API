@@ -52,7 +52,7 @@ The following types of customizations of Surfly can be achieved:
 
 For example code please see the [Reference Code](#reference_code) section below.
 
-<a name="website_integration></a>
+<a name="website_integration"></a>
 ##### Website Integration
 
 Add Surfly to your website and allow the visitors to your website to create a
@@ -113,6 +113,7 @@ ways, in order to manage the interface with Surfly:
 A variety of options are available for customizing Surfly. These can
 be configured in the Javascript snippet, as an option in a REST call, or by simply
 switching a flag in the Chrome extension.
+
 Please refer to our <a href='http://docs.surfly.com/widget_options.html'>documentation</a> to see an extensive list of session options.
 
 
@@ -152,7 +153,7 @@ Below you can find detailed code examples illustrating how to make the REST call
 
 ### List all agents [GET]
 
-List all agents for a certain `CLIENT_KEY`.
+List all agents for a certain `CLIENT_KEY`
 
 **Response Body:**
 
@@ -180,11 +181,11 @@ Create a new AGENT
             
 **Request Body:**
 
-  |  Name | Description | Example |
-  | ---------------| ------------| --------|
-  | username | username of the agent | Peter Pan |
-  | agent_email | email address | peter@neverland.net |
-  | password | password | Pass@123 |
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| username | username of the agent | Peter Pan |
+| agent_email | email address | peter@neverland.net |
+| password | password | Pass@123 |
 
 
 **Response Body:**
@@ -224,11 +225,11 @@ Get information about a certain agent by `agent_id`
 
 **Response Body:**
 
-  |  Name | Description | Example |
-  | ---------------| ------------| --------|
-  | agent_id | agent ID | 1 |
-  | agent_name | name of the agent | Peter Pan |
-  | agent_email | email address | peter@neverland.net |
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| agent_id | agent ID | 1 |
+| agent_name | name of the agent | Peter Pan |
+| agent_email | email address | peter@neverland.net |
 
 
 + Response 200 (application/json)
@@ -381,7 +382,7 @@ List all session for a certain `CLIENT_KEY`
 
 ### List all Active Sessions [GET]
 
-List all ACTIVE session for a certain `CLIENT_KEY`
+List all ACTIVE sessions for a certain `CLIENT_KEY`
 
 
 **Response Body:**
@@ -520,21 +521,17 @@ List all items in the support Queue for a certain `CLIENT_KEY`.
 
 | Name | Description | Example |
 | ---------------| ------------| --------|
-| start time | | 1 |
-| session | | 1 |
-| url | | "" |
-
-    "start_time": 1,
-    "session": 1,
-    "url": ""
+| start time | | 2016-08-11T13:44:58.025358Z |
+| start_url | | http://www.surfly.com/ |
+| pin | | null |
 
 + Response 200 (application/json)
 
         [
             {
-                "start_time": 1,
-                "session": 1,
-                "url": ""
+                "start_time": "2016-08-11T13:44:58.025358Z",
+                "start_url": "http://www.surfly.com/",
+                "pin": null
             }
         ]
 
@@ -567,64 +564,10 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
 + Response 200 (application/json)
 
         {
-            "start_time": "",
-            "session": 1,
-            "url": ""
+            "start_time": "2016-08-11T13:44:58.025358Z",
+            "start_url": "http://www.surfly.com/",
+            "pin": "1234"
         }
-
-
-# Queue information [/queue/{QUEUE_ID}/?api_key={API_KEY}]
-
-+ Parameters
-    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-    + QUEUE_ID (string, `fuSHr0sRQ1usugvheahwQ`)
-
-### Get Queue Information [GET]
-
-Get information about a certain queue by `queue_id`
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| company | Name of the company | Company name = ABC  |
-| queue_id | Session ID| 31 |
-| queue_start_time | Queue Start Time | 2014-11-03T08:22:41.075Z |
-| ip_address | IP Address | 192.168.1.130|
-| join_link | Queue Join Link | http://surfly.com/ |
-
-
-
-+ Response 200 (application/json)
-
-        {
-            "start_time": "2014-11-03T08:22:41.075Z",
-            "session": "fuSHr0sRQ1usugvheahwQ",
-            "url": "http://example.com/"
-        }
-
-
-### Remove item from the Queue [DELETE]
-
-**Request Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| id | ID of item in the Queue (optional) | 25 |
-
-
-+ Request (application/json)
-
-        {
-            "id": "fuSHr0sRQ1usugvheahwQ"
-        }
-
-+ Response 200 (application/json)
-
-        {
-            "detail":""
-        }
-
 
 
 ########################################
@@ -673,7 +616,7 @@ Add a new client as `RESELLER_KEY`
 
 **Response Body:**
 
-A list of objects containing the following parameter:
+A list of objects containing the following parameters:
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
@@ -747,7 +690,7 @@ Update a client as `RESELLER_KEY`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | New Name of company | Peter Pan |
+| company_name | New name of company | Peter Pan |
 
 **Response Body:**
 
@@ -820,12 +763,16 @@ active_session, agent_id, year, month are optional
         }]
 
 
-
 ########################################
 # Group Invoice
 
 
 # Invoice Collection [/get/invoice/details/?api_key={API_KEY}]
+
++ Parameters
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+
+### Lists your current month's invoice [GET]
 
 **Response body**
 
@@ -839,11 +786,6 @@ active_session, agent_id, year, month are optional
 | currency | the currency type | euro |
 | invoice number | | 5 |
 | total | total payment amount| 1490 |
-
-+ Parameters
-    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-
-### Lists your current month's invoice [GET]
 
 + Response 200 (application/json)
 
@@ -904,7 +846,8 @@ Returns a list of the logs
 ### Create log instance [POST]
 
 **Request body**
-| Name | Description | Event |
+
+|  Name | Description | Example |
 | ---------------| ------------| --------|
 | session id | the session id | "flogr0sRQ1usugvheahwQ" |
 | details | the message you want to log | log message |
@@ -945,7 +888,7 @@ Returns a list of the logs
 
 ### List all session logs [GET]
 
-lists all the logs from the session
+Lists all the logs from the session
 
 **Response body**
 
