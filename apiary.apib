@@ -43,11 +43,11 @@ the management of client and agent creation through our REST API.
 The following types of customizations of Surfly can be achieved:
 
  - [Website Integration](#website_integration)
- - [Full Session Continuation](#full_session_continuation)
  - [Session Customization](#session_customization)
  - [Customize session start or join page](#custom_session_start)
+ - [Full Session Continuation](#full_session_continuation)
  - [Application Integration](#application_integration)
- - [Agent Creation](#agent_creation)
+ - [Agent Creation](#automatic_agent_creation)
  - [Reseller Automatization](#reseller_automatization)
 
 For example code please see the [Reference Code](#reference_code) section below.
@@ -58,7 +58,7 @@ For example code please see the [Reference Code](#reference_code) section below.
 Add Surfly to your website and allow the visitors to your website to create a
 support request by clicking on our support button.  The style and color of this
 button can be fully customized to match your applications or website’s look and
-feel. See the [support button appearance](#support_button) table for more information:
+feel. 
 
 <a name="session_customization"></a>
 ##### Session Customization
@@ -94,7 +94,7 @@ build a thin layer around our technology.
 Agents can be added through the admin interface, but, if your agents are more
 dynamic, these can also be added and removed through our REST API.
 
-<a name="reseller_automization"></a>
+<a name="reseller_automatization"></a>
 ##### Reseller Automatization
 
 Resellers can use our API to create new Surfly clients.  You decide whether you
@@ -159,7 +159,7 @@ List all agents for a certain `CLIENT_KEY`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| agent_id | agent ID  | 1 |
+| agent_id | ID of the agent | 1 |
 | agent_name | name of the agent | Peter Pan |
 | agent_email | email address of the agent | peter@neverland.net |
 
@@ -184,7 +184,7 @@ Create a new AGENT
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | username | username of the agent | Peter Pan |
-| agent_email | email address | peter@neverland.net |
+| agent_email | email address of the agent | peter@neverland.net |
 | password | password | Pass@123 |
 
 
@@ -192,7 +192,7 @@ Create a new AGENT
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| agent_id | agent ID | 1 |
+| agent_id | ID of the agent | 1 |
 
 
 
@@ -227,9 +227,9 @@ Get information about a certain agent by `agent_id`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| agent_id | agent ID | 1 |
-| agent_name | name of the agent | Peter Pan |
-| agent_email | email address | peter@neverland.net |
+| agent_id | ID of the agent | 2 |
+| agent_name | name of the agent | John Doe |
+| agent_email | email address of the agent | john.doe@example.com |
 
 
 + Response 200 (application/json)
@@ -243,14 +243,14 @@ Get information about a certain agent by `agent_id`
 
 ### Update an agent [PUT]
 
-Update a AGENT
+Update an AGENT
             
 **Request Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | username (optional) | username of the agent | Peter Pan |
-| agent_email (optional) | email address | peter@neverland.net |
+| agent_email (optional) | email address of the agent | peter@neverland.net |
 
 
 **Response Body:**
@@ -258,8 +258,8 @@ Update a AGENT
 | Name | Description | Example |
 | ---------------| ------------| --------|
 | agent_name | name of the agent | Peter |
-| agent_id | agent ID | 1 |
-| agent_email | email address | peter@neverland.net |
+| agent_id | ID of the agent | 2 |
+| agent_email | email address of the agent | peter@neverland.net |
 
 + Request (application/json)
 
@@ -278,7 +278,7 @@ Update a AGENT
 
 ### Delete an agent [DELETE]
 
-Removes an agent. You need to pass your API key and agent_id when you make the call.
+Removes an agent. You need to pass your API key and `agent_id` when you make the call.
 
 
 + Response 200 (application/json)
@@ -286,8 +286,6 @@ Removes an agent. You need to pass your API key and agent_id when you make the c
         {
             "response": "Agent has been removed successfully"
         }
-
-
 
 
 
@@ -302,7 +300,7 @@ Removes an agent. You need to pass your API key and agent_id when you make the c
 
 ### List all Sessions [GET]
 
-List all session for a certain `CLIENT_KEY`
+List all sessions for a certain `CLIENT_KEY`
 
 
 **Response Body:**
@@ -311,20 +309,30 @@ List all session for a certain `CLIENT_KEY`
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-| start_time | time the session started | Fri, 10 okt 10:20 AM |
-| duration | Length of the session | 123 |
+| agent_id | ID of the agent | 2 |
+| viewer_link | the link that must be opened in a ***viewer*** browser | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+| start_time | time the session started | 2016-06-17T14:30:44.026111Z |
+| duration | length of the session (in seconds) | 123 |
+| queue_id |  | 3927 |
+| pin |  | 3927 |
+| queued |  | false |
+| start_url | page the session starts from | https://example.com/ |
+| meta | additional data attached to joining user | {} |
 
 
 + Response 200 (application/json)
 
         [{
             "session_id": "fOBg4dXAPTHSoil6LywgfYA",
-            "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+            "agent_id": 2,
             "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
-            "start_time": "Fri, 10 okt 10:20 AM",
-            "duration": 123
+            "start_time": "2016-06-17T14:30:44.026111Z",
+            "duration": 123,
+            "queue_id": 3927,
+            "pin": 3927,
+            "queued":false,
+            "start_url":"https://example.com/",
+            "meta":"{}"
         }]
 
 ### Create a session [POST]
@@ -333,17 +341,28 @@ List all session for a certain `CLIENT_KEY`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| url | Url to co-browse | http://www.google.com |
-| agent_id | ID of the agent | fOBg4dXAPTHSoil6LywgfYA |
+| url | url to co-browse | http://www.google.com |
+| agent_id (optional) | ID of the agent | 2 |
 
 
 **Response Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| id | session id, which can be used to end the session | fOBg4dXAPTHSoil6LywgfYA |
-| leader_link |  the link that must be opened in a ***leader*** (controlling) browser. It has a 2 minute time out attached to it, if not used within that time, the session will be closed. | https://session.surfly.com/mWdJBh0xZQMmSlx0dhbUNSg |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+| id | session ID, which can be used to end the session | fOBg4dXAPTHSoil6LywgfYA |
+| agent_id | ID of the agent | 2 |
+| viewer_link | the link that must be opened in a ***viewer*** browser | https://session.surfly.com/fm6pApJ18SvqlVEpnCx8Qmg |
+| start_time | time the session started | 2014-12-11T15:12:22.447Z |
+| end_time | time the session ended | null |
+| duration | duration of the session (in seconds) | null |
+| ip_leader | IP address of the leader | 127.0.0.1 |
+| leader_link |  the link that must be opened in a ***leader*** (controlling) browser. It has a 2 minute time out attached to it, if not used within that time, the session will be closed. | https://session.surfly.com/mUBRJyslQStVXPEwUwFyQ |
+| ip_follower | IP address of the follower  | 127.0.0.1 |
+| emails_send | list of email invitations sent | [{"to": [], "from": null}] |
+| queue_id |  | 0 |
+| pin |  | null |
+| queued |  | false |
+| meta | additional data attached to joining user | {} |
 
 
 
@@ -357,7 +376,7 @@ List all session for a certain `CLIENT_KEY`
 
         {
             "id": "fm6pApJ18SvqlVEpnCx8Qmg",
-            "agent_id": "jGBAOLFaRv6NG57AZubK8A",
+            "agent_id": 2,
             "viewer_link": "https://session.surfly.com/fm6pApJ18SvqlVEpnCx8Qmg",
             "start_time": "2014-12-11T15:12:22.447Z",
             "end_time": null,
@@ -366,12 +385,17 @@ List all session for a certain `CLIENT_KEY`
             "leader_link": "https://session.surfly.com/mUBRJyslQStVXPEwUwFyQ",
             "ip_follower": "127.0.0.1",
             "emails_send": [
-            {
-              "to": [],
-              "from": null
-            }
-            ]
+                                {
+                                    "to": [],
+                                    "from": null
+                                }
+                            ],
+            "queue_id":0,
+            "pin":null,
+            "queued":false,
+            "meta":"{}"
         }
+
 
 
 
@@ -391,19 +415,29 @@ List all ACTIVE sessions for a certain `CLIENT_KEY`
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-| start_time | time the session started | Fri, 10 okt 10:20 AM |
-| duration | Length of the session | 123 |
+| agent_id |  ID of the agent | 2 |
+| viewer_link | the link that must be opened in a ***viewer*** browser | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+| start_time | time the session started | 2014-12-11T15:12:22.447Z |
+| duration | length of the session (in seconds) | 123 |
+| queue_id |  | 5281 |
+| pin |  | 5281 |
+| queued |  | false |
+| start_url | page the session starts from | https://example.com/ |
+| meta | additional data attached to joining user | {} |
 
 + Response 200 (application/json)
 
         [{
             "session_id": "fOBg4dXAPTHSoil6LywgfYA",
-            "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+            "agent_id": 2,
             "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
-            "start_time": "Fri, 10 okt 10:20 AM",
-            "duration": 123
+            "start_time": "2014-12-11T15:12:22.447Z",
+            "duration": 123,
+            "queue_id": 5281,
+            "pin": 5281,
+            "queued":false,
+            "start_url":"https://example.com/",
+            "meta":"{}"},
         }]
 
 # Agent Sessions Collection [/sessions/?api_key={API_KEY}&active_session=true&agent_id=1&year=2015&month=01]
@@ -413,9 +447,9 @@ List all ACTIVE sessions for a certain `CLIENT_KEY`
 
 ### List Active Sessions for Agent [GET]
 
-List all ACTIVE sessions for a certain `Agent`, `Year`, `Month`
+List all ACTIVE sessions for a certain `agent`, `year`, `month`
 
-active_session, agent_id, year, month are optional
+`active_session`, `agent_id`, `year` and `month` are optional
 
 **Response Body:**
 
@@ -423,22 +457,31 @@ active_session, agent_id, year, month are optional
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-| start_time | time the session started | Fri, 10 okt 10:20 AM |
-| duration | Length of the session | 123 |
+| agent_id |  ID of the agent | 2 |
+| viewer_link | the link that must be opened in a ***viewer*** browser | https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q |
+| start_time | time the session started | 2016-07-01T08:39:09.755987Z |
+| duration | length of the session (in seconds) | 123 |
+| queue_id |  | 5281 |
+| pin |  | 5281 |
+| queued |  | false |
+| start_url | page the session starts from | https://example.com/ |
+| meta | additional data attached to joining user | {} |
 
 
 + Response 200 (application/json)
 
         [{
             "session_id": "fOBg4dXAPTHSoil6LywgfYA",
-            "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+            "agent_id": 2,
             "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
             "start_time": "Fri, 10 okt 10:20 AM",
-            "duration": 123
+            "duration": 123,
+            "queue_id": 5281,
+            "pin": 5281,
+            "queued": false,
+            "start_url": "https://example.com/",
+            "meta": "{}"},
         }]
-
 
 
 
@@ -457,21 +500,25 @@ Get information about a certain session or end a certain session.
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| id | session id, which can be used to end the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-| start_time | time the session started | Fri, 10 okt 2014 10:20:24 |
-| end_time | time the session ended | Fri, 10 okt 2014 10:51:46 |
-| duration | Length of the session (in seconds) |  1882 |
-| ip_leader | IP address of leader | 192.168.1.1 |
-| ip_followers | comma seperated list of IP's of followers | 10.0.0.1, 10.0.0.2 |
-| emails_send | list of email invatiations send | agent@company.com, client@company2.com |
+| id | session ID, which can be used to end the session | fwqcOuuMwTty7ii3kcA8Q |
+| agent_id |  ID of the agent | 2 |
+| viewer_link | the link that must be opened in a ***viewer*** browser | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+| start_time | time the session started | 2014-10-10T10:20:24.755987Z |
+| end_time | time the session ended | 2014-10-10T10:51:46.755987Z |
+| duration | length of the session (in seconds) |  1882 |
+| ip_leader | IP address of leader | 127.0.0.1 |
+| ip_follower | comma seperated list of IP's of followers | 10.0.0.1, 10.0.0.2 |
+| emails_send | list of email invitations sent | agent@company.com, client@company2.com |
+| queue_id |  | 6684 |
+| pin |  | 6684 |
+| queued |  | false |
+| meta | additional data attached to joining user | {} |
 
 + Response 200 (application/json)
 
         {
             "id": "fwqcOuuMwTty7ii3kcA8Q",
-            "agent_id": 1,
+            "agent_id": 2,
             "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
             "start_time": "Fri, 10 okt 2014 10:20:24",
             "end_time": "Fri, 10 okt 2014 10:51:46",
@@ -484,7 +531,11 @@ Get information about a certain session or end a certain session.
                                     "to": [],
                                     "from": null
                                 }
-                            ]
+                            ],
+            "queue_id": 6684,
+            "pin": 6684,
+            "queued":false,
+            "meta":"{}"
         }
 
 
@@ -494,12 +545,8 @@ Get information about a certain session or end a certain session.
 + Response 200 (application/json)
 
         {
-            "response":""
+            "response":"Session has been ended successfully"
         }
-
-
-
-
 
 
 
@@ -522,18 +569,23 @@ List all items in the support Queue for a certain `CLIENT_KEY`.
 | Name | Description | Example |
 | ---------------| ------------| --------|
 | start_time | | 2016-08-11T13:44:58.025358Z |
-| start_url | | http://www.surfly.com/ |
+| url | |  |
+| start_url | starting page of the session | http://www.surfly.com/ |
 | pin | | null |
+| identifier | | null |
 
 + Response 200 (application/json)
 
         [
             {
                 "start_time": "2016-08-11T13:44:58.025358Z",
+                 url":"",
                 "start_url": "http://www.surfly.com/",
-                "pin": null
+                "pin": null,
+                "identifier": null
             }
         ]
+
 
 ### Add an item to the Queue [POST]
 
@@ -543,15 +595,19 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| url | Url to co-browse | http://www.google.com |
-| id | ID of item in the Queue (optional) | fOBg4dXAPTHSoil6LywgfYA |
+| url | url to co-browse | http://www.google.com |
+| id | ID of item in the Queue | fOBg4dXAPTHSoil6LywgfYA |
 
 
 **Response Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| id | Queue id, which can be used to identify the item in the queue  | fOBg4dXAPTHSoil6LywgfYA |
+| start_time | | 2016-08-11T13:44:58.025358Z |
+| url | |  |
+| start_url | starting page of the session | http://www.surfly.com/ |
+| pin | | 1234 |
+| identifier | | 1234 |
 
 
 + Request (application/json)
@@ -565,9 +621,13 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
 
         {
             "start_time": "2016-08-11T13:44:58.025358Z",
+            "url": "",
             "start_url": "http://www.surfly.com/",
-            "pin": "1234"
+            "pin": 1234,
+            "identifier": 1234
         }
+
+
 
 
 ########################################
@@ -690,7 +750,7 @@ Update a client as `RESELLER_KEY`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | New name of company | Peter Pan |
+| company_name | new name of company | Peter Pan |
 
 **Response Body:**
 
@@ -698,7 +758,7 @@ A list of objects containing the following parameter:
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | Name of company | Peter Pan |
+| company_name | name of company | Peter Pan |
 | client_key | Client Key | AOEUaoeuntsPDe |
 
 
@@ -736,9 +796,9 @@ A list of objects containing the following parameter:
 
 ### Example: List Active Sessions for Reseller's Client [GET]
 
-List all ACTIVE sessions for a certain `Client`, `Year`, `Month`
+List all ACTIVE sessions for a certain `client`, `year`, `month`
 
-active_session, agent_id, year, month are optional
+`active_session`, `year` and `month` are optional
 
 **Response Body:**
 
@@ -746,21 +806,23 @@ active_session, agent_id, year, month are optional
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | AEOUoeauAOEUpaoeu |
-| viewer_link | the link that must be opened in a ***viewer***. | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-| start_time | time the session started | Fri, 10 okt 10:20 AM |
-| duration | Length of the session | 123 |
+| agent_id |  ID of the agent | 2 |
+| viewer_link | the link that must be opened in a ***viewer*** browser | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+| start_time | time the session started | 2016-08-11T13:44:58.025358Z |
+| duration | length of the session (in seconds)| 123 |
 
 
 + Response 200 (application/json)
 
         [{
             "session_id": "fOBg4dXAPTHSoil6LywgfYA",
-            "agent_id": "fOBg4dXAPTHSoil6LywgfYA",
+            "agent_id": 2,
             "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
-            "start_time": "Fri, 10 okt 10:20 AM",
+            "start_time": "2016-08-11T13:44:58.025358Z",
             "duration": 123
         }]
+
+
 
 
 ########################################
@@ -807,6 +869,8 @@ active_session, agent_id, year, month are optional
         }]
 
 
+
+
 ########################################
 # Group Logs
 
@@ -823,11 +887,11 @@ Returns a list of the logs
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| id | the queue id | 1 |
-| agent id | the id of the agent who took the call| 4 |
-| created | the time and date the log was created | 2016-05-30T15:13:03.253096Z |
-| session id | the session id| abc123 |
-| details | the log details | "new session with url http://surfly/com/ was started" |
+| id | the queue ID | 1 |
+| agent_id | ID of the agent | 4 |
+| created | time and date the log was created | 2016-05-30T15:13:03.253096Z |
+| session_id | the session ID | flogr0sRQ1usugvheahwQ |
+| details | the log details | New session with url http://surfly.com/ was started |
 
 + Response 200 (application/json)
 
@@ -849,17 +913,18 @@ Returns a list of the logs
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| session id | the session id | flogr0sRQ1usugvheahwQ |
+| session_id | the session ID | flogr0sRQ1usugvheahwQ |
 | details | the message you want to log | log message |
 
 **Response body**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| id | the queue id | 1 |
-| agent id | the agent's id | 4 |
-| created | date and time | 2016-05-31T08:22:58.310337Z |
-| details | the message you want to log | log message |
+| id | the queue ID | 1 |
+| agent_id | the ID of the agent | 4 |
+| created | time and date | 2016-05-31T08:22:58.310337Z |
+| session_id | the session ID | flogr0sRQ1usugvheahwQ |
+| details | the message you want to log | Log message |
 
 
 + Request (application/json)
@@ -894,10 +959,10 @@ Lists all the logs from the session
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| id | the queue id | 1 |
-| agent id | the id of the agent | 4 |
+| id | the queue ID | 1 |
+| agent_id | the ID of the agent | 4 |
 | created | the time and date at which the log was created | 2016-05-30T15:13:03.253096Z |
-| session id | the session id | flogr0sRQ1usugvheahQ |
+| session_id | the session ID | flogr0sRQ1usugvheahQ |
 | details | the logged message | New session with url http://surfly.com/ was started |
 
 
@@ -913,4 +978,4 @@ Lists all the logs from the session
                 "session_id": "flogr0sRQ1usugvheahwQ",
                 "details": "New session with url http://surfly.com/ was started"
             }]
-        }     
+        }    
