@@ -647,10 +647,12 @@ Return all your clients by `RESELLER_KEY`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | Name of Company | Neverland |
+| company_name | name of Company | Neverland |
 | client_key | Client Key | AOEUaoeuntsPDe |
-| agent_count | Number of agents | 15 |
-
+| agent_count | number of agents | 15 |
+| widget_key | widget key | 24d1414c71a94cbf9f205ed4fc4999b5 |
+| rest_key | REST API key | 3b57bd2db21c46d2875508b982968d26 |
+| domains |  | example.com, *.example.com |
 
 + Response 200 (application/json)
 
@@ -673,6 +675,7 @@ Add a new client as `RESELLER_KEY`
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | company_name | Name of new company | Neverland |
+| domains |  | * |
 
 **Response Body:**
 
@@ -680,7 +683,7 @@ A list of objects containing the following parameters:
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | Name of company | Neverland |
+| company_name | name of company | Neverland |
 | client_key | Client Key | AOEUaoeuntsPDe |
 
 
@@ -688,7 +691,7 @@ A list of objects containing the following parameters:
 
         {
             "company_name": "Test User",
-	    "domains": "*"
+            "domains": "*"
         }
 
 + Response 200 (application/json)
@@ -713,9 +716,12 @@ Get information about a specific `client_id`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | Name of company | Neverland |
+| company_name | name of company | Neverland |
 | client_key | Client Key | AOEUaoeuntsPDe |
-| agent_count | Number of agents | 15 |
+| agent_count | number of agents | 15 |
+| widget_key | widget key | 24d1414c71a94cbf9f205ed4fc4999b5 |
+| rest_key | REST API key | 3b57bd2db21c46d2875508b982968d26 |
+| domains |  | example.com, *.example.com |
 
 
 + Response 200 (application/json)
@@ -841,13 +847,13 @@ List all ACTIVE sessions for a certain `client`, `year`, `month`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| issue date | the date the payment was issued | 2015-6-06 |
-| destination address | the address of the recipient | ABC,1221,Netherlands,4343 |
-| origin address | the address of the sender | Surfly Admin, Netherlands |
-| payment term | | 14 |
-| subtotal | amount due | 1490 |
+| issue_date | the date the payment was issued | 2015-6-06 |
+| to_address | the address of the recipient | ABC,1221,Netherlands,4343 |
+| from_address | the address of the sender | Surfly Admin, Netherlands |
+| payment_term | | 14 |
+| sub_total | amount due | 1490 |
 | currency | the currency type | euro |
-| invoice number | | 5 |
+| invoice_number | | 5 |
 | total | total payment amount| 1490 |
 
 + Response 200 (application/json)
