@@ -639,11 +639,13 @@ Return all your clients by `RESELLER_KEY`
 
 **Response Body:**
 
+A list of objects containing the following parameters:
+
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | company_name | name of Company | Neverland |
 | client_key | Client Key | AOEUaoeuntsPDe |
-| agent_count | number of agents | 15 |
+| agent_count | maximum number of agents | 15 |
 | widget_key | widget key | 24d1414c71a94cbf9f205ed4fc4999b5 |
 | rest_key | REST API key | 3b57bd2db21c46d2875508b982968d26 |
 | domains |  | example.com, *.example.com |
@@ -658,7 +660,16 @@ Return all your clients by `RESELLER_KEY`
             "widget_key": "24d1414c71a94cbf9f205ed4fc4999b5",
             "rest_key": "3b57bd2db21c46d2875508b982968d26",
             "domains": "example.com, *.example.com"
+        },
+        {
+            "company_name": "DefaultCompany",
+            "client_key": "b05b45b8d4df42ba96",
+            "agent_count": 2,
+            "widget_key": "c6a1333308a843cc9fb6aee2e42941d6",
+            "rest_key": "767dd31a038c4ee798c72abb4b568ade",
+            "domains": "*"
         }]
+
 
 ### Create a new client [POST]
 
@@ -718,7 +729,7 @@ Get information about a specific `CLIENT_ID`
 | ---------------| ------------| --------|
 | company_name | name of company | Neverland |
 | client_key | Client Key | AOEUaoeuntsPDe |
-| agent_count | number of agents | 15 |
+| agent_count | maximum number of agents | 15 |
 | widget_key | widget key | 24d1414c71a94cbf9f205ed4fc4999b5 |
 | rest_key | REST API key | 3b57bd2db21c46d2875508b982968d26 |
 | domains |  | example.com, *.example.com |
