@@ -149,6 +149,8 @@ List all AGENTS
 
 **Response Body:**
 
+A list of objects containing the following parameters:
+
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | agent_id | ID of the agent | 1 |
@@ -235,7 +237,7 @@ Get information about a certain AGENT by `AGENT_ID`
 
 ### Update an agent [PUT]
 
-Update an AGENT
+Update an AGENT by `AGENT_ID`
 
 **Request Body:**
 
@@ -270,7 +272,7 @@ Update an AGENT
 
 ### Delete an agent [DELETE]
 
-Remove an AGENT. You need to pass an `AGENT_ID` as a parameter when you make the call.
+Remove an AGENT by `AGENT_ID`
 
 
 + Response 200 (application/json)
@@ -297,6 +299,7 @@ List all sessions
 
 **Response Body:**
 
+A list of objects containing the following parameters:
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
@@ -405,6 +408,7 @@ List all ACTIVE sessions
 
 **Response Body:**
 
+A list of objects containing the following parameters:
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
@@ -447,6 +451,7 @@ List all ACTIVE sessions for a certain `AGENT`, `year`, `month`
 
 **Response Body:**
 
+A list of objects containing the following parameters:
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
@@ -488,7 +493,7 @@ List all ACTIVE sessions for a certain `AGENT`, `year`, `month`
 
 ### Get session information [GET]
 
-Get information about a certain session or end a certain session.
+Get information about a session by `SESSION_ID`
 
 **Response Body:**
 
@@ -535,6 +540,7 @@ Get information about a certain session or end a certain session.
 
 ### End a session [DELETE]
 
+End a session by `SESSION_ID`
 
 + Response 200 (application/json)
 
@@ -548,7 +554,7 @@ Get information about a certain session or end a certain session.
 ########################################
 # Group Queue
 
-Manage and maintain the QUEUE for a certain client.
+Manage and maintain the QUEUE for a certain client
 
 
 # Queue Collection [/queue/?api_key={API_KEY}]
@@ -559,6 +565,10 @@ Manage and maintain the QUEUE for a certain client.
 ### List all Active Sessions in the Queue [GET]
 
 List all items in the support Queue
+
+**Response body**
+
+A list of objects containing the following parameters:
 
 | Name | Description | Example |
 | ---------------| ------------| --------|
@@ -589,8 +599,8 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| url | url to co-browse | http://www.google.com |
-| id | ID of item in the Queue | fOBg4dXAPTHSoil6LywgfYA |
+| url | url to co-browse | http://www.example.com/ |
+| id | ID of item in the Queue | fuSHr0sRQ1usugvheahwQ |
 
 
 **Response Body:**
@@ -643,12 +653,12 @@ A list of objects containing the following parameters:
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | name of Company | Neverland |
-| client_key | Client Key | AOEUaoeuntsPDe |
+| company_name | name of company | Neverland |
+| client_key | client key | AOEUaoeuntsPDe |
 | agent_count | maximum number of agents | 15 |
 | widget_key | widget key | 24d1414c71a94cbf9f205ed4fc4999b5 |
 | rest_key | REST API key | 3b57bd2db21c46d2875508b982968d26 |
-| domains |  | example.com, *.example.com |
+| domains | comma-separated list of domains | example.com, *.example.com |
 
 + Response 200 (application/json)
 
@@ -679,19 +689,19 @@ Add a new client as `RESELLER_KEY`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | Name of new company | Neverland |
-| domains | (optional) Coma-separated list of domains |* |
-| agent_email | (optional) Email of a company admin | peter@mail.com |
-| agent_name | (optional) Name of a company admin | Peter Pan |
+| company_name | name of new company | Neverland |
+| domains (optional) | comma-separated list of domains | * |
+| agent_email (optional) | email of a company admin | peter@mail.com |
+| agent_name (optional) | name of a company admin | Peter Pan |
 
 **Response Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | company_name | name of company | Neverland |
-| client_key | Client Key | fOBg4dXAPTHSoil6LywgfYA |
+| client_key | client key | fOBg4dXAPTHSoil6LywgfYA |
 | rest_key | REST API key | 22c0f77e5ca54d8fa6748f7cec4732c5 |
-| widget_key | Widget key | 92cdd920f4e345768f6717b02f15dae8 |
+| widget_key | widget key | 92cdd920f4e345768f6717b02f15dae8 |
 
 
 + Request (application/json)
@@ -721,18 +731,18 @@ Add a new client as `RESELLER_KEY`
 
 ### Get Client Information [GET]
 
-Get information about a specific `CLIENT_ID`
+Get information about a specific client by `CLIENT_ID`
 
 **Response Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | company_name | name of company | Neverland |
-| client_key | Client Key | AOEUaoeuntsPDe |
+| client_key | client key | AOEUaoeuntsPDe |
 | agent_count | maximum number of agents | 15 |
 | widget_key | widget key | 24d1414c71a94cbf9f205ed4fc4999b5 |
 | rest_key | REST API key | 3b57bd2db21c46d2875508b982968d26 |
-| domains |  | example.com, *.example.com |
+| domains | comma-separated list of domains | example.com, *.example.com |
 
 
 + Response 200 (application/json)
@@ -752,13 +762,13 @@ Get information about a specific `CLIENT_ID`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| domains |  | example.com, *.example.com |
+| domains | comma-separated list of domains | example.com, *.example.com |
 
 **Response Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| domains |  | example.com, *.example.com |
+| domains | comma-separated list of domains | example.com, *.example.com |
 
 + Request (application/json)
 
@@ -786,8 +796,9 @@ Update a client as `RESELLER_KEY`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
+| agent_count | maximum number of agents | 15 |
 | company_name | name of company | Peter Pan |
-| client_key | Client Key | AOEUaoeuntsPDe |
+| client_key | client key | AOEUaoeuntsPDe |
 
 
 
@@ -800,7 +811,9 @@ Update a client as `RESELLER_KEY`
 + Response 200 (application/json)
 
         {
-            "company_name": "Peter Pan"
+            "agent_count":15,
+            "company_name": "Peter Pan",
+            "client_key":"AOEUaoeuntsPDe"
         }
 
 ### Delete a Client [DELETE]
@@ -824,12 +837,13 @@ Update a client as `RESELLER_KEY`
 
 ### List Active Sessions for Reseller's Client [GET]
 
-List all ACTIVE sessions for a certain `client`, `year`, `month`
+List all ACTIVE sessions for a certain `CLIENT`, `year`, `month`
 
 `active_session`, `year` and `month` are optional
 
 **Response Body:**
 
+A list of objects containing the following parameters:
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
@@ -909,9 +923,11 @@ List all ACTIVE sessions for a certain `client`, `year`, `month`
 
 ### List all logs [GET]
 
-Returns a list of the logs
+Return a list of the logs
 
 **Response body**
+
+A list of objects containing the following parameters:
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
@@ -936,6 +952,8 @@ Returns a list of the logs
         }
 
 ### Create log instance [POST]
+
+Create a new log
 
 **Request body**
 
@@ -981,9 +999,11 @@ Returns a list of the logs
 
 ### List all session logs [GET]
 
-Lists all the logs from a session
+List all the logs from a session by `SESSION_ID`
 
 **Response body**
+
+A list of objects containing the following parameters:
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
