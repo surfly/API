@@ -57,7 +57,7 @@ For example code please see the [Reference Code](#reference_code) section below.
 Add Surfly to your website and allow the visitors to your website to create a
 support request by clicking on our support button.  The style and color of this
 button can be fully customized to match your applications or website’s look and
-feel. 
+feel.
 
 <a name="session_customization"></a>
 ##### Session Customization
@@ -145,7 +145,7 @@ Below you can find detailed code examples illustrating how to make the REST call
 
 ### List all agents [GET]
 
-List all AGENTS 
+List all AGENTS
 
 **Response Body:**
 
@@ -170,7 +170,7 @@ List all AGENTS
 ### Create a new agent [POST]
 
 Create a new AGENT
-            
+
 **Request Body:**
 
 |  Name | Description | Example |
@@ -236,7 +236,7 @@ Get information about a certain AGENT by `AGENT_ID`
 ### Update an agent [PUT]
 
 Update an AGENT
-            
+
 **Request Body:**
 
 |  Name | Description | Example |
@@ -292,7 +292,7 @@ Remove an AGENT. You need to pass an `AGENT_ID` as a parameter when you make the
 
 ### List all Sessions [GET]
 
-List all sessions 
+List all sessions
 
 
 **Response Body:**
@@ -400,7 +400,7 @@ Create a new session
 
 ### List all Active Sessions [GET]
 
-List all ACTIVE sessions 
+List all ACTIVE sessions
 
 
 **Response Body:**
@@ -558,7 +558,7 @@ Manage and maintain the QUEUE for a certain client.
 
 ### List all Active Sessions in the Queue [GET]
 
-List all items in the support Queue 
+List all items in the support Queue
 
 | Name | Description | Example |
 | ---------------| ------------| --------|
@@ -669,28 +669,36 @@ Add a new client as `RESELLER_KEY`
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | company_name | Name of new company | Neverland |
-| domains |  | * |
+| domains | (optional) Coma-separated list of domains |* |
+| agent_email | (optional) Email of a company admin | peter@mail.com |
+| agent_name | (optional) Name of a company admin | Peter Pan |
 
 **Response Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | company_name | name of company | Neverland |
-| client_key | Client Key | AOEUaoeuntsPDe |
+| client_key | Client Key | fOBg4dXAPTHSoil6LywgfYA |
+| rest_key | REST API key | 22c0f77e5ca54d8fa6748f7cec4732c5 |
+| widget_key | Widget key | 92cdd920f4e345768f6717b02f15dae8 |
 
 
 + Request (application/json)
 
         {
-            "company_name": "Test User",
-            "domains": "*"
+            "company_name": "Neverland",
+            "domains": "*",
+            "agent_email": "peter@mail.com",
+            "agent_name": "Peter Pan"
         }
 
 + Response 200 (application/json)
 
         {
             "company_name": "Neverland",
-            "client_key": "fOBg4dXAPTHSoil6LywgfYA"
+            "client_key": "fOBg4dXAPTHSoil6LywgfYA",
+            "rest_key":"22c0f77e5ca54d8fa6748f7cec4732c5",
+            "widget_key":"92cdd920f4e345768f6717b02f15dae8"
         }
 
 # Client Information [/clients/{RESELLER_KEY}/{CLIENT_ID}/?api_key={API_KEY}]
@@ -890,7 +898,7 @@ List all ACTIVE sessions for a certain `client`, `year`, `month`
 
 ### List all logs [GET]
 
-Returns a list of the logs 
+Returns a list of the logs
 
 **Response body**
 
@@ -987,4 +995,4 @@ Lists all the logs from a session
                 "session_id": "flogr0sRQ1usugvheahwQ",
                 "details": "New session with url http://surfly.com/ was started"
             }]
-        }    
+        }
