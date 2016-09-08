@@ -653,12 +653,12 @@ A list of objects containing the following parameters:
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | name of Company | Neverland |
-| client_key | Client Key | AOEUaoeuntsPDe |
+| company_name | name of company | Neverland |
+| client_key | client key | AOEUaoeuntsPDe |
 | agent_count | maximum number of agents | 15 |
 | widget_key | widget key | 24d1414c71a94cbf9f205ed4fc4999b5 |
 | rest_key | REST API key | 3b57bd2db21c46d2875508b982968d26 |
-| domains | Coma-separated list of domains | example.com, *.example.com |
+| domains | comma-separated list of domains | example.com, *.example.com |
 
 + Response 200 (application/json)
 
@@ -689,19 +689,19 @@ Add a new client as `RESELLER_KEY`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| company_name | Name of new company | Neverland |
-| domains | (optional) Coma-separated list of domains |* |
-| agent_email | (optional) Email of a company admin | peter@mail.com |
-| agent_name | (optional) Name of a company admin | Peter Pan |
+| company_name | name of new company | Neverland |
+| domains (optional) | comma-separated list of domains | * |
+| agent_email (optional) | email of a company admin | peter@mail.com |
+| agent_name (optional) | name of a company admin | Peter Pan |
 
 **Response Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | company_name | name of company | Neverland |
-| client_key | Client Key | fOBg4dXAPTHSoil6LywgfYA |
+| client_key | client Key | fOBg4dXAPTHSoil6LywgfYA |
 | rest_key | REST API key | 22c0f77e5ca54d8fa6748f7cec4732c5 |
-| widget_key | Widget key | 92cdd920f4e345768f6717b02f15dae8 |
+| widget_key | widget key | 92cdd920f4e345768f6717b02f15dae8 |
 
 
 + Request (application/json)
@@ -738,11 +738,11 @@ Get information about a specific client by `CLIENT_ID`
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | company_name | name of company | Neverland |
-| client_key | Client Key | AOEUaoeuntsPDe |
+| client_key | client key | AOEUaoeuntsPDe |
 | agent_count | maximum number of agents | 15 |
 | widget_key | widget key | 24d1414c71a94cbf9f205ed4fc4999b5 |
 | rest_key | REST API key | 3b57bd2db21c46d2875508b982968d26 |
-| domains | Coma-separated list of domains | example.com, *.example.com |
+| domains | comma-separated list of domains | example.com, *.example.com |
 
 
 + Response 200 (application/json)
@@ -762,13 +762,13 @@ Get information about a specific client by `CLIENT_ID`
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| domains | Coma-separated list of domains | example.com, *.example.com |
+| domains | comma-separated list of domains | example.com, *.example.com |
 
 **Response Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| domains | Coma-separated list of domains | example.com, *.example.com |
+| domains | comma-separated list of domains | example.com, *.example.com |
 
 + Request (application/json)
 
@@ -798,7 +798,7 @@ Update a client as `RESELLER_KEY`
 | ---------------| ------------| --------|
 | agent_count | maximum number of agents | 15 |
 | company_name | name of company | Peter Pan |
-| client_key | Client Key | AOEUaoeuntsPDe |
+| client_key | client key | AOEUaoeuntsPDe |
 
 
 
