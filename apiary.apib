@@ -46,7 +46,6 @@ The following types of customizations of Surfly can be achieved:
  - [Session Customization](#session_customization)
  - [Customize session start or join page](#custom_session_start)
  - [Full Session Continuation](#full_session_continuation)
- - [Application Integration](#application_integration)
  - [Agent Creation](#automatic_agent_creation)
  - [Reseller Automatization](#reseller_automatization)
 
@@ -81,13 +80,6 @@ When your users are already logged in on your website, you probably don’t want
 a Surfly session breaking the flow and/or require them to login
 again. Surfly can pick up the session exactly where the user is.
 
-<a name="application_integration"></a>
-##### Deep Application Integration
-
-A session can be started through the Javascript and the REST API. By using the
-REST API, you can integrate our websharing technology into your own application or
-build a thin layer around our technology.
-
 <a name="automatic_agent_creation"></a>
 ##### Automatic Agent Creation
 
@@ -103,11 +95,11 @@ want to invoice them directly or if we should handle this for you.
 
 #### Adding customization
 
-These type of customizations or integrations can be built in 3 different
+These types of customizations or integrations can be built in 3 different
 ways, in order to manage the interface with Surfly:
 
  - The Surfly Code Snippet
- - The Javascript API
+ - The <a href='http://docs.surfly.com/javascript_api.html'>Javascript API</a>
  - The REST API
 
 A variety of options are available for customizing Surfly. These can
@@ -153,7 +145,7 @@ Below you can find detailed code examples illustrating how to make the REST call
 
 ### List all agents [GET]
 
-List all agents for a certain `CLIENT_KEY`
+List all AGENTS 
 
 **Response Body:**
 
@@ -221,7 +213,7 @@ Create a new AGENT
 
 ### Get Agent Information [GET]
 
-Get information about a certain agent by `agent_id`
+Get information about a certain AGENT by `AGENT_ID`
 
 **Response Body:**
 
@@ -278,7 +270,7 @@ Update an AGENT
 
 ### Delete an agent [DELETE]
 
-Removes an agent. You need to pass your API key and `agent_id` when you make the call.
+Remove an AGENT. You need to pass an `AGENT_ID` as a parameter when you make the call.
 
 
 + Response 200 (application/json)
@@ -300,7 +292,7 @@ Removes an agent. You need to pass your API key and `agent_id` when you make the
 
 ### List all Sessions [GET]
 
-List all sessions for a certain `CLIENT_KEY`
+List all sessions 
 
 
 **Response Body:**
@@ -314,7 +306,7 @@ List all sessions for a certain `CLIENT_KEY`
 | start_time | time the session started | 2016-06-17T14:30:44.026111Z |
 | duration | length of the session (in seconds) | 123 |
 | queue_id |  | 3927 |
-| pin |  | 3927 |
+| pin | 4-digit PIN code that can be used to join the session | 3927 |
 | queued |  | false |
 | start_url | page the session starts from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
@@ -336,6 +328,8 @@ List all sessions for a certain `CLIENT_KEY`
         }]
 
 ### Create a session [POST]
+
+Create a new session
 
 **Request Body:**
 
@@ -360,7 +354,7 @@ List all sessions for a certain `CLIENT_KEY`
 | ip_follower | IP address of the follower  | 127.0.0.1 |
 | emails_send | list of email invitations sent | [{"to": [], "from": null}] |
 | queue_id |  | 0 |
-| pin |  | null |
+| pin | 4-digit PIN code that can be used to join the session | null |
 | queued |  | false |
 | meta | additional data attached to joining user | {} |
 
@@ -406,7 +400,7 @@ List all sessions for a certain `CLIENT_KEY`
 
 ### List all Active Sessions [GET]
 
-List all ACTIVE sessions for a certain `CLIENT_KEY`
+List all ACTIVE sessions 
 
 
 **Response Body:**
@@ -420,7 +414,7 @@ List all ACTIVE sessions for a certain `CLIENT_KEY`
 | start_time | time the session started | 2014-12-11T15:12:22.447Z |
 | duration | length of the session (in seconds) | 123 |
 | queue_id |  | 5281 |
-| pin |  | 5281 |
+| pin | 4-digit PIN code that can be used to join the session | 5281 |
 | queued |  | false |
 | start_url | page the session starts from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
@@ -435,9 +429,9 @@ List all ACTIVE sessions for a certain `CLIENT_KEY`
             "duration": 123,
             "queue_id": 5281,
             "pin": 5281,
-            "queued":false,
-            "start_url":"https://example.com/",
-            "meta":"{}"},
+            "queued": false,
+            "start_url": "https://example.com/",
+            "meta": "{}"
         }]
 
 # Agent Sessions Collection [/sessions/?api_key={API_KEY}&active_session=true&agent_id=1&year=2015&month=01]
@@ -447,7 +441,7 @@ List all ACTIVE sessions for a certain `CLIENT_KEY`
 
 ### List Active Sessions for Agent [GET]
 
-List all ACTIVE sessions for a certain `agent`, `year`, `month`
+List all ACTIVE sessions for a certain `AGENT`, `year`, `month`
 
 `active_session`, `agent_id`, `year` and `month` are optional
 
@@ -462,7 +456,7 @@ List all ACTIVE sessions for a certain `agent`, `year`, `month`
 | start_time | time the session started | 2016-07-01T08:39:09.755987Z |
 | duration | length of the session (in seconds) | 123 |
 | queue_id |  | 5281 |
-| pin |  | 5281 |
+| pin | 4-digit PIN code that can be used to join the session | 5281 |
 | queued |  | false |
 | start_url | page the session starts from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
@@ -480,7 +474,7 @@ List all ACTIVE sessions for a certain `agent`, `year`, `month`
             "pin": 5281,
             "queued": false,
             "start_url": "https://example.com/",
-            "meta": "{}"},
+            "meta": "{}"
         }]
 
 
@@ -510,7 +504,7 @@ Get information about a certain session or end a certain session.
 | ip_follower | comma seperated list of IP's of followers | 10.0.0.1, 10.0.0.2 |
 | emails_send | list of email invitations sent | agent@company.com, client@company2.com |
 | queue_id |  | 6684 |
-| pin |  | 6684 |
+| pin | 4-digit PIN code that can be used to join the session | 6684 |
 | queued |  | false |
 | meta | additional data attached to joining user | {} |
 
@@ -520,8 +514,8 @@ Get information about a certain session or end a certain session.
             "id": "fwqcOuuMwTty7ii3kcA8Q",
             "agent_id": 2,
             "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
-            "start_time": "Fri, 10 okt 2014 10:20:24",
-            "end_time": "Fri, 10 okt 2014 10:51:46",
+            "start_time": "2014-10-10T10:20:24.755987Z",
+            "end_time": "2014-10-10T10:51:46.755987Z",
             "duration": 1882,
             "ip_leader": "192.168.1.1",
             "leader_link": "",
@@ -534,8 +528,8 @@ Get information about a certain session or end a certain session.
                             ],
             "queue_id": 6684,
             "pin": 6684,
-            "queued":false,
-            "meta":"{}"
+            "queued": false,
+            "meta": "{}"
         }
 
 
@@ -564,14 +558,14 @@ Manage and maintain the QUEUE for a certain client.
 
 ### List all Active Sessions in the Queue [GET]
 
-List all items in the support Queue for a certain `CLIENT_KEY`.
+List all items in the support Queue 
 
 | Name | Description | Example |
 | ---------------| ------------| --------|
-| start_time | | 2016-08-11T13:44:58.025358Z |
+| start_time | time the session started | 2016-08-11T13:44:58.025358Z |
 | url | |  |
 | start_url | starting page of the session | http://www.surfly.com/ |
-| pin | | null |
+| pin | 4-digit PIN code that can be used to join the session | null |
 | identifier | | null |
 
 + Response 200 (application/json)
@@ -603,10 +597,10 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| start_time | | 2016-08-11T13:44:58.025358Z |
+| start_time | time the session started | 2016-08-11T13:44:58.025358Z |
 | url | |  |
 | start_url | starting page of the session | http://www.surfly.com/ |
-| pin | | 1234 |
+| pin | 4-digit PIN code that can be used to join the session | 1234 |
 | identifier | | 1234 |
 
 
@@ -679,8 +673,6 @@ Add a new client as `RESELLER_KEY`
 
 **Response Body:**
 
-A list of objects containing the following parameters:
-
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | company_name | name of company | Neverland |
@@ -710,7 +702,7 @@ A list of objects containing the following parameters:
 
 ### Get Client Information [GET]
 
-Get information about a specific `client_id`
+Get information about a specific `CLIENT_ID`
 
 **Response Body:**
 
@@ -737,6 +729,18 @@ Get information about a specific `client_id`
 
 ### Set Client Domain List [POST]
 
+**Request Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| domains |  | example.com, *.example.com |
+
+**Response Body:**
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| domains |  | example.com, *.example.com |
+
 + Request (application/json)
 
         {
@@ -761,8 +765,6 @@ Update a client as `RESELLER_KEY`
 
 **Response Body:**
 
-A list of objects containing the following parameter:
-
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | company_name | name of company | Peter Pan |
@@ -782,7 +784,7 @@ A list of objects containing the following parameter:
             "company_name": "Peter Pan"
         }
 
-### Delete the Client [DELETE]
+### Delete a Client [DELETE]
 
 + Response 200 (application/json)
 
@@ -801,7 +803,7 @@ A list of objects containing the following parameter:
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
 
 
-### Example: List Active Sessions for Reseller's Client [GET]
+### List Active Sessions for Reseller's Client [GET]
 
 List all ACTIVE sessions for a certain `client`, `year`, `month`
 
@@ -960,7 +962,7 @@ Returns a list of the logs
 
 ### List all session logs [GET]
 
-Lists all the logs from the session
+Lists all the logs from a session
 
 **Response body**
 
