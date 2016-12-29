@@ -313,6 +313,7 @@ A list of objects containing the following parameters:
 | queued |  | false |
 | start_url | page the session starts from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
+| tags | array of session tags | ["tag1"] |
 
 
 + Response 200 (application/json)
@@ -325,9 +326,10 @@ A list of objects containing the following parameters:
             "duration": 123,
             "queue_id": 3927,
             "pin": 3927,
-            "queued":false,
-            "start_url":"https://example.com/",
-            "meta":"{}"
+            "queued": false,
+            "start_url": "https://example.com/",
+            "meta": "{}",
+            "tags": [],
         }]
 
 ### Create a session [POST]
@@ -361,6 +363,7 @@ Create a new session
 | pin | 4-digit PIN code that can be used to join the session | null |
 | queued |  | false |
 | meta | additional data attached to joining user | {} |
+| tags | array of session tags | ["tag1"] |
 
 
 
@@ -389,10 +392,11 @@ Create a new session
                                     "from": null
                                 }
                             ],
-            "queue_id":0,
-            "pin":null,
-            "queued":false,
-            "meta":"{}"
+            "queue_id": 0,
+            "pin": null,
+            "queued": false,
+            "meta": "{}",
+            "tags": ["tag1", "tag2"]
         }
 
 
@@ -424,6 +428,7 @@ A list of objects containing the following parameters:
 | queued |  | false |
 | start_url | page the session starts from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
+| tags | array of session tags | ["tag1"] |
 
 + Response 200 (application/json)
 
@@ -437,7 +442,8 @@ A list of objects containing the following parameters:
             "pin": 5281,
             "queued": false,
             "start_url": "https://example.com/",
-            "meta": "{}"
+            "meta": "{}",
+            "tags": []
         }]
 
 
@@ -467,6 +473,7 @@ A list of objects containing the following parameters:
 | queued |  | false |
 | start_url | page the session starts from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
+| tags | array of session tags | ["tag1"] |
 
 + Response 200 (application/json)
 
@@ -480,7 +487,8 @@ A list of objects containing the following parameters:
             "pin": 5281,
             "queued": false,
             "start_url": "https://example.com/",
-            "meta": "{}"
+            "meta": "{}",
+            "tags": ["tag1", "tag2"]
         }]
 
 
@@ -512,6 +520,7 @@ A list of objects containing the following parameters:
 | queued |  | false |
 | start_url | page the session starts from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
+| tags | array of session tags | ["tag1"] |
 
 
 + Response 200 (application/json)
@@ -526,7 +535,8 @@ A list of objects containing the following parameters:
             "pin": 5281,
             "queued": false,
             "start_url": "https://example.com/",
-            "meta": "{}"
+            "meta": "{}",
+            "tags": []
         }]
 
 
@@ -559,6 +569,7 @@ Get information about a session by `SESSION_ID`
 | pin | 4-digit PIN code that can be used to join the session | 6684 |
 | queued |  | false |
 | meta | additional data attached to joining user | {} |
+| tags | array of session tags | ["tag1"] |
 
 + Response 200 (application/json)
 
@@ -581,7 +592,8 @@ Get information about a session by `SESSION_ID`
             "queue_id": 6684,
             "pin": 6684,
             "queued": false,
-            "meta": "{}"
+            "meta": "{}",
+            "tags": []
         }
 
 
