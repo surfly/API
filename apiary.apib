@@ -313,6 +313,7 @@ A list of objects containing the following parameters:
 | queued |  | false |
 | start_url | page the session starts from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
+| tags | array of session tags | ["tag1"] |
 
 
 + Response 200 (application/json)
@@ -325,9 +326,10 @@ A list of objects containing the following parameters:
             "duration": 123,
             "queue_id": 3927,
             "pin": 3927,
-            "queued":false,
-            "start_url":"https://example.com/",
-            "meta":"{}"
+            "queued": false,
+            "start_url": "https://example.com/",
+            "meta": "{}",
+            "tags": [],
         }]
 
 ### Create a session [POST]
@@ -340,6 +342,7 @@ Create a new session
 | ---------------| ------------| --------|
 | url | url to co-browse | http://www.google.com |
 | agent_id (optional) | ID of the agent | 2 |
+| tags (optional) | session tags | tag1, tag2
 
 
 **Response Body:**
@@ -360,13 +363,15 @@ Create a new session
 | pin | 4-digit PIN code that can be used to join the session | null |
 | queued |  | false |
 | meta | additional data attached to joining user | {} |
+| tags | array of session tags | ["tag1"] |
 
 
 
 + Request (application/json)
 
         {
-            "url": "http://www.surfly.com/"
+            "url": "http://www.surfly.com/",
+            "tags": ["tag1", "tag2"]
         }
 
 + Response 200 (application/json)
@@ -387,10 +392,11 @@ Create a new session
                                     "from": null
                                 }
                             ],
-            "queue_id":0,
-            "pin":null,
-            "queued":false,
-            "meta":"{}"
+            "queue_id": 0,
+            "pin": null,
+            "queued": false,
+            "meta": "{}",
+            "tags": ["tag1", "tag2"]
         }
 
 
@@ -422,6 +428,7 @@ A list of objects containing the following parameters:
 | queued |  | false |
 | start_url | page the session starts from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
+| tags | array of session tags | ["tag1"] |
 
 + Response 200 (application/json)
 
@@ -435,8 +442,56 @@ A list of objects containing the following parameters:
             "pin": 5281,
             "queued": false,
             "start_url": "https://example.com/",
-            "meta": "{}"
+            "meta": "{}",
+            "tags": []
         }]
+
+
+# Sessions Collection by tags [/sessions/?api_key={API_KEY}&tags=tag1,tag2]
+
++ Parameters
+    + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
+
+### List all Sessions by given tags [GET]
+
+List all sessions with a certain tags
+
+
+**Response Body:**
+
+A list of objects containing the following parameters:
+
+|  Name | Description | Example |
+| ---------------| ------------| --------|
+| session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
+| agent_id |  ID of the agent | 2 |
+| viewer_link | the link that must be opened in a ***viewer*** browser | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+| start_time | time the session started | 2014-12-11T15:12:22.447Z |
+| duration | length of the session (in seconds) | 123 |
+| queue_id |  | 5281 |
+| pin | 4-digit PIN code that can be used to join the session | 5281 |
+| queued |  | false |
+| start_url | page the session starts from | https://example.com/ |
+| meta | additional data attached to joining user | {} |
+| tags | array of session tags | ["tag1"] |
+
++ Response 200 (application/json)
+
+        [{
+            "session_id": "fOBg4dXAPTHSoil6LywgfYA",
+            "agent_id": 2,
+            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
+            "start_time": "2014-12-11T15:12:22.447Z",
+            "duration": 123,
+            "queue_id": 5281,
+            "pin": 5281,
+            "queued": false,
+            "start_url": "https://example.com/",
+            "meta": "{}",
+            "tags": ["tag1", "tag2"]
+        }]
+
+
 
 # Agent Sessions Collection [/sessions/?api_key={API_KEY}&active_session=true&agent_id=1&year=2015&month=01]
 
@@ -465,6 +520,7 @@ A list of objects containing the following parameters:
 | queued |  | false |
 | start_url | page the session starts from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
+| tags | array of session tags | ["tag1"] |
 
 
 + Response 200 (application/json)
@@ -479,7 +535,8 @@ A list of objects containing the following parameters:
             "pin": 5281,
             "queued": false,
             "start_url": "https://example.com/",
-            "meta": "{}"
+            "meta": "{}",
+            "tags": []
         }]
 
 
@@ -512,6 +569,7 @@ Get information about a session by `SESSION_ID`
 | pin | 4-digit PIN code that can be used to join the session | 6684 |
 | queued |  | false |
 | meta | additional data attached to joining user | {} |
+| tags | array of session tags | ["tag1"] |
 
 + Response 200 (application/json)
 
@@ -534,7 +592,8 @@ Get information about a session by `SESSION_ID`
             "queue_id": 6684,
             "pin": 6684,
             "queued": false,
-            "meta": "{}"
+            "meta": "{}",
+            "tags": []
         }
 
 
