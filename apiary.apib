@@ -652,14 +652,11 @@ A list of objects containing the following parameters:
 
 ### Add an item to the Queue [POST]
 
-A new item can be put in the Queue, this item will auto expire after 30 seconds. In order to make sure that your item stays alive you will need to repeat the request with the same ID.
-
 **Request Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| url | url to co-browse | http://www.example.com/ |
-| id | ID of item in the Queue | fuSHr0sRQ1usugvheahwQ |
+| id | session ID or formatted session ID | fasdasdasdasdasdasdas or 123-456-789 |
 
 
 **Response Body:**
@@ -677,7 +674,7 @@ A new item can be put in the Queue, this item will auto expire after 30 seconds.
 
         {
             "url": "http://www.example.com/",
-            "id": "fuSHr0sRQ1usugvheahwQ"
+            "id": "fasdasdasdasdasdasdas"
         }
 
 + Response 200 (application/json)
