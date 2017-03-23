@@ -676,18 +676,11 @@ A list of objects containing the following parameters:
         }
 
 
-### Get current queue status [/queue/status/?api_key={API_KEY}&tag={SESSION_TAG}]
+### Get current queue status [GET /queue/status/?api_key={API_KEY}&tag={SESSION_TAG}]
 
 + Parameters
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`, required)
-    + SESSION_TAG (string, `tag1`, optional)
-
-**Response Body:**
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| agent_available | Set to true if there is a free agent available | false |
-| queued_sessions | the number of sessions in the queue. If session tag is specified, only sessions with that tag will be counted | 24 |
+    + SESSION_TAG (string, `tag1`, optional) - If specified, only sessions with this tag will be counted
 
 
 + Response 200 (application/json)
