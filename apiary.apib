@@ -304,32 +304,113 @@ A list of objects containing the following parameters:
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
+| id | Always the same as session_id, left for backwards compatibility | fOBg4dXAPTHSoil6LywgfYA |
+| formatted_id | unique formatted ID of the session | 123-456-789 |
 | agent_id | ID of the agent | 2 |
-| viewer_link | the link that must be opened in a ***viewer*** browser | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
+| viewer_link | the link that must be opened in a ***viewer*** browser | https://surfly.com/123-456-789 |
 | start_time | time the session started | 2016-06-17T14:30:44.026111Z |
 | duration | length of the session (in seconds) | 123 |
-| queue_id |  | 3927 |
+| end_time | time the session finished | 2016-06-17T15:30:44.026111Z |
 | pin | 4-digit PIN code that can be used to join the session | 3927 |
-| queued |  | false |
-| start_url | page the session starts from | https://example.com/ |
+| queue_id | Always the same as pin, left for backwards compatibility | 3927 |
+| queued | Whether the session has been put in a waiting queue | false |
+| start_url | page the session started from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
-| tags | array of session tags | ["tag1"] |
+| tags | array of attached session tags | ["tag1", "tag2"] |
+| ip_leader | IP address of the leader | "123.123.123.123" |
+| ip_follower | comma seperated list of IP's of followers | "10.0.0.1,10.0.0.2" |
+| emails_send | list of email invitations sent | [{"to": [], "from": null}] |
+| options | options the session was created with | {"ui_off": false, "block_until_agent_joins": true} |
 
 
 + Response 200 (application/json)
 
         [{
-            "session_id": "fOBg4dXAPTHSoil6LywgfYA",
-            "agent_id": 2,
-            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
-            "start_time": "2016-06-17T14:30:44.026111Z",
-            "duration": 123,
-            "queue_id": 3927,
-            "pin": 3927,
+            "id": "fvFkrL4saf52nuFh4GP9oQw",
+            "session_id": "fvFkrL4saf52nuFh4GP9oQw",
+            "formatted_id": "123-123-123",
+            "agent_id": null,
+            "viewer_link": "https://surfly.com/123-123-123",
+            "start_time": "2017-04-21T13:55:08.251918Z",
+            "duration": null,
+            "end_time": null,
+            "queue_id": 0,
+            "pin": null,
             "queued": false,
-            "start_url": "https://example.com/",
+            "start_url": "https://surfly.com.com/test/widget/?widget_key=3b57bd2db21c46d2875508b982968d26&autohide_button=false&hide_until_agent_joins=false",
             "meta": "{}",
-            "tags": []
+            "tags": [],
+            "ip_leader": "192.168.33.1",
+            "ip_follower": "",
+            "emails_send": [{
+                "to": [],
+                "from": null
+            }],
+            "options": {
+                "widgetkey": 0,
+                "enable_sounds": 1,
+                "only_accessible_site": 0,
+                "videochat": 1,
+                "whitelist": "[]",
+                "agent_can_end_session": 1,
+                "auto_restore": 1,
+                "set_to_smallest": 1,
+                "cookie_transfer_enabled": 1,
+                "cookie_transfer_scopes": [],
+                "QUEUE_CALLBACK": 0,
+                "min_width": 0,
+                "agent_can_request_control": 0,
+                "widget_key": 0,
+                "on_end_redirect_follower_to_queue": 0,
+                "cookie_transfer_proxying": 0,
+                "store_chat_logs": 0,
+                "allow_control_switching": 1,
+                "dock_top_position": 0,
+                "start_muted": 0,
+                "QUEUE_HANDLER": 0,
+                "format_session_id": 1,
+                "disable_end_redirect": 0,
+                "agent_can_take_control": 0,
+                "cookie_transfer_urls": [],
+                "splash": 1,
+                "theme_font_size": 0,
+                "drawing_mode": "temporary",
+                "drawing_width": "15",
+                "QUEUE_METADATA_CALLBACK": 0,
+                "theme_font_color": 0,
+                "verbose_console": 0,
+                "replace_window": 0,
+                "widget": 1,
+                "newurl": 1,
+                "QUEUE_ENDPOINT": 0,
+                "end_of_session_popup_url": 0,
+                "start_docked": 0,
+                "chat_box_color": "#eb777f",
+                "autohide_button": 0,
+                "max_height": 0,
+                "white_label": 0,
+                "blacklist": "[]",
+                "drawing_timeout": "3",
+                "position": 0,
+                "filesharing": 1,
+                "hide_until_agent_joins": 0,
+                "hidden": 0,
+                "min_height": 0,
+                "allow_original_file_download": 0,
+                "docked_only": 0,
+                "low_quality_video": 0,
+                "ui_off": 0,
+                "drawing_color": "default",
+                "max_width": 0,
+                "sharing_button": 1,
+                "auto_start": 0,
+                "theme_font_background": 0,
+                "block_until_agent_joins": 0,
+                "follower_redirect_url": "",
+                "only_embedded_sessions": 0,
+                "stealth_mode": 1,
+                "leader_redirect_url": ""
+            }
         }]
 
 ### Create a session [POST]
@@ -347,25 +428,11 @@ Create a new session
 
 **Response Body:**
 
+Response will contain a JSON object with the same fields as in list endpoint, and the following extra fields:
+
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| id | session ID, which can be used to end the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id | ID of the agent | 2 |
-| viewer_link | the link that must be opened in a ***viewer*** browser | https://session.surfly.com/fm6pApJ18SvqlVEpnCx8Qmg |
-| start_time | time the session started | 2014-12-11T15:12:22.447Z |
-| end_time | time the session ended | null |
-| duration | duration of the session (in seconds) | null |
-| ip_leader | IP address of the leader | 127.0.0.1 |
-| leader_link |  the link that must be opened in a ***leader*** (controlling) browser. It has a 2 minute time out attached to it, if not used within that time, the session will be closed. | https://session.surfly.com/mUBRJyslQStVXPEwUwFyQ |
-| ip_follower | IP address of the follower  | 127.0.0.1 |
-| emails_send | list of email invitations sent | [{"to": [], "from": null}] |
-| queue_id |  | 0 |
-| pin | 4-digit PIN code that can be used to join the session | null |
-| queued |  | false |
-| meta | additional data attached to joining user | {} |
-| tags | array of session tags | ["tag1"] |
-
-
+| leader_link |  the link that must be opened in a ***leader*** (controlling) browser. It has a 2 minute time out attached to it, if not used within that time, the session will be closed. | https://surfly.com/mUBRJyslQStVXPEwUwFyQ |
 
 + Request (application/json)
 
@@ -377,26 +444,92 @@ Create a new session
 + Response 200 (application/json)
 
         {
-            "id": "fm6pApJ18SvqlVEpnCx8Qmg",
-            "agent_id": 2,
-            "viewer_link": "https://session.surfly.com/fm6pApJ18SvqlVEpnCx8Qmg",
-            "start_time": "2014-12-11T15:12:22.447Z",
-            "end_time": null,
+            "id": "fvFkrL4saf52nuFh4GP9oQw",
+            "session_id": "fvFkrL4saf52nuFh4GP9oQw",
+            "formatted_id": "123-123-123",
+            "agent_id": null,
+            "viewer_link": "https://surfly.com/123-123-123",
+            "leader_link": "https://surfly.com/mUBRJyslQStVXPEwUwFyQ",
+            "start_time": "2017-04-21T13:55:08.251918Z",
             "duration": null,
-            "ip_leader": "127.0.0.1",
-            "leader_link": "https://session.surfly.com/mUBRJyslQStVXPEwUwFyQ",
-            "ip_follower": "127.0.0.1",
-            "emails_send": [
-                                {
-                                    "to": [],
-                                    "from": null
-                                }
-                            ],
+            "end_time": null,
             "queue_id": 0,
             "pin": null,
             "queued": false,
+            "start_url": "https://example.com",
             "meta": "{}",
-            "tags": ["tag1", "tag2"]
+            "tags": [],
+            "ip_leader": "192.168.33.1",
+            "ip_follower": "",
+            "emails_send": [{
+                "to": [],
+                "from": null
+            }],
+            "options": {
+                "widgetkey": 0,
+                "enable_sounds": 1,
+                "only_accessible_site": 0,
+                "videochat": 1,
+                "whitelist": "[]",
+                "agent_can_end_session": 1,
+                "auto_restore": 1,
+                "set_to_smallest": 1,
+                "cookie_transfer_enabled": 1,
+                "cookie_transfer_scopes": [],
+                "QUEUE_CALLBACK": 0,
+                "min_width": 0,
+                "agent_can_request_control": 0,
+                "widget_key": 0,
+                "on_end_redirect_follower_to_queue": 0,
+                "cookie_transfer_proxying": 0,
+                "store_chat_logs": 0,
+                "allow_control_switching": 1,
+                "dock_top_position": 0,
+                "start_muted": 0,
+                "QUEUE_HANDLER": 0,
+                "format_session_id": 1,
+                "disable_end_redirect": 0,
+                "agent_can_take_control": 0,
+                "cookie_transfer_urls": [],
+                "splash": 1,
+                "theme_font_size": 0,
+                "drawing_mode": "temporary",
+                "drawing_width": "15",
+                "QUEUE_METADATA_CALLBACK": 0,
+                "theme_font_color": 0,
+                "verbose_console": 0,
+                "replace_window": 0,
+                "widget": 1,
+                "newurl": 1,
+                "QUEUE_ENDPOINT": 0,
+                "end_of_session_popup_url": 0,
+                "start_docked": 0,
+                "chat_box_color": "#eb777f",
+                "autohide_button": 0,
+                "max_height": 0,
+                "white_label": 0,
+                "blacklist": "[]",
+                "drawing_timeout": "3",
+                "position": 0,
+                "filesharing": 1,
+                "hide_until_agent_joins": 0,
+                "hidden": 0,
+                "min_height": 0,
+                "allow_original_file_download": 0,
+                "docked_only": 0,
+                "low_quality_video": 0,
+                "ui_off": 0,
+                "drawing_color": "default",
+                "max_width": 0,
+                "sharing_button": 1,
+                "auto_start": 0,
+                "theme_font_background": 0,
+                "block_until_agent_joins": 0,
+                "follower_redirect_url": "",
+                "only_embedded_sessions": 0,
+                "stealth_mode": 1,
+                "leader_redirect_url": ""
+            }
         }
 
 
@@ -412,38 +545,94 @@ Create a new session
 List all ACTIVE sessions
 
 
-**Response Body:**
-
-A list of objects containing the following parameters:
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | 2 |
-| viewer_link | the link that must be opened in a ***viewer*** browser | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-| start_time | time the session started | 2014-12-11T15:12:22.447Z |
-| duration | length of the session (in seconds) | 123 |
-| queue_id |  | 5281 |
-| pin | 4-digit PIN code that can be used to join the session | 5281 |
-| queued |  | false |
-| start_url | page the session starts from | https://example.com/ |
-| meta | additional data attached to joining user | {} |
-| tags | array of session tags | ["tag1"] |
-
 + Response 200 (application/json)
 
         [{
-            "session_id": "fOBg4dXAPTHSoil6LywgfYA",
-            "agent_id": 2,
-            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
-            "start_time": "2014-12-11T15:12:22.447Z",
-            "duration": 123,
-            "queue_id": 5281,
-            "pin": 5281,
+            "id": "fvFkrL4saf52nuFh4GP9oQw",
+            "session_id": "fvFkrL4saf52nuFh4GP9oQw",
+            "formatted_id": "123-123-123",
+            "agent_id": null,
+            "viewer_link": "https://surfly.com/123-123-123",
+            "start_time": "2017-04-21T13:55:08.251918Z",
+            "duration": null,
+            "end_time": null,
+            "queue_id": 0,
+            "pin": null,
             "queued": false,
-            "start_url": "https://example.com/",
+            "start_url": "https://example.com",
             "meta": "{}",
-            "tags": []
+            "tags": [],
+            "ip_leader": "192.168.33.1",
+            "ip_follower": "",
+            "emails_send": [{
+                "to": [],
+                "from": null
+            }],
+            "options": {
+                "widgetkey": 0,
+                "enable_sounds": 1,
+                "only_accessible_site": 0,
+                "videochat": 1,
+                "whitelist": "[]",
+                "agent_can_end_session": 1,
+                "auto_restore": 1,
+                "set_to_smallest": 1,
+                "cookie_transfer_enabled": 1,
+                "cookie_transfer_scopes": [],
+                "QUEUE_CALLBACK": 0,
+                "min_width": 0,
+                "agent_can_request_control": 0,
+                "widget_key": 0,
+                "on_end_redirect_follower_to_queue": 0,
+                "cookie_transfer_proxying": 0,
+                "store_chat_logs": 0,
+                "allow_control_switching": 1,
+                "dock_top_position": 0,
+                "start_muted": 0,
+                "QUEUE_HANDLER": 0,
+                "format_session_id": 1,
+                "disable_end_redirect": 0,
+                "agent_can_take_control": 0,
+                "cookie_transfer_urls": [],
+                "splash": 1,
+                "theme_font_size": 0,
+                "drawing_mode": "temporary",
+                "drawing_width": "15",
+                "QUEUE_METADATA_CALLBACK": 0,
+                "theme_font_color": 0,
+                "verbose_console": 0,
+                "replace_window": 0,
+                "widget": 1,
+                "newurl": 1,
+                "QUEUE_ENDPOINT": 0,
+                "end_of_session_popup_url": 0,
+                "start_docked": 0,
+                "chat_box_color": "#eb777f",
+                "autohide_button": 0,
+                "max_height": 0,
+                "white_label": 0,
+                "blacklist": "[]",
+                "drawing_timeout": "3",
+                "position": 0,
+                "filesharing": 1,
+                "hide_until_agent_joins": 0,
+                "hidden": 0,
+                "min_height": 0,
+                "allow_original_file_download": 0,
+                "docked_only": 0,
+                "low_quality_video": 0,
+                "ui_off": 0,
+                "drawing_color": "default",
+                "max_width": 0,
+                "sharing_button": 1,
+                "auto_start": 0,
+                "theme_font_background": 0,
+                "block_until_agent_joins": 0,
+                "follower_redirect_url": "",
+                "only_embedded_sessions": 0,
+                "stealth_mode": 1,
+                "leader_redirect_url": ""
+            }
         }]
 
 
@@ -457,43 +646,99 @@ A list of objects containing the following parameters:
 List all sessions with a certain tags
 
 
-**Response Body:**
-
-A list of objects containing the following parameters:
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | 2 |
-| viewer_link | the link that must be opened in a ***viewer*** browser | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-| start_time | time the session started | 2014-12-11T15:12:22.447Z |
-| duration | length of the session (in seconds) | 123 |
-| queue_id |  | 5281 |
-| pin | 4-digit PIN code that can be used to join the session | 5281 |
-| queued |  | false |
-| start_url | page the session starts from | https://example.com/ |
-| meta | additional data attached to joining user | {} |
-| tags | array of session tags | ["tag1"] |
-
 + Response 200 (application/json)
 
         [{
-            "session_id": "fOBg4dXAPTHSoil6LywgfYA",
-            "agent_id": 2,
-            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
-            "start_time": "2014-12-11T15:12:22.447Z",
-            "duration": 123,
-            "queue_id": 5281,
-            "pin": 5281,
+            "id": "fvFkrL4saf52nuFh4GP9oQw",
+            "session_id": "fvFkrL4saf52nuFh4GP9oQw",
+            "formatted_id": "123-123-123",
+            "agent_id": null,
+            "viewer_link": "https://surfly.com/123-123-123",
+            "start_time": "2017-04-21T13:55:08.251918Z",
+            "duration": null,
+            "end_time": null,
+            "queue_id": 0,
+            "pin": null,
             "queued": false,
-            "start_url": "https://example.com/",
+            "start_url": "https://example.com",
             "meta": "{}",
-            "tags": ["tag1", "tag2"]
+            "tags": ["tag1", "tag2", "tag3"],
+            "ip_leader": "192.168.33.1",
+            "ip_follower": "",
+            "emails_send": [{
+                "to": [],
+                "from": null
+            }],
+            "options": {
+                "widgetkey": 0,
+                "enable_sounds": 1,
+                "only_accessible_site": 0,
+                "videochat": 1,
+                "whitelist": "[]",
+                "agent_can_end_session": 1,
+                "auto_restore": 1,
+                "set_to_smallest": 1,
+                "cookie_transfer_enabled": 1,
+                "cookie_transfer_scopes": [],
+                "QUEUE_CALLBACK": 0,
+                "min_width": 0,
+                "agent_can_request_control": 0,
+                "widget_key": 0,
+                "on_end_redirect_follower_to_queue": 0,
+                "cookie_transfer_proxying": 0,
+                "store_chat_logs": 0,
+                "allow_control_switching": 1,
+                "dock_top_position": 0,
+                "start_muted": 0,
+                "QUEUE_HANDLER": 0,
+                "format_session_id": 1,
+                "disable_end_redirect": 0,
+                "agent_can_take_control": 0,
+                "cookie_transfer_urls": [],
+                "splash": 1,
+                "theme_font_size": 0,
+                "drawing_mode": "temporary",
+                "drawing_width": "15",
+                "QUEUE_METADATA_CALLBACK": 0,
+                "theme_font_color": 0,
+                "verbose_console": 0,
+                "replace_window": 0,
+                "widget": 1,
+                "newurl": 1,
+                "QUEUE_ENDPOINT": 0,
+                "end_of_session_popup_url": 0,
+                "start_docked": 0,
+                "chat_box_color": "#eb777f",
+                "autohide_button": 0,
+                "max_height": 0,
+                "white_label": 0,
+                "blacklist": "[]",
+                "drawing_timeout": "3",
+                "position": 0,
+                "filesharing": 1,
+                "hide_until_agent_joins": 0,
+                "hidden": 0,
+                "min_height": 0,
+                "allow_original_file_download": 0,
+                "docked_only": 0,
+                "low_quality_video": 0,
+                "ui_off": 0,
+                "drawing_color": "default",
+                "max_width": 0,
+                "sharing_button": 1,
+                "auto_start": 0,
+                "theme_font_background": 0,
+                "block_until_agent_joins": 0,
+                "follower_redirect_url": "",
+                "only_embedded_sessions": 0,
+                "stealth_mode": 1,
+                "leader_redirect_url": ""
+            }
         }]
 
 
 
-# Agent Sessions Collection [/sessions/?api_key={API_KEY}&active_session=true&agent_id=1&year=2015&month=01]
+# Agent Sessions Collection [/sessions/?api_key={API_KEY}&active_session=true&agent_id=1&year=2017&month=04]
 
 + Parameters
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
@@ -504,96 +749,221 @@ List all ACTIVE sessions for a certain `AGENT`, `year`, `month`
 
 `active_session`, `agent_id`, `year` and `month` are optional
 
-**Response Body:**
-
-A list of objects containing the following parameters:
-
-|  Name | Description | Example |
-| ---------------| ------------| --------|
-| session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
-| agent_id |  ID of the agent | 2 |
-| viewer_link | the link that must be opened in a ***viewer*** browser | https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q |
-| start_time | time the session started | 2016-07-01T08:39:09.755987Z |
-| duration | length of the session (in seconds) | 123 |
-| queue_id |  | 5281 |
-| pin | 4-digit PIN code that can be used to join the session | 5281 |
-| queued |  | false |
-| start_url | page the session starts from | https://example.com/ |
-| meta | additional data attached to joining user | {} |
-| tags | array of session tags | ["tag1"] |
-
 
 + Response 200 (application/json)
 
         [{
-            "session_id": "fOBg4dXAPTHSoil6LywgfYA",
-            "agent_id": 2,
-            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
-            "start_time": "Fri, 10 okt 10:20 AM",
-            "duration": 123,
-            "queue_id": 5281,
-            "pin": 5281,
+            "id": "fvFkrL4saf52nuFh4GP9oQw",
+            "session_id": "fvFkrL4saf52nuFh4GP9oQw",
+            "formatted_id": "123-123-123",
+            "agent_id": 1,
+            "viewer_link": "https://surfly.com/123-123-123",
+            "start_time": "2017-04-21T13:55:08.251918Z",
+            "duration": null,
+            "end_time": null,
+            "queue_id": 0,
+            "pin": null,
             "queued": false,
-            "start_url": "https://example.com/",
+            "start_url": "https://example.com",
             "meta": "{}",
-            "tags": []
+            "tags": [],
+            "ip_leader": "192.168.33.1",
+            "ip_follower": "",
+            "emails_send": [{
+                "to": [],
+                "from": null
+            }],
+            "options": {
+                "widgetkey": 0,
+                "enable_sounds": 1,
+                "only_accessible_site": 0,
+                "videochat": 1,
+                "whitelist": "[]",
+                "agent_can_end_session": 1,
+                "auto_restore": 1,
+                "set_to_smallest": 1,
+                "cookie_transfer_enabled": 1,
+                "cookie_transfer_scopes": [],
+                "QUEUE_CALLBACK": 0,
+                "min_width": 0,
+                "agent_can_request_control": 0,
+                "widget_key": 0,
+                "on_end_redirect_follower_to_queue": 0,
+                "cookie_transfer_proxying": 0,
+                "store_chat_logs": 0,
+                "allow_control_switching": 1,
+                "dock_top_position": 0,
+                "start_muted": 0,
+                "QUEUE_HANDLER": 0,
+                "format_session_id": 1,
+                "disable_end_redirect": 0,
+                "agent_can_take_control": 0,
+                "cookie_transfer_urls": [],
+                "splash": 1,
+                "theme_font_size": 0,
+                "drawing_mode": "temporary",
+                "drawing_width": "15",
+                "QUEUE_METADATA_CALLBACK": 0,
+                "theme_font_color": 0,
+                "verbose_console": 0,
+                "replace_window": 0,
+                "widget": 1,
+                "newurl": 1,
+                "QUEUE_ENDPOINT": 0,
+                "end_of_session_popup_url": 0,
+                "start_docked": 0,
+                "chat_box_color": "#eb777f",
+                "autohide_button": 0,
+                "max_height": 0,
+                "white_label": 0,
+                "blacklist": "[]",
+                "drawing_timeout": "3",
+                "position": 0,
+                "filesharing": 1,
+                "hide_until_agent_joins": 0,
+                "hidden": 0,
+                "min_height": 0,
+                "allow_original_file_download": 0,
+                "docked_only": 0,
+                "low_quality_video": 0,
+                "ui_off": 0,
+                "drawing_color": "default",
+                "max_width": 0,
+                "sharing_button": 1,
+                "auto_start": 0,
+                "theme_font_background": 0,
+                "block_until_agent_joins": 0,
+                "follower_redirect_url": "",
+                "only_embedded_sessions": 0,
+                "stealth_mode": 1,
+                "leader_redirect_url": ""
+            }
         }]
 
 
 
-# Session Information [/sessions/{SESSION_ID}/?api_key={API_KEY}]
+# Session Information [/sessions/{ID}/?api_key={API_KEY}]
 
 + Parameters
     + API_KEY (string, `3b57bd2db21c46d2875508b982968d26`)
-    + SESSION_ID (string, `fuSHr0sRQ1usugvheahwQ`)
+    + ID (string, `fuSHr0sRQ1usugvheahwQ`)
 
 
 ### Get session information [GET]
 
-Get information about a session by `SESSION_ID`
+Get information about a session by `ID`. `ID` can be a formatted ID (e.g. 123-123-123), or an unformatted ID (e.g. fuSHr0sRQ1usugvheahwQ)
 
 **Response Body:**
 
 |  Name | Description | Example |
 | ---------------| ------------| --------|
-| id | session ID, which can be used to end the session | fwqcOuuMwTty7ii3kcA8Q |
-| agent_id |  ID of the agent | 2 |
-| viewer_link | the link that must be opened in a ***viewer*** browser | https://session.surfly.com/fHrD6TMmRrurMevgidxyw |
-| start_time | time the session started | 2014-10-10T10:20:24.755987Z |
-| end_time | time the session ended | 2014-10-10T10:51:46.755987Z |
-| duration | length of the session (in seconds) |  1882 |
-| ip_leader | IP address of leader | 127.0.0.1 |
-| ip_follower | comma seperated list of IP's of followers | 10.0.0.1, 10.0.0.2 |
-| emails_send | list of email invitations sent | agent@company.com, client@company2.com |
-| queue_id |  | 6684 |
-| pin | 4-digit PIN code that can be used to join the session | 6684 |
-| queued |  | false |
+| session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
+| id | Always the same as session_id, left for backwards compatibility | fOBg4dXAPTHSoil6LywgfYA |
+| formatted_id | unique formatted ID of the session | 123-456-789 |
+| agent_id | ID of the agent | 2 |
+| viewer_link | the link that must be opened in a ***viewer*** browser | https://surfly.com/123-456-789 |
+| start_time | time the session started | 2016-06-17T14:30:44.026111Z |
+| duration | length of the session (in seconds) | 123 |
+| end_time | time the session finished | 2016-06-17T15:30:44.026111Z |
+| pin | 4-digit PIN code that can be used to join the session | 3927 |
+| queue_id | Always the same as pin, left for backwards compatibility | 3927 |
+| queued | Whether the session has been put in a waiting queue | false |
+| start_url | page the session started from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
-| tags | array of session tags | ["tag1"] |
+| tags | array of attached session tags | ["tag1", "tag2"] |
+| ip_leader | IP address of the leader | "123.123.123.123" |
+| ip_follower | comma seperated list of IP's of followers | "10.0.0.1,10.0.0.2" |
+| emails_send | list of email invitations sent | [{"to": [], "from": null}] |
+| options | options the session was created with | {"ui_off": false, "block_until_agent_joins": true} |
 
 + Response 200 (application/json)
 
         {
-            "id": "fwqcOuuMwTty7ii3kcA8Q",
-            "agent_id": 2,
-            "viewer_link": "https://session.surfly.com/fwqcOuuMwTty7ii3kcA8Q",
-            "start_time": "2014-10-10T10:20:24.755987Z",
-            "end_time": "2014-10-10T10:51:46.755987Z",
-            "duration": 1882,
-            "ip_leader": "192.168.1.1",
-            "leader_link": "",
-            "ip_follower": "",
-            "emails_send": [
-                                {
-                                    "to": [],
-                                    "from": null
-                                }
-                            ],
-            "queue_id": 6684,
-            "pin": 6684,
+            "id": "fvFkrL4saf52nuFh4GP9oQw",
+            "session_id": "fvFkrL4saf52nuFh4GP9oQw",
+            "formatted_id": "123-123-123",
+            "agent_id": 1,
+            "viewer_link": "https://surfly.com/123-123-123",
+            "start_time": "2017-04-21T13:55:08.251918Z",
+            "duration": null,
+            "end_time": null,
+            "queue_id": 0,
+            "pin": null,
             "queued": false,
+            "start_url": "https://example.com",
             "meta": "{}",
-            "tags": []
+            "tags": [],
+            "ip_leader": "192.168.33.1",
+            "ip_follower": "",
+            "emails_send": [{
+                "to": [],
+                "from": null
+            }],
+            "options": {
+                "widgetkey": 0,
+                "enable_sounds": 1,
+                "only_accessible_site": 0,
+                "videochat": 1,
+                "whitelist": "[]",
+                "agent_can_end_session": 1,
+                "auto_restore": 1,
+                "set_to_smallest": 1,
+                "cookie_transfer_enabled": 1,
+                "cookie_transfer_scopes": [],
+                "QUEUE_CALLBACK": 0,
+                "min_width": 0,
+                "agent_can_request_control": 0,
+                "widget_key": 0,
+                "on_end_redirect_follower_to_queue": 0,
+                "cookie_transfer_proxying": 0,
+                "store_chat_logs": 0,
+                "allow_control_switching": 1,
+                "dock_top_position": 0,
+                "start_muted": 0,
+                "QUEUE_HANDLER": 0,
+                "format_session_id": 1,
+                "disable_end_redirect": 0,
+                "agent_can_take_control": 0,
+                "cookie_transfer_urls": [],
+                "splash": 1,
+                "theme_font_size": 0,
+                "drawing_mode": "temporary",
+                "drawing_width": "15",
+                "QUEUE_METADATA_CALLBACK": 0,
+                "theme_font_color": 0,
+                "verbose_console": 0,
+                "replace_window": 0,
+                "widget": 1,
+                "newurl": 1,
+                "QUEUE_ENDPOINT": 0,
+                "end_of_session_popup_url": 0,
+                "start_docked": 0,
+                "chat_box_color": "#eb777f",
+                "autohide_button": 0,
+                "max_height": 0,
+                "white_label": 0,
+                "blacklist": "[]",
+                "drawing_timeout": "3",
+                "position": 0,
+                "filesharing": 1,
+                "hide_until_agent_joins": 0,
+                "hidden": 0,
+                "min_height": 0,
+                "allow_original_file_download": 0,
+                "docked_only": 0,
+                "low_quality_video": 0,
+                "ui_off": 0,
+                "drawing_color": "default",
+                "max_width": 0,
+                "sharing_button": 1,
+                "auto_start": 0,
+                "theme_font_background": 0,
+                "block_until_agent_joins": 0,
+                "follower_redirect_url": "",
+                "only_embedded_sessions": 0,
+                "stealth_mode": 1,
+                "leader_redirect_url": ""
+            }
         }
 
 
