@@ -304,7 +304,6 @@ A list of objects containing the following parameters:
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
-| id | Always the same as session_id, left for backwards compatibility | fOBg4dXAPTHSoil6LywgfYA |
 | formatted_id | unique formatted ID of the session | 123-456-789 |
 | agent_id | ID of the agent | 2 |
 | viewer_link | the link that must be opened in a ***viewer*** browser | https://surfly.com/123-456-789 |
@@ -312,7 +311,6 @@ A list of objects containing the following parameters:
 | duration | length of the session (in seconds) | 123 |
 | end_time | time the session finished | 2016-06-17T15:30:44.026111Z |
 | pin | 4-digit PIN code that can be used to join the session | 3927 |
-| queue_id | Always the same as pin, left for backwards compatibility | 3927 |
 | queued | Whether the session has been put in a waiting queue | false |
 | start_url | page the session started from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
@@ -858,7 +856,6 @@ Get information about a session by `ID`. `ID` can be a formatted ID (e.g. 123-12
 |  Name | Description | Example |
 | ---------------| ------------| --------|
 | session_id | unique ID of the session | fOBg4dXAPTHSoil6LywgfYA |
-| id | Always the same as session_id, left for backwards compatibility | fOBg4dXAPTHSoil6LywgfYA |
 | formatted_id | unique formatted ID of the session | 123-456-789 |
 | agent_id | ID of the agent | 2 |
 | viewer_link | the link that must be opened in a ***viewer*** browser | https://surfly.com/123-456-789 |
@@ -866,7 +863,6 @@ Get information about a session by `ID`. `ID` can be a formatted ID (e.g. 123-12
 | duration | length of the session (in seconds) | 123 |
 | end_time | time the session finished | 2016-06-17T15:30:44.026111Z |
 | pin | 4-digit PIN code that can be used to join the session | 3927 |
-| queue_id | Always the same as pin, left for backwards compatibility | 3927 |
 | queued | Whether the session has been put in a waiting queue | false |
 | start_url | page the session started from | https://example.com/ |
 | meta | additional data attached to joining user | {} |
